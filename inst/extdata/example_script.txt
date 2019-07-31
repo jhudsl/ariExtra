@@ -1,0 +1,2 @@
+Sometimes it’s hard for an instructor to take the time to record their lectures.  For example, I’m in a coffee shop and it may be loud.
+Here is an example of a plot with really small axes.  We plot the x versus the y-variables and a smoother between them.

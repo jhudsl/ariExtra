@@ -1,0 +1,59 @@
+
+[![Travis build
+status](https://travis-ci.com/muschellij2/didactr.svg?branch=master)](https://travis-ci.com/muschellij2/didactr)
+[![AppVeyor Build
+Status](https://ci.appveyor.com/api/projects/status/github/muschellij2/didactr?branch=master&svg=true)](https://ci.appveyor.com/project/muschellij2/didactr)
+[![Coverage
+status](https://coveralls.io/repos/github/muschellij2/didactr/badge.svg?branch=master)](https://coveralls.io/r/muschellij2/didactr?branch=master)
+[![Coverage
+status](https://codecov.io/gh/muschellij2/didactr/branch/master/graph/badge.svg)](https://codecov.io/github/muschellij2/didactr?branch=master)
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+# didactr Package:
+
+The goal of `didactr` is to provide leverages the ‘ari’ package and
+other tools to create automated courses from slides and a script. Also,
+uploads these to YouTube and other servies, with the option of
+translation.
+
+## Installation
+
+You can install `didactr` from GitHub with:
+
+``` r
+# install.packages("remotes")
+remotes::install_github("muschellij2/didactr")
+```
+
+## Example
+
+``` r
+library(didactr)
+auth = didactr_auth()
+```
+
+``` r
+library(didactr)
+library(googledrive)
+library(dplyr)
+library(tuber)
+aws.signature::use_credentials(profile = "polly")
+#########################
+# Find a presentation
+#########################
+auth = didactr_auth()
+x = drive_find(n_max = 25, type = "presentation")
+res = gs_ari(x$id[1], voice = "Joanna", 
+       cleanup = FALSE,
+       ffmpeg_opts = '-vf "scale=trunc(iw/2)*2:trunc(ih/2)*2"')
+
+####### yt_authentication done here #####
+
+vid = upload_video(file = res$output, 
+                   status = list(privacyStatus = "unlisted"),
+                   snippet = list(title = "hey"))
+browseURL(vid$url)
+
+# if you want to delete the video
+del = delete_videos(vid$content$id)
+```

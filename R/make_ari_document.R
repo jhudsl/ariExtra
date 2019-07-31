@@ -1,0 +1,76 @@
+#' Make an ari documnt
+#'
+#' @param images a vector of paths to images.
+#' @param script a file or vector strings that will be spoken
+#' @param output a path to the Rmd file which will be created.
+#' @param open should the Rmd be opened after creating?
+#' @param ... additional arguments to pass to [ari::ari_spin]
+#' @importFrom tools file_ext file_path_sans_ext
+#'
+#' @return A path to the document
+#' @export
+#' @importFrom ari ari_spin
+#' @importFrom utils file.edit
+#'
+#' @examples
+#' images = system.file("extdata", c("example_1.png", "example_2.png"),
+#' package = "ariExtra")
+make_ari_document = function(
+  images, script,
+  output = NULL,
+  open = interactive(),
+  ...) {
+
+  if (is.null(output)) {
+    output = tempfile(fileext = ".Rmd")
+  }
+  stopifnot(length(output) == 1)
+  ext = tools::file_ext(output)
+  stopifnot(tolower(ext) %in% "rmd")
+  stub = basename(tools::file_path_sans_ext(output))
+
+  stopifnot(length(images) > 0)
+  images <- normalizePath(images)
+  if (length(script) == 1 & is.character(script)) {
+    script = readLines(script, warn = FALSE)
+    script = trimws(script)
+    script = script[ !script %in% ""]
+  }
+
+  stopifnot(
+    length(script) > 0,
+    identical(length(images), length(script)),
+    all(file.exists(images))
+  )
+
+  output_dir <- normalizePath(dirname(output))
+  dir.create(output_dir, recursive = TRUE, showWarnings = FALSE)
+
+  files_dir = file.path(output_dir, paste0(stub, "_files"))
+  dir.create(files_dir, recursive = TRUE, showWarnings = FALSE)
+
+  images = normalizePath(images)
+  ext = tools::file_ext(images)
+  new_names = paste0("slide_", seq_along(images), ext)
+  new_names = file.path(files_dir, new_names)
+
+  script = paste0("<!--", script, "-->")
+  images = paste0("![](", images, ")")
+
+  rmd = paste(script, images, sep = "\n")
+  args = list(...)
+  L = list(
+    output = list(
+      ari_video = args)
+  )
+  yml = yaml::as.yaml(L)
+  yml = paste0("---\n", yml, "---\n")
+  rmd = c(yml, rmd)
+  rmd - paste(rmd, collapse = "\n")
+  writeLines(rmd, output)
+  if (open) {
+    tools::file.edit(output)
+  }
+
+  return(output)
+}
