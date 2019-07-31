@@ -95,6 +95,9 @@ pptx_to_ari = function(
 #' @rdname gs_to_ari
 #' @importFrom pdftools poppler_config pdf_info pdf_convert
 #' @export
+#' @examples
+#' ex_file = system.file("extdata", "example.pdf", package = "ariExtra")
+#' res = pdf_to_ari(ex_file, script = c("asfd", "asdf"))
 pdf_to_ari = function(
   path,
   script = NULL,

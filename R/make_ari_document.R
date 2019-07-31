@@ -7,6 +7,7 @@
 #' @param ... additional arguments to pass to [ari::ari_spin]
 #' @param verbose print diagnostic messages and also passed to
 #' [ari::ari_stitch]
+#' @param use_knitr use an Rmarkdown type syntax for including the images
 #' @importFrom tools file_ext file_path_sans_ext
 #'
 #' @return A path to the document
@@ -18,10 +19,14 @@
 #' @examples
 #' images = system.file("extdata", c("example_1.png", "example_2.png"),
 #' package = "ariExtra")
+#' res = make_ari_document(images, script = c("asfd", "asdf"))
+#' res = make_ari_document(images, script = c("asfd", "asdf"),
+#' use_knitr = TRUE)
 make_ari_document = function(
   images, script,
   output = NULL,
   open = interactive(),
+  use_knitr = FALSE,
   ...,
   verbose = TRUE) {
 
@@ -38,9 +43,8 @@ make_ari_document = function(
 
   stopifnot(length(images) > 0)
   images <- normalizePath(images)
-  if (length(script) == 1 &
-      is.character(script) &
-      file.exists(script)) {
+  if (length(script) == 1)
+    if (is.character(script) & file.exists(script)) {
     script = readLines(script, warn = FALSE)
     script = trimws(script)
     script = script[ !script %in% ""]
@@ -73,10 +77,19 @@ make_ari_document = function(
   file.copy(images, new_names, overwrite = TRUE)
 
   # for ioslides
-  seps = rep("----------", length(images))
+  seps = rep("\n----------\n", length(images))
   script = paste0("<!--", script, "-->")
+  # consider ```{r slide\#1, echo = FALSE, out.width="100%"}
+  # paste0('knitr::include_graphics("', images, '")')
+  # ```\n
+  knitr_images = paste0('```{r slide', seq_along(images),
+                        ', echo = FALSE, out.width="100%"}\n',
+                        paste0('knitr::include_graphics("', images, '")\n'),
+                        "```\n")
   images = paste0("![](", images, ")\n")
-
+  if (use_knitr) {
+    images = knitr_images
+  }
   rmd = paste(seps, script, images, sep = "\n")
   args = list(..., verbose = verbose)
   L = list(

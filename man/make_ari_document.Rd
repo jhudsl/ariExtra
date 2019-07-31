@@ -5,7 +5,7 @@
 \title{Make an ari documnt}
 \usage{
 make_ari_document(images, script, output = NULL, open = interactive(),
-  ..., verbose = TRUE)
+  use_knitr = FALSE, ..., verbose = TRUE)
 }
 \arguments{
 \item{images}{a vector of paths to images.}
@@ -15,6 +15,8 @@ make_ari_document(images, script, output = NULL, open = interactive(),
 \item{output}{a path to the Rmd file which will be created.}
 
 \item{open}{should the Rmd be opened after creating?}
+
+\item{use_knitr}{use an Rmarkdown type syntax for including the images}
 
 \item{...}{additional arguments to pass to \link[ari:ari_spin]{ari::ari_spin}}
 
@@ -30,4 +32,7 @@ Make an ari documnt
 \examples{
 images = system.file("extdata", c("example_1.png", "example_2.png"),
 package = "ariExtra")
+res = make_ari_document(images, script = c("asfd", "asdf"))
+res = make_ari_document(images, script = c("asfd", "asdf"),
+use_knitr = TRUE)
 }
