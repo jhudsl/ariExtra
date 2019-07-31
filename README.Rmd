@@ -2,10 +2,10 @@
 output: github_document
 ---
 
-[![Travis build status](https://travis-ci.com/muschellij2/didactr.svg?branch=master)](https://travis-ci.com/muschellij2/didactr)
-[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/muschellij2/didactr?branch=master&svg=true)](https://ci.appveyor.com/project/muschellij2/didactr)
-[![Coverage status](https://coveralls.io/repos/github/muschellij2/didactr/badge.svg?branch=master)](https://coveralls.io/r/muschellij2/didactr?branch=master)
-[![Coverage status](https://codecov.io/gh/muschellij2/didactr/branch/master/graph/badge.svg)](https://codecov.io/github/muschellij2/didactr?branch=master)
+[![Travis build status](https://travis-ci.com/muschellij2/ariExtra.svg?branch=master)](https://travis-ci.com/muschellij2/ariExtra)
+[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/muschellij2/ariExtra?branch=master&svg=true)](https://ci.appveyor.com/project/muschellij2/ariExtra)
+[![Coverage status](https://coveralls.io/repos/github/muschellij2/ariExtra/badge.svg?branch=master)](https://coveralls.io/r/muschellij2/ariExtra?branch=master)
+[![Coverage status](https://codecov.io/gh/muschellij2/ariExtra/branch/master/graph/badge.svg)](https://codecov.io/github/muschellij2/ariExtra?branch=master)
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
 ```{r setup, include = FALSE}
@@ -16,48 +16,24 @@ knitr::opts_chunk$set(
 )
 ```
 
-# didactr Package: 
-The goal of `didactr` is to provide leverages the 'ari' package and other tools to create automated courses from slides and a script.  Also, uploads these to YouTube and other servies, with the option of translation.
+# ariExtra Package: 
+The goal of `ariExtra` is to provide leverages the `ari`' package and other tools to create automated courses from slides and a script. 
 
 ## Installation
 
-You can install `didactr` from GitHub with:
+You can install `ariExtra` from GitHub with:
 
 ```{r gh-installation, eval = FALSE}
 # install.packages("remotes")
-remotes::install_github("muschellij2/didactr")
+remotes::install_github("muschellij2/ariExtra")
 ```
 
 
 ## Example
 
-```{r, eval = FALSE}
-library(didactr)
-auth = didactr_auth()
-```
-
-```{r, eval = FALSE}
-library(didactr)
-library(googledrive)
-library(dplyr)
-library(tuber)
-aws.signature::use_credentials(profile = "polly")
-#########################
-# Find a presentation
-#########################
-auth = didactr_auth()
-x = drive_find(n_max = 25, type = "presentation")
-res = gs_ari(x$id[1], voice = "Joanna", 
-       cleanup = FALSE,
-       ffmpeg_opts = '-vf "scale=trunc(iw/2)*2:trunc(ih/2)*2"')
-
-####### yt_authentication done here #####
-
-vid = upload_video(file = res$output, 
-                   status = list(privacyStatus = "unlisted"),
-                   snippet = list(title = "hey"))
-browseURL(vid$url)
-
-# if you want to delete the video
-del = delete_videos(vid$content$id)
+```{r, cache = TRUE}
+library(ariExtra)
+id = "1Opt6lv7rRi7Kzb9bI0u3SWX1pSz1k7botaphTuFYgNs"
+res = gs_to_ari(id, verbose = FALSE, voice = "Joanna", service = "amazon") 
+readLines(res)
 ```

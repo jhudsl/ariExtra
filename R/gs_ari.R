@@ -117,6 +117,7 @@ pdf_to_ari = function(
   }
   pngs = pdftools::pdf_convert(
     pdf = path, dpi = dpi,
-    format = format, filenames = filenames)
+    format = format, filenames = filenames,
+    verbose = as.logical(verbose))
   make_ari_document(pngs, script = script, ..., verbose = verbose)
 }

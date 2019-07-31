@@ -5,6 +5,7 @@
 ^didactr\.Rproj$
 ^LICENSE\.md$
 ^README\.Rmd$
+^README_cache/
 ^appveyor\.yml$
 ^\.travis\.yml$
 ^\.httr-oauth$
