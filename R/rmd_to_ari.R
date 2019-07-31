@@ -106,7 +106,8 @@ get_nslides = function(slides) {
 #' @importFrom stats na.omit
 #'
 #' @examples \dontrun{
-#' res = rmd_to_ari(path, capture_method = "iterative")
+#' path = system.file("extdata", "example.Rmd", package = "ariExtra")
+#' res = rmd_to_ari(path)
 #' }
 rmd_to_ari = function(
   path,

@@ -17,6 +17,9 @@ make_ari_document(images, script, output = NULL, open = interactive(),
 \item{open}{should the Rmd be opened after creating?}
 
 \item{...}{additional arguments to pass to \link[ari:ari_spin]{ari::ari_spin}}
+
+\item{verbose}{print diagnostic messages and also passed to
+\link[ari:ari_stitch]{ari::ari_stitch}}
 }
 \value{
 A path to the document

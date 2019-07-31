@@ -23,7 +23,8 @@ Imports:
     magrittr,
     tools,
     stats,
-    docxtractr
+    docxtractr,
+    yaml
 Suggests: 
     knitr,
     covr,

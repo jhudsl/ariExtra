@@ -5,11 +5,14 @@
 #' @param output a path to the Rmd file which will be created.
 #' @param open should the Rmd be opened after creating?
 #' @param ... additional arguments to pass to [ari::ari_spin]
+#' @param verbose print diagnostic messages and also passed to
+#' [ari::ari_stitch]
 #' @importFrom tools file_ext file_path_sans_ext
 #'
 #' @return A path to the document
 #' @export
 #' @importFrom ari ari_spin
+#' @importFrom yaml as.yaml
 #' @importFrom utils file.edit
 #'
 #' @examples

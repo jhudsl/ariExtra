@@ -1,4 +1,4 @@
 library(testthat)
-library(didactr)
+library(ariExtra)
 
-test_check("didactr")
+test_check("ariExtra")
