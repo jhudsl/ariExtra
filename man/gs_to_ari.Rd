@@ -33,5 +33,7 @@ Convert Google Slides and notes to video with ari
 id = "1Opt6lv7rRi7Kzb9bI0u3SWX1pSz1k7botaphTuFYgNs"
 res = gs_to_ari(id, verbose = 2)
 
+bad_id = "12XbJ6nYg4zCAwa8zCCJY48v4yppZWLowl8bX10DUDIk"
+
 
 }

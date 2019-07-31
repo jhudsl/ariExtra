@@ -11,22 +11,47 @@
 #' id = "1Opt6lv7rRi7Kzb9bI0u3SWX1pSz1k7botaphTuFYgNs"
 #' res = gs_to_ari(id, verbose = 2)
 #'
+#' bad_id = "12XbJ6nYg4zCAwa8zCCJY48v4yppZWLowl8bX10DUDIk"
+#'
 #'
 gs_to_ari = function(
   path,
   script = NULL,
   ...,
   verbose = TRUE) {
-  pptx = pptx_url(path)
+  url = pptx_url(path)
   download_pptx = function(url) {
     tfile = tempfile(fileext = ".pptx")
-    httr::GET(url, httr::write_disk(tfile))
+    result = httr::GET(url, httr::write_disk(tfile))
+    warn_them = FALSE
+    fr_header = result$headers$`x-frame-options`
+    if (is.null(fr_header)) {
+      if (all(fr_header == "DENY")) {
+        warn_them = TRUE
+      }
+    }
+    if (httr::status_code(result) >= 300) {
+      warn_them = TRUE
+    }
+    if (grepl("ServiceLogin", result$url)) {
+      warn_them = TRUE
+    }
+    if (result$times["redirect"] > 0) {
+      warn_them = TRUE
+    }
+    if (warn_them) {
+      warning(
+        paste0(
+          "This presentation may not be available, ",
+          "did you turn link sharing on?")
+      )
+    }
     tfile
   }
   if (verbose) {
     message("Downloading PPTX")
   }
-  res = download_pptx(url = pptx)
+  res = download_pptx(url = url)
   if (verbose > 1) {
     message(paste0("pptx is at: ", res))
   }
