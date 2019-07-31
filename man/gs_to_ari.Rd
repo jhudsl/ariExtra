@@ -6,18 +6,20 @@
 \alias{pdf_to_ari}
 \title{Convert Google Slides and notes to video with ari}
 \usage{
-gs_to_ari(path, ...)
+gs_to_ari(path, script = NULL, ..., verbose = TRUE)
 
-pptx_to_ari(path, script = NULL, ...)
+pptx_to_ari(path, script = NULL, ..., verbose = TRUE)
 
-pdf_to_ari(path, dpi = 300, ...)
+pdf_to_ari(path, script = NULL, dpi = 300, ..., verbose = TRUE)
 }
 \arguments{
 \item{path}{Identifier of google slides presentation, or PPTX filename}
 
+\item{script}{passed to \code{\link[=make_ari_document]{make_ari_document()}}}
+
 \item{...}{Arguments passed to \link{make_ari_document}}
 
-\item{script}{passed to \code{\link[=make_ari_document]{make_ari_document()}}}
+\item{verbose}{print diagnostic messages}
 
 \item{dpi}{resolution (dots per inch) to render images}
 }
@@ -26,4 +28,10 @@ The output from \link{make_ari_document}
 }
 \description{
 Convert Google Slides and notes to video with ari
+}
+\examples{
+id = "1Opt6lv7rRi7Kzb9bI0u3SWX1pSz1k7botaphTuFYgNs"
+res = gs_to_ari(id, verbose = 2)
+
+
 }

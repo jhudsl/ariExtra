@@ -5,7 +5,7 @@
 \title{Convert a Rmd to an Ari Document}
 \usage{
 rmd_to_ari(path, script = NULL, capture_method = c("vectorized",
-  "iterative"), webshot_args = list(), ...)
+  "iterative"), webshot_args = list(), ..., verbose = TRUE)
 }
 \arguments{
 \item{path}{path to Rmd file}
@@ -21,6 +21,8 @@ you should use \code{"iterative"}.}
 \item{webshot_args}{a list of arguments to pass to \link[webshot:webshot]{webshot::webshot}}
 
 \item{...}{additional arguments to pass to \link{make_ari_document}}
+
+\item{verbose}{print diagnostic messages}
 }
 \value{
 The output of \link{make_ari_document}

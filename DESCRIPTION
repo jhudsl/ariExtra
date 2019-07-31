@@ -1,5 +1,5 @@
 Package: ariExtra
-Version: 0.6.13
+Version: 0.0.1
 Title: Tools for Creating Automated Courses
 Description: Leverages the 'ari' package and other tools to create automated 
     courses from slides and a script.  Also, uploads these to 
@@ -22,14 +22,15 @@ Imports:
     rvest,
     magrittr,
     tools,
-    stats
+    stats,
+    docxtractr
 Suggests: 
     knitr,
     covr,
     testthat
 Encoding: UTF-8
 LazyData: true
-Remotes: muschellij2/ari, soodoku/tuber, muschellij2/text2speech
+Remotes: hrbrmstr/docxtractr
 ByteCompile: true
 Type: Package
 VignetteBuilder: knitr

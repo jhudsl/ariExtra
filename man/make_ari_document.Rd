@@ -5,7 +5,7 @@
 \title{Make an ari documnt}
 \usage{
 make_ari_document(images, script, output = NULL, open = interactive(),
-  ...)
+  ..., verbose = TRUE)
 }
 \arguments{
 \item{images}{a vector of paths to images.}

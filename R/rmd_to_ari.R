@@ -93,6 +93,7 @@ get_nslides = function(slides) {
 #' you should use `"iterative"`.
 #' @param webshot_args a list of arguments to pass to [webshot::webshot]
 #' @param ... additional arguments to pass to [make_ari_document]
+#' @param verbose print diagnostic messages
 #'
 #' @return The output of [make_ari_document]
 #' @export
@@ -112,12 +113,19 @@ rmd_to_ari = function(
   script = NULL,
   capture_method = c("vectorized", "iterative"),
   webshot_args = list(),
-  ...
+  ...,
+  verbose = TRUE
 ) {
 
   if (is.null(script)) {
+    if (verbose) {
+      message("Parsing HTML comments for script")
+    }
     paragraphs = parse_html_comments(path)
     script = tempfile(fileext = ".txt")
+    if (verbose > 1) {
+      message(paste0("script is at: ", script))
+    }
     writeLines(paragraphs, script)
   } else {
     stopifnot(length(script) == 1)
@@ -130,12 +138,18 @@ rmd_to_ari = function(
     stop('capture_method must be either "vectorized" or "iterative"')
   }
 
+  if (verbose) {
+    message("Rendering Rmd to HTML")
+  }
   # render the HTML output
   tfile = tempfile(fileext = ".html")
   # need to figure out number of damn slides
   # either /slide for ioslides or --- for xaringan
   slides = rmarkdown::render(input = path, output_file = tfile)
 
+  if (verbose) {
+    message("Getting the number of slides")
+  }
   n_slides_guess = get_nslides(slides)
   if (!is.na(n_slides_guess)) {
     n_slides_guess = length(paragraphs)
@@ -168,6 +182,9 @@ rmd_to_ari = function(
     tempfile(fileext = ".png")
   })
 
+  if (verbose) {
+    message("Running webshot to make PNGs")
+  }
   args = as.list(webshot_args)
   if (capture_method == "vectorized") {
     args$url = paste0(slides, "#", slide_nums)
@@ -183,7 +200,6 @@ rmd_to_ari = function(
 
   make_ari_document(
     images = img_paths,
-    script = script, ...)
-
+    script = script, ..., verbose = verbose)
 
 }
