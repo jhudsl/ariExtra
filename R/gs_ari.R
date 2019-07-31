@@ -11,8 +11,8 @@
 #' id = "1Opt6lv7rRi7Kzb9bI0u3SWX1pSz1k7botaphTuFYgNs"
 #' res = gs_to_ari(id, verbose = 2)
 #'
-#' bad_id = "12XbJ6nYg4zCAwa8zCCJY48v4yppZWLowl8bX10DUDIk"
-#'
+#' bad_id = "1AJxokPkGVzNZMXjyF59mNe3EiQRGxylbBfYGGoQMQls"
+#' testthat::expect_error(res = gs_to_ari(bad_id))
 #'
 gs_to_ari = function(
   path,

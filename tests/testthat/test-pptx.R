@@ -1,23 +1,13 @@
-testthat::context("PPTX notes")
+testthat::context("BAD GS notes")
 
-testthat::test_that("The notes are ordered", {
+testthat::test_that("The bad ID should fail", {
 
-  ex_file = system.file("extdata", "example.pptx", package = "ariExtra")
-  res = pptx_notes(ex_file)
-  ans = c("notesSlide1.xml", "notesSlide2.xml")
+  bad_id = "1AJxokPkGVzNZMXjyF59mNe3EiQRGxylbBfYGGoQMQls"
+  testthat::expect_error(gs_to_ari(bad_id))
 
-  testthat::expect_identical(names(res), ans)
+  testthat::expect_error({
+    testthat::expect_warning(gs_to_ari(bad_id))
+  })
 
 })
-
-testthat::test_that("PPTX to Ari works", {
-
-  ex_file = system.file("extdata", "example.pptx", package = "ariExtra")
-  res = pptx_to_ari(ex_file)
-  testthat::expect_error(
-    {res = pptx_to_ari(ex_file, script = "heyasdf")},
-    regexp = "identical\\(length\\(images"
-    )
-})
-
 
