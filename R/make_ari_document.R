@@ -72,10 +72,12 @@ make_ari_document = function(
   new_names = file.path(files_dir, new_names)
   file.copy(images, new_names, overwrite = TRUE)
 
+  # for ioslides
+  seps = rep("----------", length(images))
   script = paste0("<!--", script, "-->")
-  images = paste0("![](", images, ")")
+  images = paste0("![](", images, ")\n")
 
-  rmd = paste(script, images, sep = "\n")
+  rmd = paste(seps, script, images, sep = "\n")
   args = list(..., verbose = verbose)
   L = list(
     output = list(
