@@ -2,7 +2,7 @@
 #'
 #' @param images a vector of paths to images.
 #' @param script a file or vector strings that will be spoken
-#' @param output a path to the Rmd file which will be created.
+#' @param output_file a path to the Rmd file which will be created.
 #' @param open should the Rmd be opened after creating?
 #' @param ... additional arguments to pass to [ari::ari_spin]
 #' @param verbose print diagnostic messages and also passed to
@@ -24,22 +24,22 @@
 #' use_knitr = TRUE)
 make_ari_document = function(
   images, script,
-  output = NULL,
+  output_file = NULL,
   open = interactive(),
   use_knitr = FALSE,
   ...,
   verbose = TRUE) {
 
-  if (is.null(output)) {
-    output = tempfile(fileext = ".md")
+  if (is.null(output_file)) {
+    output_file = tempfile(fileext = ".md")
     if (verbose > 1) {
-      message(paste0("output is: ", output))
+      message(paste0("output_file is: ", output_file))
     }
   }
-  stopifnot(length(output) == 1)
-  ext = tools::file_ext(output)
+  stopifnot(length(output_file) == 1)
+  ext = tools::file_ext(output_file)
   stopifnot(tolower(ext) %in% "md")
-  stub = basename(tools::file_path_sans_ext(output))
+  stub = basename(tools::file_path_sans_ext(output_file))
 
   stopifnot(length(images) > 0)
   images <- normalizePath(images)
@@ -57,9 +57,9 @@ make_ari_document = function(
   )
 
   if (verbose) {
-    message("Making output directories")
+    message("Making output_file directories")
   }
-  output_dir <- normalizePath(dirname(output))
+  output_dir <- normalizePath(dirname(output_file))
   if (verbose > 1) {
     message(paste0("output_dir is at: ", output_dir))
   }
@@ -103,10 +103,10 @@ make_ari_document = function(
   yml = paste0("---\n", yml, "---\n")
   rmd = c(yml, rmd)
   rmd = paste(rmd, collapse = "\n")
-  writeLines(rmd, output)
+  writeLines(rmd, output_file)
   if (open) {
-    utils::file.edit(output)
+    utils::file.edit(output_file)
   }
 
-  return(output)
+  return(output_file)
 }

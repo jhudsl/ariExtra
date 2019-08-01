@@ -4,15 +4,15 @@
 \alias{make_ari_document}
 \title{Make an ari documnt}
 \usage{
-make_ari_document(images, script, output = NULL, open = interactive(),
-  use_knitr = FALSE, ..., verbose = TRUE)
+make_ari_document(images, script, output_file = NULL,
+  open = interactive(), use_knitr = FALSE, ..., verbose = TRUE)
 }
 \arguments{
 \item{images}{a vector of paths to images.}
 
 \item{script}{a file or vector strings that will be spoken}
 
-\item{output}{a path to the Rmd file which will be created.}
+\item{output_file}{a path to the Rmd file which will be created.}
 
 \item{open}{should the Rmd be opened after creating?}
 

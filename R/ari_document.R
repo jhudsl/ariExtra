@@ -9,7 +9,18 @@ ari_document = function(...) {
     # saved_files_dir <<- files_dir
     # get the output
     stub = tools::file_path_sans_ext(input)
-    output = paste0(stub, ".mp4")
+    yaml = yaml::read_yaml(file = input)
+    L = c(
+      yaml$output$`ariExtra::ari_document`$output,
+      yaml$output$ari_document$output)
+    if (length(L) == 0) {
+      output = paste0(stub, ".mp4")
+    } else {
+      output = unique(L)
+      if (length(output) > 1) {
+        output = output[1]
+      }
+    }
     abs_stub = tools::file_path_as_absolute(input)
     abs_stub = tools::file_path_sans_ext(abs_stub)
 
@@ -44,22 +55,29 @@ ari_document = function(...) {
       names(old_paragraphs) = out_txt[fe]
     }
 
-    res = ari_spin(
-      images = images,
-      paragraphs = paragraphs,
-      output = output,
-      cleanup = FALSE,
-      ...)
+    args = list(...)
+    cleanup = args$cleanup
+    if (is.null(cleanup)) {
+      # use default from ari
+      cleanup = formals(ari::ari_stitch)$cleanup
+    } else {
+      cleanup = as.logical(cleanup)
+    }
+    args$images = images
+    args$paragraphs = paragraphs
+    args$output = output
+    args$cleanup = FALSE
+    res = do.call(ari::ari_spin, args = args)
+
     wav_path = attr(res, "wav_path")
-    if (!is.null(wav_path)) {
+    if (!is.null(wav_path) && cleanup) {
       unlink(wav_path, force = TRUE)
     }
 
     txt_path = attr(res, "txt_path")
-    if (!is.null(txt_path)) {
+    if (!is.null(txt_path) && cleanup) {
       unlink(txt_path, force = TRUE)
     }
-
     wavs = attr(res, "wavs")
 
     # here is where caching may come in handy
@@ -82,6 +100,21 @@ ari_document = function(...) {
                             output_file,
                             clean,
                             verbose) {
+
+    width = c(
+      yaml_front_matter$output$`ariExtra::ari_document`$width,
+      yaml_front_matter$output$ari_document$width)
+    if (length(width) == 0) {
+      width = "100%"
+    }
+
+    height = c(
+      yaml_front_matter$output$`ariExtra::ari_document`$height,
+      yaml_front_matter$output$ari_document$height)
+    if (length(height) == 0) {
+      height = NULL
+    }
+
     val = c(
       "<html>",
       '<head>',
@@ -93,7 +126,16 @@ ari_document = function(...) {
         '</script>'),
       '    </head>',
       '    <body>',
-      "      <video id='my-video' class='video-js' controls preload='auto' ",
+      paste0(
+
+        "      <video id='my-video' class='video-js vjs-default-skin' ",
+        "data-setup='{\"fluid\": true}' ",
+        "controls preload='auto' ",
+        ifelse(is.null(width), "",
+               paste0(" width='", width, "'")),
+        ifelse(is.null(height), "",
+               paste0(" height='", height, "'")),
+        ">"),
       paste0("      <source src='", output_movie_file,
              "' type='video/mp4'>"),
       "      <p class='vjs-no-js'>",
@@ -106,14 +148,14 @@ ari_document = function(...) {
       "    <script src='https://vjs.zencdn.net/7.6.0/video.js'></script>",
       "      </body>",
       "</html>")
-  writeLines(val, output_file)
-  output_file
-}
+    writeLines(val, output_file)
+    output_file
+  }
 
-rmarkdown::output_format(
-  knitr = NULL,
-  pandoc = list(to = "html", ext = ".html", keep_tex = FALSE),
-  clean_supporting = FALSE,
-  post_processor = post_processor,
-  pre_knit = pre_knit)
+  rmarkdown::output_format(
+    knitr = NULL,
+    pandoc = list(to = "html", ext = ".html", keep_tex = FALSE),
+    clean_supporting = FALSE,
+    post_processor = post_processor,
+    pre_knit = pre_knit)
 }
