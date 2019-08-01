@@ -1,3 +1,6 @@
+#' Ari Document Class for Rendering
+#' @param ... arguments to pass to [ari::ari_spin]
+#'
 #' @export
 ari_document = function(...) {
 
