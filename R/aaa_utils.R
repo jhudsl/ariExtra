@@ -55,18 +55,21 @@ sys_type <- function() {
 }
 
 
-png_url = function(id, page_id) {
-  paste0(
+type_url = function(id, page_id = NULL, type = "png") {
+  url = paste0(
     "https://docs.google.com/presentation/d/",
-    id, "/export/png?id=", id,
-    "&pageid=", page_id)
+    id, "/export/", type, "?id=", id)
+  if (!is.null(page_id)) {
+    url = paste0(url, "&pageid=", page_id)
+  }
+  url
 }
-
+png_url = type_url
 pptx_url = function(id) {
-  paste0(
-    "https://docs.google.com/presentation/d/",
-    id,
-    "/export/pptx?id=", id)
+  type_url(id, page_id = NULL, type = "pptx")
+}
+pdf_url = function(id) {
+  type_url(id, page_id = NULL, type = "pdf")
 }
 
 download_png_urls = function(urls) {

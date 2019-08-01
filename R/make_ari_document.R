@@ -31,14 +31,14 @@ make_ari_document = function(
   verbose = TRUE) {
 
   if (is.null(output)) {
-    output = tempfile(fileext = ".Rmd")
+    output = tempfile(fileext = ".md")
     if (verbose > 1) {
       message(paste0("output is: ", output))
     }
   }
   stopifnot(length(output) == 1)
   ext = tools::file_ext(output)
-  stopifnot(tolower(ext) %in% "rmd")
+  stopifnot(tolower(ext) %in% "md")
   stub = basename(tools::file_path_sans_ext(output))
 
   stopifnot(length(images) > 0)
@@ -72,7 +72,7 @@ make_ari_document = function(
   }
   images = normalizePath(images)
   ext = tools::file_ext(images)
-  new_names = paste0("slide_", seq_along(images), ext)
+  new_names = paste0("slide_", seq_along(images), ".", ext)
   new_names = file.path(files_dir, new_names)
   file.copy(images, new_names, overwrite = TRUE)
 
@@ -94,7 +94,7 @@ make_ari_document = function(
   args = list(..., verbose = verbose)
   L = list(
     output = list(
-      ari_video = args)
+      "ariExtra::ari_document" = args)
   )
   if (verbose > 1) {
     message("Creating YAML header")

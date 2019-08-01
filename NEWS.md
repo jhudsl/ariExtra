@@ -1,3 +1,7 @@
+# ariExtra 0.2.0
+
+* We actually have an `ari_document` working!
+
 # ariExtra 0.1.1
 
 * Passes `R CMD check` and should run smoothly.

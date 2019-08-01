@@ -31,11 +31,18 @@ Convert Google Slides and notes to video with ari
 }
 \examples{
 id = "1Opt6lv7rRi7Kzb9bI0u3SWX1pSz1k7botaphTuFYgNs"
-res = gs_to_ari(id, verbose = 2)
+res = gs_to_ari(id, verbose = 2, open = FALSE)
+if (interactive()) {
+file.edit(res)
+}
+
 
 bad_id = "1AJxokPkGVzNZMXjyF59mNe3EiQRGxylbBfYGGoQMQls"
 testthat::expect_error(res = gs_to_ari(bad_id))
 
 ex_file = system.file("extdata", "example.pdf", package = "ariExtra")
-res = pdf_to_ari(ex_file, script = c("asfd", "asdf"))
+res = pdf_to_ari(ex_file, script = c("asfd", "asdf"), open = FALSE)
+if (interactive()) {
+file.edit(res)
+}
 }
