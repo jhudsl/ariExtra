@@ -3,7 +3,8 @@
 #'
 #' @export
 ari_document = function(...) {
-
+  output_movie_file = NULL
+  rm(list = "output_movie_file")
   pre_knit <- function(input) {
     # saved_files_dir <<- files_dir
     # get the output
