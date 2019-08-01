@@ -43,11 +43,17 @@ make_ari_document = function(
 
   stopifnot(length(images) > 0)
   images <- normalizePath(images)
-  if (length(script) == 1)
+  if (length(script) == 1) {
     if (is.character(script) & file.exists(script)) {
-    script = readLines(script, warn = FALSE)
-    script = trimws(script)
-    script = script[ !script %in% ""]
+      script = readLines(script, warn = FALSE)
+      script = trimws(script)
+      script = script[ !script %in% ""]
+    }
+  }
+
+  semi_colon = trimws(script) == ";"
+  if (any(semi_colon)) {
+    script[semi_colon] = ""
   }
 
   stopifnot(
