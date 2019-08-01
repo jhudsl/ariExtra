@@ -32,7 +32,7 @@ Suggests:
     testthat
 Encoding: UTF-8
 LazyData: true
-Remotes: hrbrmstr/docxtractr
+Remotes: hrbrmstr/docxtractr, cpsievert/rdom
 ByteCompile: true
 Type: Package
 VignetteBuilder: knitr
