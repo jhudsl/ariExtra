@@ -40,8 +40,16 @@ file.edit(res)
 bad_id = "1AJxokPkGVzNZMXjyF59mNe3EiQRGxylbBfYGGoQMQls"
 testthat::expect_error(res = gs_to_ari(bad_id))
 
+ex_file = system.file("extdata", "example.pptx", package = "ariExtra")
+have_soffice = try(docxtractr:::lo_assert())
+if (!inherits(have_soffice, "try-error")) {
+res = pptx_to_ari(ex_file, open = FALSE)
+if (interactive()) {
+file.edit(res)
+}
+}
 ex_file = system.file("extdata", "example.pdf", package = "ariExtra")
-res = pdf_to_ari(ex_file, script = c("asfd", "asdf"), open = FALSE)
+res = pdf_to_ari(ex_file, script = c("hey", "ho"), open = FALSE)
 if (interactive()) {
 file.edit(res)
 }

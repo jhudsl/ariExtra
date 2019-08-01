@@ -1,3 +1,50 @@
+download_gs_file = function(id, out_type = "pptx") {
+  id = as.character(id)
+  url = type_url(id = id, page_id = NULL, type = out_type)
+
+  tfile = tempfile(fileext = paste0(".", out_type))
+  result = httr::GET(url, httr::write_disk(tfile))
+  warn_them = FALSE
+  fr_header = result$headers$`x-frame-options`
+  if (is.null(fr_header)) {
+    if (all(fr_header == "DENY")) {
+      warn_them = TRUE
+    }
+  }
+  if (httr::status_code(result) >= 300) {
+    warn_them = TRUE
+  }
+  if (grepl("ServiceLogin", result$url)) {
+    warn_them = TRUE
+  }
+  if (result$times["redirect"] > 0) {
+    warn_them = TRUE
+  }
+  if (warn_them) {
+    warning(
+      paste0(
+        "This presentation may not be available, ",
+        "did you turn link sharing on?")
+    )
+  }
+  tfile
+}
+
+get_pptx_script = function(path, script = NULL, verbose = TRUE) {
+  if (is.null(script)) {
+    if (verbose) {
+      message("Getting Notes from PPTX")
+    }
+    res = pptx_notes(path)
+    script = tempfile(fileext = ".txt")
+    if (verbose > 1) {
+      message(paste0("script is at: ", script))
+    }
+    writeLines(res, script)
+  }
+  return(script)
+}
+
 #' Convert Google Slides and notes to video with ari
 #'
 #' @param path Identifier of google slides presentation, or PPTX filename
@@ -23,44 +70,30 @@ gs_to_ari = function(
   script = NULL,
   ...,
   verbose = TRUE) {
-  url = pptx_url(path)
-  download_pptx = function(url) {
-    tfile = tempfile(fileext = ".pptx")
-    result = httr::GET(url, httr::write_disk(tfile))
-    warn_them = FALSE
-    fr_header = result$headers$`x-frame-options`
-    if (is.null(fr_header)) {
-      if (all(fr_header == "DENY")) {
-        warn_them = TRUE
-      }
-    }
-    if (httr::status_code(result) >= 300) {
-      warn_them = TRUE
-    }
-    if (grepl("ServiceLogin", result$url)) {
-      warn_them = TRUE
-    }
-    if (result$times["redirect"] > 0) {
-      warn_them = TRUE
-    }
-    if (warn_them) {
-      warning(
-        paste0(
-          "This presentation may not be available, ",
-          "did you turn link sharing on?")
-      )
-    }
-    tfile
-  }
+
   if (verbose) {
     message("Downloading PPTX")
   }
-  res = download_pptx(url = url)
+  pptx_file = download_gs_file(id = path, out_type = "pptx")
   if (verbose > 1) {
-    message(paste0("pptx is at: ", res))
+    message(paste0("pptx is at: ", pptx_file))
   }
+
+  script = get_pptx_script(
+    path = pptx_file,
+    script = script, verbose = verbose)
+
+  if (verbose) {
+    message("Downloading PDF")
+  }
+  pdf_file = download_gs_file(id = path, out_type = "pdf")
+  if (verbose > 1) {
+    message(paste0("PDF is at: ", pdf_file))
+  }
+
   # should we download PDF too?
-  pptx_to_ari(res, script = script, ..., verbose = verbose)
+  pdf_to_ari(pdf_file, script = script, ..., verbose = verbose)
+  # pptx_to_ari(pptx_file, script = script, ..., verbose = verbose)
 }
 
 
@@ -68,22 +101,22 @@ gs_to_ari = function(
 #' @rdname gs_to_ari
 #' @param script passed to [make_ari_document()]
 #' @importFrom docxtractr convert_to_pdf
+#' @examples
+#' ex_file = system.file("extdata", "example.pptx", package = "ariExtra")
+#' have_soffice = try(docxtractr:::lo_assert())
+#' if (!inherits(have_soffice, "try-error")) {
+#' res = pptx_to_ari(ex_file, open = FALSE)
+#' if (interactive()) {
+#' file.edit(res)
+#' }
+#' }
 pptx_to_ari = function(
   path,
   script = NULL,
   ...,
   verbose = TRUE) {
-  if (is.null(script)) {
-    if (verbose) {
-      message("Getting Notes from PPTX")
-    }
-    res = pptx_notes(path)
-    script = tempfile(fileext = ".txt")
-    if (verbose > 1) {
-      message(paste0("script is at: ", script))
-    }
-    writeLines(res, script)
-  }
+
+  script = get_pptx_script(path, script = NULL, verbose = verbose)
   pdf_file = tempfile(fileext = ".pdf")
   if (verbose) {
     message("Converting PPTX to PDF")
@@ -102,7 +135,7 @@ pptx_to_ari = function(
 #' @export
 #' @examples
 #' ex_file = system.file("extdata", "example.pdf", package = "ariExtra")
-#' res = pdf_to_ari(ex_file, script = c("asfd", "asdf"), open = FALSE)
+#' res = pdf_to_ari(ex_file, script = c("hey", "ho"), open = FALSE)
 #' if (interactive()) {
 #' file.edit(res)
 #' }
