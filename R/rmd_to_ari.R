@@ -112,7 +112,7 @@ get_nslides = function(slides) {
 rmd_to_ari = function(
   path,
   script = NULL,
-  capture_method = c("vectorized", "iterative"),
+  capture_method = c("iterative", "vectorized"),
   webshot_args = list(),
   ...,
   verbose = TRUE

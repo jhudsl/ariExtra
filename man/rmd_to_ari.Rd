@@ -4,8 +4,8 @@
 \alias{rmd_to_ari}
 \title{Convert a Rmd to an Ari Document}
 \usage{
-rmd_to_ari(path, script = NULL, capture_method = c("vectorized",
-  "iterative"), webshot_args = list(), ..., verbose = TRUE)
+rmd_to_ari(path, script = NULL, capture_method = c("iterative",
+  "vectorized"), webshot_args = list(), ..., verbose = TRUE)
 }
 \arguments{
 \item{path}{path to Rmd file}

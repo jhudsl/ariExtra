@@ -25,7 +25,8 @@ xml_notes = function(file) {
 #'
 #' @importFrom utils unzip
 #' @examples
-#' ex_file = system.file("extdata", "example.pptx", package = "ariExtra")
+#' file = ex_file = system.file("extdata", "example.pptx",
+#' package = "ariExtra")
 #' pptx_notes(ex_file)
 pptx_notes = function(file) {
   tdir = tempfile()
