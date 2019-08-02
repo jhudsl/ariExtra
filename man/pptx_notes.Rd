@@ -2,9 +2,18 @@
 % Please edit documentation in R/pptx_notes.R
 \name{pptx_notes}
 \alias{pptx_notes}
+\alias{pptx_slide_text_df}
+\alias{pptx_slide_note_df}
+\alias{unzip_pptx}
 \title{Get Notes from a PowerPoint (usually from Google Slides)}
 \usage{
 pptx_notes(file)
+
+pptx_slide_text_df(file)
+
+pptx_slide_note_df(file)
+
+unzip_pptx(file)
 }
 \arguments{
 \item{file}{Character. Path for \code{PPTX} file}
@@ -19,4 +28,6 @@ Get Notes from a PowerPoint (usually from Google Slides)
 file = ex_file = system.file("extdata", "example.pptx",
 package = "ariExtra")
 pptx_notes(ex_file)
+pptx_slide_note_df(ex_file)
+pptx_slide_text_df(ex_file)
 }

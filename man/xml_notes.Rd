@@ -4,10 +4,12 @@
 \alias{xml_notes}
 \title{Get Notes from XML}
 \usage{
-xml_notes(file)
+xml_notes(file, collapse_text = TRUE)
 }
 \arguments{
 \item{file}{XML file from a PPTX}
+
+\item{collapse_text}{should text be collapsed by spaces?}
 }
 \value{
 A character vector
