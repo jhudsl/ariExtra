@@ -108,6 +108,7 @@ get_nslides = function(slides) {
 #' @examples \dontrun{
 #' path = system.file("extdata", "example.Rmd", package = "ariExtra")
 #' res = rmd_to_ari(path)
+#' res$output_file
 #' }
 rmd_to_ari = function(
   path,

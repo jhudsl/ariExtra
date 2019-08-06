@@ -33,6 +33,8 @@ Make an ari documnt
 images = system.file("extdata", c("example_1.png", "example_2.png"),
 package = "ariExtra")
 res = make_ari_document(images, script = c("asfd", "asdf"))
+res$output_file
 res = make_ari_document(images, script = c("asfd", "asdf"),
 use_knitr = TRUE)
+res$output_file
 }

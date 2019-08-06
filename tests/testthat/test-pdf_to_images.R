@@ -7,8 +7,8 @@ testthat::test_that("PDF converted to Ari", {
   ex_file = system.file("extdata", "example.pdf", package = "ariExtra")
   if (file.exists(ex_file)) {
     res = pdf_to_ari(ex_file, script = c("hey", "ho"))
-
-    testthat::expect_length(res, 1)
+    res = res$output_file
+    testthat::expect_length(res$output_file, 1)
     testthat::expect_true(file.exists(res))
     testthat::expect_type(res, "character")
   }

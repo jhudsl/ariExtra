@@ -20,8 +20,10 @@
 #' images = system.file("extdata", c("example_1.png", "example_2.png"),
 #' package = "ariExtra")
 #' res = make_ari_document(images, script = c("asfd", "asdf"))
+#' res$output_file
 #' res = make_ari_document(images, script = c("asfd", "asdf"),
 #' use_knitr = TRUE)
+#' res$output_file
 make_ari_document = function(
   images, script,
   output_file = NULL,
@@ -82,6 +84,8 @@ make_ari_document = function(
   new_names = file.path(files_dir, new_names)
   file.copy(images, new_names, overwrite = TRUE)
 
+  ximages = images
+  xscript = script
   # for ioslides
   seps = rep("\n----------\n", length(images))
   script = paste0("<!--", script, "-->")
@@ -113,6 +117,10 @@ make_ari_document = function(
   if (open) {
     utils::file.edit(output_file)
   }
-
-  return(output_file)
+  L = list(output_file = output_file,
+           original_images = ximages,
+           images = new_names,
+           script = xscript,
+           use_knitr = use_knitr)
+  return(L)
 }

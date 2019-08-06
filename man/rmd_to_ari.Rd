@@ -34,5 +34,6 @@ Convert a Rmd to an Ari Document
 \dontrun{
 path = system.file("extdata", "example.Rmd", package = "ariExtra")
 res = rmd_to_ari(path)
+res$output_file
 }
 }
