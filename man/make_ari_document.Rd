@@ -2,10 +2,14 @@
 % Please edit documentation in R/make_ari_document.R
 \name{make_ari_document}
 \alias{make_ari_document}
+\alias{pngs_to_ari}
 \title{Make an ari documnt}
 \usage{
 make_ari_document(images, script, output_file = NULL,
   open = interactive(), use_knitr = FALSE, ..., verbose = TRUE)
+
+pngs_to_ari(images, script, output_file = NULL, open = interactive(),
+  use_knitr = FALSE, ..., verbose = TRUE)
 }
 \arguments{
 \item{images}{a vector of paths to images.}

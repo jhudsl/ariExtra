@@ -124,3 +124,7 @@ make_ari_document = function(
            use_knitr = use_knitr)
   return(L)
 }
+
+#' @export
+#' @rdname make_ari_document
+pngs_to_ari = make_ari_document

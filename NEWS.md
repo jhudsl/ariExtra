@@ -1,3 +1,8 @@
+# ariExtra 0.2.2
+
+* Added `pngs_to_ari`.
+* Added vignette.
+
 # ariExtra 0.2.1
 
 * Trying to get on CRAN.
