@@ -1,3 +1,7 @@
+# ariExtra 0.2.1
+
+* Trying to get on CRAN.
+
 # ariExtra 0.2.0
 
 * We actually have an `ari_document` working!

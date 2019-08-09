@@ -30,10 +30,12 @@ The output from \link{make_ari_document}
 Convert Google Slides and notes to video with ari
 }
 \examples{
+\dontrun{
 id = "1Opt6lv7rRi7Kzb9bI0u3SWX1pSz1k7botaphTuFYgNs"
 res = gs_to_ari(id, verbose = 2, open = FALSE)
 if (interactive()) {
 file.edit(res$output_file)
+}
 }
 
 
