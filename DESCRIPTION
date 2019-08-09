@@ -22,7 +22,7 @@ Imports:
     magrittr,
     tools,
     stats,
-    docxtractr (>= 0.6.1),
+    docxtractr (>= 0.6.2),
     tuneR,
     yaml
 Suggests: 
