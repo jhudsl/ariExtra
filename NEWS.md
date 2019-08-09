@@ -1,6 +1,7 @@
 # ariExtra 0.2.1
 
 * Trying to get on CRAN.
+* Output of `ari_document` is now a list of objects.
 
 # ariExtra 0.2.0
 
