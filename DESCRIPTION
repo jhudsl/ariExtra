@@ -12,7 +12,6 @@ Authors@R: c(person(given = "John",family = "Muschelli",
 License: GPL-3
 Imports:
     xml2,
-    rdom (>= 0.0.3.9001),
     httr,
     utils,
     ari (>= 0.2.2.1),
@@ -29,7 +28,8 @@ Imports:
 Suggests: 
     knitr,
     covr,
-    testthat
+    testthat,
+    rdom (>= 0.0.3.9001)    
 Encoding: UTF-8
 LazyData: true
 Remotes: hrbrmstr/docxtractr, cpsievert/rdom

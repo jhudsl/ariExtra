@@ -64,18 +64,22 @@ get_nslides_slidy = function(rendered_file) {
 get_nslides = function(slides) {
   ##### rendering
   rendered_file = tempfile(fileext = ".html")
-  {rdom::rdom(slides, filename = rendered_file); TRUE}
+  if (requireNamespace("rdom", quietly = TRUE)) {
+    {rdom::rdom(slides, filename = rendered_file); TRUE}
 
-  L = list(get_nslides_ioslides,
-           get_nslides_xaringan,
-           get_nslides_slidy)
-  n_slides_guess = vapply(L, function(x) x(rendered_file),
-                          FUN.VALUE = numeric(1))
-  n_slides_guess = stats::na.omit(n_slides_guess)
-  if (length(n_slides_guess) > 1) {
-    n_slides_guess = max(n_slides_guess)
-  }
-  if (length(n_slides_guess) == 0) {
+    L = list(get_nslides_ioslides,
+             get_nslides_xaringan,
+             get_nslides_slidy)
+    n_slides_guess = vapply(L, function(x) x(rendered_file),
+                            FUN.VALUE = numeric(1))
+    n_slides_guess = stats::na.omit(n_slides_guess)
+    if (length(n_slides_guess) > 1) {
+      n_slides_guess = max(n_slides_guess)
+    }
+    if (length(n_slides_guess) == 0) {
+      n_slides_guess = NA_real_
+    }
+  } else {
     n_slides_guess = NA_real_
   }
   return(n_slides_guess)
@@ -100,7 +104,6 @@ get_nslides = function(slides) {
 #'
 #' @importFrom rvest html_nodes html_attr html_text
 #' @importFrom xml2 read_html
-#' @importFrom rdom rdom
 #' @importFrom rmarkdown render
 #' @importFrom webshot webshot
 #' @importFrom stats na.omit
