@@ -109,7 +109,7 @@ gs_to_ari = function(
 #' if (!inherits(have_soffice, "try-error")) {
 #' res = pptx_to_ari(ex_file, open = FALSE)
 #' if (interactive()) {
-#' file.edit(res)
+#' file.edit(res$output_file)
 #' }
 #' }
 pptx_to_ari = function(

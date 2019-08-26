@@ -5,7 +5,8 @@
 \title{Convert a Rmd to an Ari Document}
 \usage{
 rmd_to_ari(path, script = NULL, capture_method = c("iterative",
-  "vectorized"), webshot_args = list(), ..., verbose = TRUE)
+  "vectorized"), capturer = c("webshot", "chrome_print"),
+  capturer_args = list(), ..., rendered_file = NULL, verbose = TRUE)
 }
 \arguments{
 \item{path}{path to Rmd file}
@@ -18,9 +19,14 @@ vectorized mode is faster though it can cause screens to repeat.
 If making a video from an \link[rmarkdown:ioslides_presentation]{rmarkdown::ioslides_presentation}
 you should use \code{"iterative"}.}
 
-\item{webshot_args}{a list of arguments to pass to \link[webshot:webshot]{webshot::webshot}}
+\item{capturer}{Methods for capturing the HTML slides}
+
+\item{capturer_args}{a list of arguments to pass to \link[webshot:webshot]{webshot::webshot} or
+\link[pagedown:chrome_print]{pagedown::chrome_print}}
 
 \item{...}{additional arguments to pass to \link{make_ari_document}}
+
+\item{rendered_file}{the HTML output already from \link{render}}
 
 \item{verbose}{print diagnostic messages}
 }
@@ -35,5 +41,16 @@ Convert a Rmd to an Ari Document
 path = system.file("extdata", "example.Rmd", package = "ariExtra")
 res = rmd_to_ari(path)
 res$output_file
+if (requireNamespace("xaringan", quietly = TRUE)) {
+   path  = system.file("examples", "lucy-demo.Rmd", package = "xaringan")
+   rendered_file = tempfile(fileext = ".html")
+   rmarkdown::render(path, output_format = xaringan::moon_reader(),
+   output_file = rendered_file)
+   testthat::expect_error({
+   res = rmd_to_ari(path, open = FALSE, rendered_file = rendered_file,
+   capture_method = "vectorized")
+   },
+   regexp = "> 0")
+}
 }
 }

@@ -95,9 +95,12 @@ get_nslides = function(slides) {
 #' vectorized mode is faster though it can cause screens to repeat.
 #' If making a video from an [rmarkdown::ioslides_presentation]
 #' you should use `"iterative"`.
-#' @param webshot_args a list of arguments to pass to [webshot::webshot]
+#' @param capturer_args a list of arguments to pass to [webshot::webshot] or
+#' [pagedown::chrome_print]
 #' @param ... additional arguments to pass to [make_ari_document]
+#' @param capturer Methods for capturing the HTML slides
 #' @param verbose print diagnostic messages
+#' @param rendered_file the HTML output already from [render]
 #'
 #' @return The output of [make_ari_document]
 #' @export
@@ -112,21 +115,42 @@ get_nslides = function(slides) {
 #' path = system.file("extdata", "example.Rmd", package = "ariExtra")
 #' res = rmd_to_ari(path)
 #' res$output_file
+#' if (requireNamespace("xaringan", quietly = TRUE)) {
+#'    path  = system.file("examples", "lucy-demo.Rmd", package = "xaringan")
+#'    rendered_file = tempfile(fileext = ".html")
+#'    rmarkdown::render(path, output_format = xaringan::moon_reader(),
+#'    output_file = rendered_file)
+#'    testthat::expect_error({
+#'    res = rmd_to_ari(path, open = FALSE, rendered_file = rendered_file,
+#'    capture_method = "vectorized")
+#'    },
+#'    regexp = "> 0")
+#' }
 #' }
 rmd_to_ari = function(
   path,
   script = NULL,
   capture_method = c("iterative", "vectorized"),
-  webshot_args = list(),
+  capturer = c("webshot", "chrome_print"),
+  capturer_args = list(),
   ...,
+  rendered_file = NULL,
   verbose = TRUE
 ) {
 
+  experimental = FALSE
   if (is.null(script)) {
     if (verbose) {
       message("Parsing HTML comments for script")
     }
+    # yml = partition_yaml_front_matter(readLines(path))
     paragraphs = parse_html_comments(path)
+    if (length(paragraphs) == 0) {
+      p2 = parse_xaringan_comments(path)
+      if (length(p2) > 0) {
+        paragraphs = p2
+      }
+    }
     script = tempfile(fileext = ".txt")
     if (verbose > 1) {
       message(paste0("script is at: ", script))
@@ -138,47 +162,78 @@ rmd_to_ari = function(
     paragraphs = readLines(script)
   }
 
+  capturer = match.arg(capturer)
   capture_method = match.arg(capture_method)
   if (!(capture_method %in% c("vectorized", "iterative"))) {
     stop('capture_method must be either "vectorized" or "iterative"')
   }
 
-  if (verbose) {
-    message("Rendering Rmd to HTML")
-  }
-  # render the HTML output
-  tfile = tempfile(fileext = ".html")
-  # need to figure out number of damn slides
-  # either /slide for ioslides or --- for xaringan
-  slides = rmarkdown::render(input = path, output_file = tfile)
+  if (is.null(rendered_file)) {
+    if (verbose) {
+      message("Rendering Rmd to HTML")
+    }
+    # render the HTML output
+    tfile = tempfile(fileext = ".html")
 
-  if (verbose) {
-    message("Getting the number of slides")
-  }
-  n_slides_guess = get_nslides(slides)
-  if (!is.na(n_slides_guess)) {
-    n_slides_guess = length(paragraphs)
-  }
-
-  if (n_slides_guess != length(paragraphs)) {
-    warning(
-      paste0(
-        "Number of slides don't seem to match the script",
-        ", use <!-- ; --> for slides with no comment"
-      )
-    )
+    # need to figure out number of damn slides
+    # either /slide for ioslides or --- for xaringan
+    slides = rmarkdown::render(input = path, output_file = tfile)
+  } else {
+    slides = rendered_file
   }
 
   # Get the links
   if (file.exists(slides)) {
     slides <- normalizePath(slides)
     if (.Platform$OS.type == "windows") {
-      slides <- paste0("file://localhost/", slides)
+      slides_url <- paste0("file://localhost/", slides)
     } else {
-      slides <- paste0("file://localhost", slides)
+      slides_url <- paste0("file://localhost", slides)
     }
   } else {
     stop("rendering the Rmd failed!")
+  }
+
+
+  if (capturer == "chrome_print") {
+    if (!requireNamespace("pagedown", quietly = TRUE)) {
+      stop("pagedown pacakge needed to use chrome_print")
+    }
+    pdf_file = tempfile(fileext = ".pdf")
+    args = as.list(capturer_args)
+    args$input = slides
+    args$output = pdf_file
+    args$verbose = as.numeric(verbose)
+    args$format = "pdf"
+    pdf_file = do.call(pagedown::chrome_print, args = args)
+    n_slides_guess = pdftools::pdf_info(pdf_file)$pages
+  } else {
+    if (verbose) {
+      message("Getting the number of slides")
+    }
+    if (experimental) {
+      pdf_file = tempfile(fileext = ".pdf")
+      args = as.list(capturer_args)
+      args$url = slides_url
+      args$file = pdf_file
+      args$delay = 2
+      do.call(webshot::webshot, args = args)
+      n_slides_guess = pdftools::pdf_info(pdf_file)$pages
+    } else {
+      n_slides_guess = get_nslides(slides)
+    }
+    if (is.na(n_slides_guess)) {
+      n_slides_guess = length(paragraphs)
+    }
+
+    if (n_slides_guess != length(paragraphs)) {
+      warning(
+        paste0(
+          "Number of slides don't seem to match the script",
+          ", use <!-- ; --> for slides with no comment"
+        )
+      )
+    }
   }
 
   # pngs = vapply()
@@ -187,20 +242,34 @@ rmd_to_ari = function(
     tempfile(fileext = ".png")
   })
 
-  if (verbose) {
-    message("Running webshot to make PNGs")
-  }
-  args = as.list(webshot_args)
-  if (capture_method == "vectorized") {
-    args$url = paste0(slides, "#", slide_nums)
-    args$file = img_paths
-    do.call(webshot::webshot, args = args)
-  } else {
-    for (i in slide_nums) {
-      args$url = paste0(slides, "#", i)
-      args$file = img_paths[i]
-      do.call(webshot::webshot, args = args)
+  if (capturer == "webshot") {
+    if (experimental) {
+      pdftools::pdf_convert(
+        pdf_file, dpi = 300,
+        format = "png", filenames = img_paths,
+        verbose = verbose)
+    } else {
+      if (verbose) {
+        message("Running webshot to make PNGs")
+      }
+      args = as.list(capturer_args)
+      if (capture_method == "vectorized") {
+        args$url = paste0(slides_url, "#", slide_nums)
+        args$file = img_paths
+        do.call(webshot::webshot, args = args)
+      } else {
+        for (i in slide_nums) {
+          args$url = paste0(slides_url, "#", i)
+          args$file = img_paths[i]
+          do.call(webshot::webshot, args = args)
+        }
+      }
     }
+  } else {
+    pdftools::pdf_convert(
+      pdf_file, dpi = 300,
+      format = "png", filenames = img_paths,
+      verbose = verbose)
   }
 
   make_ari_document(

@@ -1,5 +1,5 @@
 Package: ariExtra
-Version: 0.2.2
+Version: 0.2.3
 Title: Tools for Creating Automated Courses
 Description: Leverages the 'ari' package and other tools to create automated 
     courses from slides and a script.  Also, uploads these to 
@@ -29,7 +29,8 @@ Suggests:
     knitr,
     covr,
     testthat,
-    rdom (>= 0.0.3.9001)    
+    rdom (>= 0.0.3.9001),
+    pagedown
 Encoding: UTF-8
 LazyData: true
 Remotes: hrbrmstr/docxtractr, cpsievert/rdom
