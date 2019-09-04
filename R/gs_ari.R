@@ -1,5 +1,6 @@
 download_gs_file = function(id, out_type = "pptx") {
   id = as.character(id)
+  id = get_slide_id(id)
   url = type_url(id = id, page_id = NULL, type = out_type)
 
   tfile = tempfile(fileext = paste0(".", out_type))
@@ -139,7 +140,7 @@ pptx_to_ari = function(
 #' ex_file = system.file("extdata", "example.pdf", package = "ariExtra")
 #' res = pdf_to_ari(ex_file, script = c("hey", "ho"), open = FALSE)
 #' if (interactive()) {
-#' file.edit(res)
+#' file.edit(res$output_file)
 #' }
 pdf_to_ari = function(
   path,

@@ -53,6 +53,6 @@ file.edit(res$output_file)
 ex_file = system.file("extdata", "example.pdf", package = "ariExtra")
 res = pdf_to_ari(ex_file, script = c("hey", "ho"), open = FALSE)
 if (interactive()) {
-file.edit(res)
+file.edit(res$output_file)
 }
 }

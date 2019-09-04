@@ -33,6 +33,6 @@ remotes::install_github("muschellij2/ariExtra")
 ```{r, cache = TRUE}
 library(ariExtra)
 id = "1Opt6lv7rRi7Kzb9bI0u3SWX1pSz1k7botaphTuFYgNs"
-res = gs_to_ari(id, verbose = FALSE, voice = "Joanna", service = "amazon") 
-readLines(res)
+res = gs_to_ari(id, verbose = FALSE, voice = "Joanna", service = "amazon", open = FALSE) 
+readLines(res$output_file)
 ```

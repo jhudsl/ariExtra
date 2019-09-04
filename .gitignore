@@ -7,3 +7,4 @@ doc
 inst/doc
 .httr-oauth
 tests/testthat/googlesheets_token.rds
+README_cache/
