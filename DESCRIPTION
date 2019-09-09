@@ -30,7 +30,8 @@ Suggests:
     covr,
     testthat,
     rdom (>= 0.0.3.9001),
-    pagedown
+    pagedown,
+    rstudioapi
 Encoding: UTF-8
 LazyData: true
 Remotes: hrbrmstr/docxtractr, cpsievert/rdom

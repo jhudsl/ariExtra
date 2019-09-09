@@ -114,9 +114,20 @@ make_ari_document = function(
   rmd = c(yml, rmd)
   rmd = paste(rmd, collapse = "\n")
   writeLines(rmd, output_file)
+
   if (open) {
-    utils::file.edit(output_file)
+    if (requireNamespace("rstudioapi", quietly = TRUE)) {
+      if (rstudioapi::isAvailable() && rstudioapi::hasFun("navigateToFile")) {
+        rstudioapi::navigateToFile(output_file)
+      } else {
+        utils::file.edit(output_file)
+      }
+    } else {
+      utils::file.edit(output_file)
+
+    }
   }
+
   L = list(output_file = output_file,
            original_images = ximages,
            images = new_names,
