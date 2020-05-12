@@ -75,6 +75,42 @@ parse_html_comments <- function(path) {
 }
 
 
+parse_speak_comments <- function(path) {
+  lines_ <- readLines(path, warn = FALSE)
+  starts <- grep("```\\{speak", lines_)
+  ends <- grep("```\\s*$", lines_)
+  ends = sapply(starts, function(x) {
+    min(ends[ ends > x])
+  })
+
+  if (length(starts) != length(ends)) {
+    stop("There's a comment open/close mismatch.")
+  }
+  starts = starts + 1
+  ends = ends - 1
+
+  result <- rep(NA, length(starts))
+
+  for (i in seq_along(starts)) {
+    if (starts[i] == ends[i]) {
+      # Single line
+      result[i] <- lines_[starts[i]]
+    } else if (starts[i] < ends[i]) {
+      # nothing there
+    }  else {
+      # Multiple lines
+      result[i] <- paste(trimws(lines_[starts[i]:ends[i]]),
+                         collapse = " ")
+    }
+    result[i] <- sub("<!--", "", result[i])
+    result[i] <- sub("-->", "", result[i])
+  }
+  result[is.na(result)] = ""
+
+  trimws(result)
+}
+
+
 parse_xaringan_comments <- function(path) {
   lines_ <- readLines(path, warn = FALSE)
   lines_ = partition_yaml_front_matter(lines_)
@@ -96,7 +132,7 @@ parse_xaringan_comments <- function(path) {
 
   # if (comments_on_title_slide) {
   # added for title_slide
-    lines_ = c("---", lines_)
+  lines_ = c("---", lines_)
   # }
   starts <- grep("^\\?\\?\\?\\s*$", lines_)
   ends <- grep("^---\\s*$", lines_)
@@ -178,6 +214,87 @@ pptx_url = function(id) {
 }
 pdf_url = function(id) {
   type_url(id, page_id = NULL, type = "pdf")
+}
+
+#' @importFrom jsonlite fromJSON
+get_page_ids = function(id) {
+  id = get_slide_id(id)
+  url = paste0("https://docs.google.com/presentation/d/", id)
+  tfile = tempfile(fileext = ".html")
+  res = httr::GET(url, httr::write_disk(tfile))
+  httr::stop_for_status(res)
+  cr = httr::content(res)
+  script = rvest::html_nodes(cr, xpath ="//script")
+  script = rvest::html_text(script)
+  script = unique(script)
+  script = gsub("DOCS_modelChunk = undefined;", "", script)
+  script = script[ grepl("DOCS_modelChunk\\s=\\s\\[", x = script)]
+
+  all_types = c("PREDEFINED_LAYOUT_UNSPECIFIED",
+                "BLANK",
+                "CAPTION_ONLY",
+                "TITLE",
+                "TITLE_AND_BODY",
+                "TITLE_AND_TWO_COLUMNS",
+                "TITLE_ONLY",
+                "SECTION_HEADER",
+                "SECTION_TITLE_AND_DESCRIPTION",
+                "ONE_COLUMN_TEXT",
+                "MAIN_POINT",
+                "BIG_NUMBER",
+                paste0("CUSTOM_", 1:100))
+  types = paste0(all_types, collapse = "|")
+  # script = script[grepl(types, script)]
+  ss = strsplit(script, "; DOC")
+  ss = lapply(ss, trimws)
+  ss = lapply(ss, function(x) {
+    x[!grepl("^DOC", x)] = paste0(" DOC", x[!grepl("^DOC", x)])
+    x
+  })
+  ss = lapply(ss, function(x) {
+    x = x[grepl("^DOCS_modelChunk\\s=\\s\\[", x)]
+    x = x[ !x %in% "DOCS_modelChunk = undefined"]
+    x = sub("^DOCS_modelChunk\\s=\\s\\[", "[", x)
+    x
+  })
+  ss = unlist(ss)
+  pages = lapply(ss, jsonlite::fromJSON)
+  pages = sapply(pages, function(x) {
+    x = x[sapply(x, function(r) any(unlist(r) %in% all_types))]
+    x = x[length(x)]
+    x
+  })
+  pages = sapply(pages, function(x) {
+    if (length(x) < 2) {
+      if (length(x) == 0) {
+        return(NA)
+      }
+      x = x[[1]]
+      if (length(x) < 2) {
+        return(NA)
+      }
+    }
+    x[[2]]
+  })
+  pages = pages[ !is.na(pages) ]
+  if (length(pages) >= 2) {
+    pages = c(pages[1], grep("^g", pages[2:length(pages)], value = TRUE))
+  }
+  if (pages[1] != "p") {
+    pages = unique(c("p", pages))
+  }
+  urls = type_url(id = id, page_id = pages)
+  pages = pages[check_png_urls(urls)]
+  pages
+}
+
+check_png_urls = function(urls) {
+  res = vapply(urls, function(url) {
+    tfile = tempfile(fileext = ".png")
+    ret = httr::GET(url)
+    httr::status_code(ret) == 200
+  }, FUN.VALUE = logical(1))
+  return(res)
 }
 
 download_png_urls = function(urls) {

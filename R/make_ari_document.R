@@ -33,14 +33,22 @@ make_ari_document = function(
   verbose = TRUE) {
 
   if (is.null(output_file)) {
-    output_file = tempfile(fileext = ".md")
+    fext = ".md"
+    if (use_knitr) {
+      fext = ".Rmd"
+    }
+    output_file = tempfile(fileext = fext)
     if (verbose > 1) {
       message(paste0("output_file is: ", output_file))
     }
   }
   stopifnot(length(output_file) == 1)
   ext = tools::file_ext(output_file)
-  stopifnot(tolower(ext) %in% "md")
+  if (use_knitr) {
+    stopifnot(tolower(ext) %in% c("md", "rmd"))
+  } else {
+    stopifnot(tolower(ext) %in% "md")
+  }
   stub = basename(tools::file_path_sans_ext(output_file))
 
   stopifnot(length(images) > 0)
@@ -88,11 +96,18 @@ make_ari_document = function(
   xscript = script
   # for ioslides
   seps = rep("\n----------\n", length(images))
-  script = paste0("<!--", script, "-->")
+  if (use_knitr) {
+    script = paste0('```{speak speak_', seq_along(script),
+                    ', echo = FALSE, results = "hide", cache = TRUE}\n',
+                    script,
+                    "\n```\n")
+  } else {
+    script = paste0("<!--", script, "-->")
+  }
   # consider ```{r slide\#1, echo = FALSE, out.width="100%"}
   # paste0('knitr::include_graphics("', images, '")')
   # ```\n
-  knitr_images = paste0('```{r slide', seq_along(images),
+  knitr_images = paste0('```{r slide_', seq_along(images),
                         ', echo = FALSE, out.width="100%"}\n',
                         paste0('knitr::include_graphics("', images, '")\n'),
                         "```\n")
@@ -111,6 +126,13 @@ make_ari_document = function(
   }
   yml = yaml::as.yaml(L)
   yml = paste0("---\n", yml, "---\n")
+  if (use_knitr) {
+    add_speak = paste0(
+      '```{r speak_setup, echo = FALSE, results = "hide"}\n',
+      'knitr::knit_engines$set(speak = text2speech::tts_speak_engine)',
+      "\n```\n\n")
+    yml = c(yml, add_speak)
+  }
   rmd = c(yml, rmd)
   rmd = paste(rmd, collapse = "\n")
   writeLines(rmd, output_file)

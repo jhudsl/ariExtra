@@ -2,15 +2,24 @@
 % Please edit documentation in R/gs_ari.R
 \name{gs_to_ari}
 \alias{gs_to_ari}
+\alias{pptx_to_pdf}
+\alias{pptx_to_pngs}
 \alias{pptx_to_ari}
 \alias{pdf_to_ari}
+\alias{pdf_to_pngs}
 \title{Convert Google Slides and notes to video with ari}
 \usage{
 gs_to_ari(path, script = NULL, ..., verbose = TRUE)
 
+pptx_to_pdf(path, verbose = TRUE)
+
+pptx_to_pngs(path, verbose = TRUE, dpi = 600)
+
 pptx_to_ari(path, script = NULL, ..., verbose = TRUE)
 
 pdf_to_ari(path, script = NULL, dpi = 300, ..., verbose = TRUE)
+
+pdf_to_pngs(path, verbose = TRUE, dpi = 600)
 }
 \arguments{
 \item{path}{Identifier of google slides presentation, or PPTX filename}
@@ -45,6 +54,7 @@ testthat::expect_error(res = gs_to_ari(bad_id))
 ex_file = system.file("extdata", "example.pptx", package = "ariExtra")
 have_soffice = try(docxtractr:::lo_assert())
 if (!inherits(have_soffice, "try-error")) {
+pngs = pptx_to_pngs(ex_file)
 res = pptx_to_ari(ex_file, open = FALSE)
 if (interactive()) {
 file.edit(res$output_file)

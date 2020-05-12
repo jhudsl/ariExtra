@@ -8,8 +8,11 @@ ari_document = function(...) {
   pre_knit <- function(input) {
     # saved_files_dir <<- files_dir
     # get the output
+    ext = tolower(tools::file_ext(input))
     stub = tools::file_path_sans_ext(input)
-    yaml = yaml::read_yaml(file = input)
+    # yaml = yaml::read_yaml(file = input)
+    yaml = partition_yaml_front_matter(readLines(input))
+    yaml = yaml::read_yaml(text = yaml$front_matter)
     L = c(
       yaml$output$`ariExtra::ari_document`$output,
       yaml$output$ari_document$output)
@@ -29,7 +32,11 @@ ari_document = function(...) {
 
 
     x = readLines(input, warn = FALSE)
-    paragraphs <- parse_html_comments(input)
+    if (ext %in% "rmd") {
+      paragraphs <- parse_speak_comments(input)
+    } else {
+      paragraphs <- parse_html_comments(input)
+    }
     x = sub("^\\s*knitr::", "", x)
     img_ind = grepl("(^!\\s*\\[.*\\]\\s*\\(|include_graphics\\()", x)
     if (sum(img_ind) == 0) {
@@ -159,3 +166,5 @@ ari_document = function(...) {
     post_processor = post_processor,
     pre_knit = pre_knit)
 }
+
+

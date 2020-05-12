@@ -100,6 +100,37 @@ gs_to_ari = function(
 }
 
 
+#' @rdname gs_to_ari
+#' @export
+pptx_to_pdf = function(path, verbose = TRUE) {
+  pdf_file = tempfile(fileext = ".pdf")
+  if (verbose) {
+    message("Converting PPTX to PDF")
+  }
+  docxtractr::convert_to_pdf(path, pdf_file = pdf_file)
+  if (verbose > 1) {
+    message(paste0("PDF is at: ", pdf_file))
+  }
+  return(pdf_file)
+}
+
+#' @rdname gs_to_ari
+#' @export
+pptx_to_pngs = function(path, verbose = TRUE, dpi = 600) {
+  pdf_file = pptx_to_pdf(path = path, verbose = verbose)
+  fmts = pdftools::poppler_config()$supported_image_formats
+  if (!"png" %in% fmts) {
+    stop(paste0("PNG is not in ",
+                "pdftools::poppler_config()$supported_image_formats",
+                ", see pdftools::pdf_convert for options")
+    )
+  }
+  pdf_to_pngs(
+    path = pdf_file,
+    verbose = verbose,
+    dpi = dpi)
+}
+
 #' @export
 #' @rdname gs_to_ari
 #' @param script passed to [make_ari_document()]
@@ -108,6 +139,7 @@ gs_to_ari = function(
 #' ex_file = system.file("extdata", "example.pptx", package = "ariExtra")
 #' have_soffice = try(docxtractr:::lo_assert())
 #' if (!inherits(have_soffice, "try-error")) {
+#' pngs = pptx_to_pngs(ex_file)
 #' res = pptx_to_ari(ex_file, open = FALSE)
 #' if (interactive()) {
 #' file.edit(res$output_file)
@@ -120,16 +152,12 @@ pptx_to_ari = function(
   verbose = TRUE) {
 
   script = get_pptx_script(path, script = NULL, verbose = verbose)
-  pdf_file = tempfile(fileext = ".pdf")
-  if (verbose) {
-    message("Converting PPTX to PDF")
-  }
-  docxtractr::convert_to_pdf(path, pdf_file = pdf_file)
-  if (verbose > 1) {
-    message(paste0("PDF is at: ", pdf_file))
-  }
+  pdf_file = pptx_to_pdf(path, verbose = verbose)
   pdf_to_ari(pdf_file, script = script, ..., verbose = verbose)
 }
+
+
+
 
 
 #' @param dpi resolution (dots per inch) to render images
@@ -149,6 +177,15 @@ pdf_to_ari = function(
   ...,
   verbose = TRUE){
   stopifnot(!is.null(script))
+  pngs = pdf_to_pngs(path = path, dpi = dpi, verbose = verbose)
+  make_ari_document(pngs, script = script, ..., verbose = verbose)
+}
+
+#' @rdname gs_to_ari
+#' @export
+pdf_to_pngs = function(
+  path, verbose = TRUE,
+  dpi = 600) {
   fmts = pdftools::poppler_config()$supported_image_formats
   if ("png" %in% fmts) {
     format = "png"
@@ -166,5 +203,5 @@ pdf_to_ari = function(
     pdf = path, dpi = dpi,
     format = format, filenames = filenames,
     verbose = as.logical(verbose))
-  make_ari_document(pngs, script = script, ..., verbose = verbose)
+  pngs
 }
