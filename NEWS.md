@@ -1,3 +1,7 @@
+# ariExtra 0.2.6
+
+* Added generic function of `to_ari` which guesses the inputs.
+
 # ariExtra 0.2.2
 
 * Added `pngs_to_ari`.

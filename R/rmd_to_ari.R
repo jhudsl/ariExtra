@@ -208,6 +208,9 @@ rmd_to_ari = function(
     pdf_file = do.call(pagedown::chrome_print, args = args)
     n_slides_guess = pdftools::pdf_info(pdf_file)$pages
   } else {
+    if (!requireNamespace("webshot", quietly = TRUE)) {
+      stop("webshot pacakge needed to use webshot")
+    }
     if (verbose) {
       message("Getting the number of slides")
     }

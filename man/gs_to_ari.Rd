@@ -7,6 +7,8 @@
 \alias{pptx_to_ari}
 \alias{pdf_to_ari}
 \alias{pdf_to_pngs}
+\alias{images_to_ari}
+\alias{to_ari}
 \title{Convert Google Slides and notes to video with ari}
 \usage{
 gs_to_ari(path, script = NULL, ..., verbose = TRUE)
@@ -20,6 +22,10 @@ pptx_to_ari(path, script = NULL, ..., verbose = TRUE)
 pdf_to_ari(path, script = NULL, dpi = 300, ..., verbose = TRUE)
 
 pdf_to_pngs(path, verbose = TRUE, dpi = 600)
+
+images_to_ari(path, script = NULL, dpi = 300, ..., verbose = TRUE)
+
+to_ari(path, script = NULL, ..., verbose = TRUE)
 }
 \arguments{
 \item{path}{Identifier of google slides presentation, or PPTX filename}
@@ -45,6 +51,7 @@ res = gs_to_ari(id, verbose = 2, open = FALSE)
 if (interactive()) {
 file.edit(res$output_file)
 }
+res2 = to_ari(id, open = FALSE)
 }
 
 
@@ -59,10 +66,12 @@ res = pptx_to_ari(ex_file, open = FALSE)
 if (interactive()) {
 file.edit(res$output_file)
 }
+res2 = to_ari(ex_file, open = FALSE)
 }
 ex_file = system.file("extdata", "example.pdf", package = "ariExtra")
 res = pdf_to_ari(ex_file, script = c("hey", "ho"), open = FALSE)
 if (interactive()) {
 file.edit(res$output_file)
 }
+res2 = to_ari(ex_file,  script = c("hey", "ho"), open = FALSE)
 }

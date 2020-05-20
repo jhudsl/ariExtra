@@ -62,6 +62,7 @@ get_pptx_script = function(path, script = NULL, verbose = TRUE) {
 #' if (interactive()) {
 #' file.edit(res$output_file)
 #' }
+#' res2 = to_ari(id, open = FALSE)
 #' }
 #'
 #'
@@ -144,6 +145,7 @@ pptx_to_pngs = function(path, verbose = TRUE, dpi = 600) {
 #' if (interactive()) {
 #' file.edit(res$output_file)
 #' }
+#' res2 = to_ari(ex_file, open = FALSE)
 #' }
 pptx_to_ari = function(
   path,
@@ -170,6 +172,7 @@ pptx_to_ari = function(
 #' if (interactive()) {
 #' file.edit(res$output_file)
 #' }
+#' res2 = to_ari(ex_file,  script = c("hey", "ho"), open = FALSE)
 pdf_to_ari = function(
   path,
   script = NULL,
@@ -204,4 +207,73 @@ pdf_to_pngs = function(
     format = format, filenames = filenames,
     verbose = as.logical(verbose))
   pngs
+}
+
+#' @rdname gs_to_ari
+#' @export
+images_to_ari = function(
+  path,
+  script = NULL,
+  dpi = 300,
+  ...,
+  verbose = TRUE){
+  make_ari_document(path, script = script, ..., verbose = verbose)
+}
+
+
+guess_ari_function = function(path) {
+  to_ari_function = NULL
+  if (length(path) > 1) {
+    to_ari_function = "images_to_ari"
+  } else {
+    # bn = tolower(basename(path))
+    is_file = file.exists(path)
+    is_url = grepl("^(http|www|google)", tolower(path))
+
+    # can you allow for "*.mat" - shouldn't be gs
+    if (is_url ||
+        (!is_file && nchar(path) < 50) && !grepl("[*]", path)) {
+      to_ari_function = "gs_to_ari"
+    } else {
+      btype = mime::guess_type(path)
+      btype = tolower(basename(btype))
+      if (btype %in% "pdf") {
+        to_ari_function = "pdf_to_ari"
+      }
+      if (btype %in% c("x-markdown", "markdown")) {
+        to_ari_function = "rmd_to_ari"
+      }
+      # video stuff
+      if (btype %in% c("mp4", "x-msvideo", "x-matroska",
+                       "mpeg", "quicktime")) {
+        to_ari_function = "images_to_ari"
+      }
+      if (any(grepl("officedocument.presentation", btype))) {
+        to_ari_function = "pptx_to_ari"
+      }
+    }
+  }
+  if (is.null(to_ari_function)) {
+    stop(
+      paste0("ari function cannot be guess",
+             " by input path object",
+             ", please use function directly")
+    )
+  }
+  to_ari_function
+}
+
+#' @rdname gs_to_ari
+#' @export
+to_ari = function(path,
+                  script = NULL,
+                  ...,
+                  verbose = TRUE) {
+
+  to_ari_function = guess_ari_function(path)
+  args = list(path = path,
+              script = script,
+              ...,
+              verbose = verbose)
+  do.call(to_ari_function, args = args)
 }

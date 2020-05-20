@@ -50,9 +50,11 @@ Make an ari documnt
 \examples{
 images = system.file("extdata", c("example_1.png", "example_2.png"),
 package = "ariExtra")
-res = make_ari_document(images, script = c("asfd", "asdf"))
+res = make_ari_document(images, script = c("hello", "how are you"))
 res$output_file
-res = make_ari_document(images, script = c("asfd", "asdf"),
+res = make_ari_document(images, script = c("hello", "how are you"),
 use_knitr = TRUE)
 res$output_file
+
+res = to_ari(images, script = c("hello", "how are you"), open = FALSE)
 }
