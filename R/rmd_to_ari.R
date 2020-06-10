@@ -77,11 +77,13 @@ get_nslides = function(slides) {
     }
   }
 
-  rendered_file = tempfile(fileext = ".html")
-  have_rdom = requireNamespace("rdom", quietly = TRUE)
+  # rendered_file = tempfile(fileext = ".html")
+  # have_rdom = requireNamespace("rdom", quietly = TRUE)
+  have_rdom = TRUE
   if (have_rdom) {
-    args = list(url = slides, filename = rendered_file)
-    do.call("rdom::rdom", args = args)
+    rendered_file = slides
+    # args = list(url = slides, filename = rendered_file)
+    # do.call("rdom::rdom", args = args)
 
     L = list(get_nslides_ioslides,
              get_nslides_xaringan,
@@ -146,7 +148,8 @@ rmd_to_ari = function(
   path,
   script = NULL,
   capture_method = c("iterative", "vectorized"),
-  capturer = c("webshot", "chrome_print"),
+  capturer = c("chrome_print",
+               "webshot"),
   capturer_args = list(),
   ...,
   rendered_file = NULL,
