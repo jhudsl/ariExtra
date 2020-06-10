@@ -1,4 +1,4 @@
-#' Make an ari documnt
+#' Make an ari document
 #'
 #' @param images a vector of paths to images.
 #' @param script a file or vector strings that will be spoken

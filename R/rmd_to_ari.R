@@ -63,9 +63,25 @@ get_nslides_slidy = function(rendered_file) {
 
 get_nslides = function(slides) {
   ##### rendering
+  rendered_file = tempfile(fileext = ".pdf")
+  have_pagedown = requireNamespace("pagedown",
+                                   quietly = TRUE)
+  if (have_pagedown) {
+    pagedown::chrome_print(input = slides,
+                           output = rendered_file)
+    n_slides = pdftools::pdf_info(rendered_file)$pages
+    if (!is.na(n_slides) &&
+        !is.null(n_slides) &&
+        n_slides > 0) {
+      return(n_slides)
+    }
+  }
+
   rendered_file = tempfile(fileext = ".html")
-  if (requireNamespace("rdom", quietly = TRUE)) {
-    {rdom::rdom(slides, filename = rendered_file); TRUE}
+  have_rdom = requireNamespace("rdom", quietly = TRUE)
+  if (have_rdom) {
+    args = list(url = slides, filename = rendered_file)
+    do.call("rdom::rdom", args = args)
 
     L = list(get_nslides_ioslides,
              get_nslides_xaringan,
@@ -108,7 +124,6 @@ get_nslides = function(slides) {
 #' @importFrom rvest html_nodes html_attr html_text
 #' @importFrom xml2 read_html
 #' @importFrom rmarkdown render
-#' @importFrom webshot webshot
 #' @importFrom stats na.omit
 #'
 #' @examples \dontrun{

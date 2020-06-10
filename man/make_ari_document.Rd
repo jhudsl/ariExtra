@@ -3,7 +3,7 @@
 \name{make_ari_document}
 \alias{make_ari_document}
 \alias{pngs_to_ari}
-\title{Make an ari documnt}
+\title{Make an ari document}
 \usage{
 make_ari_document(
   images,
@@ -45,7 +45,7 @@ pngs_to_ari(
 A path to the document
 }
 \description{
-Make an ari documnt
+Make an ari document
 }
 \examples{
 images = system.file("extdata", c("example_1.png", "example_2.png"),

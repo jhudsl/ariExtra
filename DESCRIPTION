@@ -31,17 +31,18 @@ Suggests:
     knitr,
     covr,
     testthat,
-    rdom (>= 0.0.3.9001),
+    rdom (>= 0.0.4),
     pagedown,
     webshot,
     rstudioapi
 Encoding: UTF-8
 LazyData: true
-Remotes: hrbrmstr/docxtractr, cpsievert/rdom
 ByteCompile: true
 Type: Package
 VignetteBuilder: knitr
 URL: https://github.com/muschellij2/ariExtra
 BugReports: https://github.com/muschellij2/ariExtra/issues
 RoxygenNote: 7.1.0
+Additional_repositories: The rdom package is available
+  at https://github.com/cpsievert/rdom. 
 Roxygen: list(markdown = TRUE)
