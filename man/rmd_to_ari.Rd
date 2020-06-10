@@ -8,7 +8,7 @@ rmd_to_ari(
   path,
   script = NULL,
   capture_method = c("iterative", "vectorized"),
-  capturer = c("webshot", "chrome_print"),
+  capturer = c("chrome_print", "webshot"),
   capturer_args = list(),
   ...,
   rendered_file = NULL,
