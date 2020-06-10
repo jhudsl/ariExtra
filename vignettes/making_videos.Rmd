@@ -17,13 +17,13 @@ knitr::opts_chunk$set(
 
 ## Making videos with `ari`: `ari_stitch`
 
-The main workhorse of **ari** is the `ari_stitch` function.  This function 
+The main workhorse of **`ari`** is the `ari_stitch` function.  This function 
 requires an ordered set of images and an ordered set of audio 
-objects, either paths to `wav` files or **tuneR** Wave objects, that correspond to each image. The `ari_stitch` function sequentially 
-"stitches" each image in the video for the duration of its corresponding audio object using `ffmpeg`.  In order to use **ari**, one must
-have an `ffmpeg` installation to combine the audio and images. Other packages such as **animation** have a similar requirement.  Moreover, on [shinyapps.io]( https://www.shinyapps.io/), a dependency on the **animation** 
-package will trigger an installation of `ffmpeg` so **ari** 
-can be used on [shinyapps.io](https://www.shinyapps.io/).  In the example below, 2 images (packaged with **ari**) are overlaid withe white noise for
+objects, either paths to `wav` files or **`tuneR`** Wave objects, that correspond to each image. The `ari_stitch` function sequentially 
+"stitches" each image in the video for the duration of its corresponding audio object using `ffmpeg`.  In order to use **`ari`**, one must
+have an `ffmpeg` installation to combine the audio and images. Other packages such as **`animation`** have a similar requirement.  Moreover, on [shinyapps.io]( https://www.shinyapps.io/), a dependency on the **`animation`** 
+package will trigger an installation of `ffmpeg` so **`ari`** 
+can be used on [shinyapps.io](https://www.shinyapps.io/).  In the example below, 2 images (packaged with **`ari`**) are overlaid withe white noise for
 demonstration.  This example also allows users to check if the output of `ffmpeg` works with a desired video player.
 
 ```{r stitch_run, message = FALSE, echo = FALSE, eval = TRUE}
@@ -48,7 +48,7 @@ basename(attributes(result)$outfile)
 
 The video for this output can be seen at https://youtu.be/3kgaYf-EV90.  
 
-In **ariExtra**, you 
+In **`ariExtra`**, you 
 ```{r stitch_extra, message = FALSE, echo = FALSE, eval = TRUE}
 library(tuneR)
 library(ari)
@@ -61,8 +61,8 @@ readLines(result$output_file)
 
 ## Synthesizer authentication
 
-The above example uses `tuneR::noise()` to generate audio and to show that any audio object can be used with **ari**. 
-In most cases however, **ari** 
+The above example uses `tuneR::noise()` to generate audio and to show that any audio object can be used with **`ari`**. 
+In most cases however, **`ari`** 
 is most useful when combined with synthesizing audio using a text-to-speech 
 system. Though one can generate the spoken audio in many ways, such as 
 fitting a custom deep learning model, we will focus on using the 
@@ -72,8 +72,8 @@ go through steps to provide authentication, whereas most of these APIs
 and the associated R packages do not allow for interactive authentication 
 such as OAuth.  
 
-The **text2speech** package provides a unified interface to these 3
-text-to-speech services, and we will focus on Amazon Polly and its authentication requirements.  Polly is authenticated using the **aws.signature** package.  The **aws.signature** documentation provides options and steps to create the relevant credentials; we have also provided an additional
+The **`text2speech`** package provides a unified interface to these 3
+text-to-speech services, and we will focus on Amazon Polly and its authentication requirements.  Polly is authenticated using the **`aws.signature`** package.  The **`aws.signature`** documentation provides options and steps to create the relevant credentials; we have also provided an additional
 [tutorial](http://seankross.com/2017/05/02/Access-Amazon-Web-Services-in-R.html).  Essentially, the user must sign up for the service and retrieve public and 
 private API keys and put them into their R profile or other areas accessible to R. Running `text2speech::tts_auth(service = "amazon")` will indicate if 
 authentication was successful (if using a different service, change the 
@@ -93,11 +93,11 @@ needs to be equal to the number of images.
 ### Creating Videos from R Markdown Documents
 
 Many R users have experience creating slide decks with R Markdown, for 
-example using the **rmarkdown** or 
-**xaringan** packages.  In **ari**, the HTML slides 
-are rendered using **webshot** and the script is located 
+example using the **`rmarkdown`** or 
+**`xaringan`** packages.  In **ari**, the HTML slides 
+are rendered using **`webshot`** and the script is located 
 in HTML comments (i.e. between `<!--` and `-->`).  For example, in the 
-file `ari_comments.Rmd` included in **ari**, which is an `ioslides` type of R Markdown slide 
+file `ari_comments.Rmd` included in **`ari`**, which is an `ioslides` type of R Markdown slide 
 deck, we have the last slide:
 
 ```{r}
@@ -125,23 +125,23 @@ result = ariExtra::rmd_to_ari(
 
 The output video is located at https://youtu.be/rv9fg_qsqc0. In our 
 experience with several users we have found that some HTML slides take 
-more or less time to render when using **webshot**; for example they may 
+more or less time to render when using **`webshot`**; for example they may 
 be tinted with gray because they are in the middle of a slide transition when 
 the image of the slide is captured.  Therefore we provide the `delay` argument 
-in `ari_narrate` which is passed to **webshot**. This can resolve these 
+in `ari_narrate` which is passed to **`webshot`**. This can resolve these 
 issues by allowing more time for the page to fully render, however this 
 means it may take for more time to create each video.  We also provide 
 the argument `capture_method`  to allow for finely-tuned control of 
-`webshot`. When `capture_method = "vectorized"`, **webshot** is 
+`webshot`. When `capture_method = "vectorized"`, **`webshot`** is 
 run on the entire slide deck in a faster process, however we have 
 experienced slide rendering issues with this setting depending on the 
 configuration of an individual's computer. However when 
 `capture_method = "iterative"`, each slide is rendered individually 
 in `webshot`, which solves many rendering issues, however it causes 
 videos to be rendered more slowly.  
-In the future, other HTML headless rendering engines (`webshot` uses PhantomJS) may be used if they achieve better performance, but we have found **webshot** to work well in most of our applications.
+In the future, other HTML headless rendering engines (`webshot` uses `PhantomJS`) may be used if they achieve better performance, but we have found **`webshot`** to work well in most of our applications.
 
-With respect to accessibility, **ari** encourages video creators to 
+With respect to accessibility, **`ari`** encourages video creators to 
 type out a script by design. This provides an effortless source of subtitles 
 for people with hearing loss rather than relying on other services, such as
 YouTube, to provide speech-to-text subtitles.  When using `ari_spin`, if the
@@ -151,7 +151,7 @@ with the video.
 One issue with synthesis of technical information is that changes to the script 
 are required for Amazon Polly or other services to provide a correct 
 pronunciation.  For example, if you want the service to say "RStudio" or 
-"ggplot2", the phrases "R Studio" or "g g plot 2" must be written exactly 
+"`ggplot2`", the phrases "R Studio" or "g g plot 2" must be written exactly 
 that way in the script. These phrases will then appear in an SRT subtitle 
 file, which may be confusing to a viewer.  Thus, some post-processing of the SRT file may be needed. 
 
@@ -162,14 +162,14 @@ presentation, the slides should be converted to a set of images. We
 recommend using the PNG format for these images.  In order to get the 
 script for the video, we suggest putting the script for each slide in 
 the speaker notes section of that slide. Several of the following features 
-for video generation are in our package **ariExtra**
+for video generation are in our package **`ariExtra`**
 (https://github.com/muschellij2/ariExtra).  The speaker notes of slides can 
-be extracted using **rgoogleslides**  for Google 
-Slides via the API or using **readOffice**/**officer** 
- to read from PowerPoint documents. Google Slides can be downloaded as a PDF and converted to PNGs using the **pdftools** 
-package.  The **ariExtra** package also has a `pptx_notes` 
+be extracted using **`rgoogleslides`**  for Google 
+Slides via the API or using **`readOffice`**/**`officer`** 
+ to read from PowerPoint documents. Google Slides can be downloaded as a PDF and converted to PNGs using the **`pdftools`** 
+package.  The **`ariExtra`** package also has a `pptx_notes` 
 function for reading PowerPoint notes. Converting PowerPoint files to 
-PDF can be done using LibreOffice and the **docxtractr** package which contains the necessary wrapper functions.
+PDF can be done using LibreOffice and the **`docxtractr`** package which contains the necessary wrapper functions.
 
 To demonstrate this, we use an example PowerPoint is located on Figshare (https://figshare.com/articles/Example_PowerPoint_for_ari/8865230).  We can convert the PowerPoint to PDF, then to a set of PNG images, then extract the speaker notes.
 
@@ -203,7 +203,7 @@ gs_doc[c("images", "script")]
 Note, as Google provides a PDF version of the slides, this obviates the LibreOffice dependency.
 
 Alternatively, the notes can be extracted using
-**rgoogleslides** and for Google Slides via the API, but requires authentication, so we will omit it here.  Thus, we should be able to create 
+**`rgoogleslides`** and for Google Slides via the API, but requires authentication, so we will omit it here.  Thus, we should be able to create 
 videos using R Markdown, Google Slides, or PowerPoint presentations in an 
 automatic fashion.
 
