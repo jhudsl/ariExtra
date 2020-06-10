@@ -14,7 +14,7 @@ Imports:
     xml2,
     httr,
     utils,
-    ari (>= 0.2.2.1),
+    ari (>= 0.2.3),
     rmarkdown,
     pdftools,
     rvest,

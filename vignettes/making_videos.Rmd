@@ -1,5 +1,5 @@
 ---
-title: "Using ari to make videos"
+title: "Using `ari` to make videos"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Using ari to make videos}
@@ -94,7 +94,7 @@ needs to be equal to the number of images.
 
 Many R users have experience creating slide decks with R Markdown, for 
 example using the **`rmarkdown`** or 
-**`xaringan`** packages.  In **ari**, the HTML slides 
+**`xaringan`** packages.  In **`ari`**, the HTML slides 
 are rendered using **`webshot`** and the script is located 
 in HTML comments (i.e. between `<!--` and `-->`).  For example, in the 
 file `ari_comments.Rmd` included in **`ari`**, which is an `ioslides` type of R Markdown slide 
