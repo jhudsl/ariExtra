@@ -186,6 +186,36 @@ pdf_to_ari = function(
 
 #' @rdname gs_to_ari
 #' @export
+html_to_ari = function(
+  path,
+  script = NULL,
+  ...,
+  verbose = TRUE
+) {
+
+  if (!requireNamespace("pagedown", quietly = TRUE)) {
+    stop(
+      paste0("pagedown pacakge needed to use chrome_print",
+             " for html_to_ari")
+    )
+  }
+  pdf_file = tempfile(fileext = ".pdf")
+  args$input = path
+  args$output = pdf_file
+  args$verbose = as.numeric(verbose)
+  args$format = "pdf"
+  pdf_file = do.call(pagedown::chrome_print, args = args)
+  n_slides_guess = pdftools::pdf_info(pdf_file)$pages
+
+  pdf_to_ari(
+    path = pdf_file,
+    script = script,
+    ..., verbose = verbose)
+}
+
+
+#' @rdname gs_to_ari
+#' @export
 pdf_to_pngs = function(
   path, verbose = TRUE,
   dpi = 600) {
@@ -239,6 +269,9 @@ guess_ari_function = function(path) {
       btype = tolower(basename(btype))
       if (btype %in% "pdf") {
         to_ari_function = "pdf_to_ari"
+      }
+      if (btype %in% "html") {
+        to_ari_function = "html_to_ari"
       }
       if (btype %in% c("x-markdown", "markdown")) {
         to_ari_function = "rmd_to_ari"

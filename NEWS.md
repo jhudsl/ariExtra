@@ -1,3 +1,7 @@
+# ariExtra 0.2.7
+
+* Added function of `html_to_ari` to take rendered html to ari, needing a script.
+
 # ariExtra 0.2.6
 
 * Added generic function of `to_ari` which guesses the inputs.

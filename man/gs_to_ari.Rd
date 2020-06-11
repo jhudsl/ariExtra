@@ -6,6 +6,7 @@
 \alias{pptx_to_pngs}
 \alias{pptx_to_ari}
 \alias{pdf_to_ari}
+\alias{html_to_ari}
 \alias{pdf_to_pngs}
 \alias{images_to_ari}
 \alias{to_ari}
@@ -20,6 +21,8 @@ pptx_to_pngs(path, verbose = TRUE, dpi = 600)
 pptx_to_ari(path, script = NULL, ..., verbose = TRUE)
 
 pdf_to_ari(path, script = NULL, dpi = 300, ..., verbose = TRUE)
+
+html_to_ari(path, script = NULL, ..., verbose = TRUE)
 
 pdf_to_pngs(path, verbose = TRUE, dpi = 600)
 
