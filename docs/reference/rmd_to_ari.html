@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ariExtra</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.7</span>
       </span>
     </div>
 
@@ -192,18 +192,36 @@ you should use <code>"iterative"</code>.</p></td>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
 <span class='no'>path</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"example.Rmd"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"ariExtra"</span>)
-<span class='no'>res</span> <span class='kw'>=</span> <span class='fu'>rmd_to_ari</span>(<span class='no'>path</span>)
+<span class='no'>res</span> <span class='kw'>=</span> <span class='fu'>rmd_to_ari</span>(<span class='no'>path</span>, <span class='kw'>open</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 <span class='no'>res</span>$<span class='no'>output_file</span>
 <span class='kw'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/ns-load.html'>requireNamespace</a></span>(<span class='st'>"xaringan"</span>, <span class='kw'>quietly</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)) {
    <span class='no'>path</span>  <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"examples"</span>, <span class='st'>"lucy-demo.Rmd"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"xaringan"</span>)
+   <span class='no'>script</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"this"</span>, <span class='st'>"is"</span>, <span class='st'>"one"</span>, <span class='st'>"word"</span>, <span class='st'>"per slide"</span>)
    <span class='no'>rendered_file</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span>(<span class='kw'>fileext</span> <span class='kw'>=</span> <span class='st'>".html"</span>)
+
    <span class='kw pkg'>rmarkdown</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/rmarkdown/man/render.html'>render</a></span>(<span class='no'>path</span>, <span class='kw'>output_format</span> <span class='kw'>=</span> <span class='kw pkg'>xaringan</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/xaringan/man/moon_reader.html'>moon_reader</a></span>(),
    <span class='kw'>output_file</span> <span class='kw'>=</span> <span class='no'>rendered_file</span>)
    <span class='kw pkg'>testthat</span><span class='kw ns'>::</span><span class='fu'><a href='https://testthat.r-lib.org/reference/expect_error.html'>expect_error</a></span>({
-   <span class='no'>res</span> <span class='kw'>=</span> <span class='fu'>rmd_to_ari</span>(<span class='no'>path</span>, <span class='kw'>open</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>rendered_file</span> <span class='kw'>=</span> <span class='no'>rendered_file</span>,
+   <span class='no'>res</span> <span class='kw'>=</span> <span class='fu'>rmd_to_ari</span>(<span class='no'>path</span>, <span class='kw'>open</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+   <span class='kw'>rendered_file</span> <span class='kw'>=</span> <span class='no'>rendered_file</span>,
+   <span class='kw'>capturer</span> <span class='kw'>=</span> <span class='st'>"webshot"</span>,
    <span class='kw'>capture_method</span> <span class='kw'>=</span> <span class='st'>"vectorized"</span>)
    },
-   <span class='kw'>regexp</span> <span class='kw'>=</span> <span class='st'>"&gt; 0"</span>)
+   <span class='kw'>regexp</span> <span class='kw'>=</span> <span class='st'>"Failed to generate"</span>)
+
+   <span class='kw pkg'>testthat</span><span class='kw ns'>::</span><span class='fu'><a href='https://testthat.r-lib.org/reference/expect_error.html'>expect_error</a></span>({
+   <span class='no'>res</span> <span class='kw'>=</span> <span class='fu'>rmd_to_ari</span>(<span class='no'>path</span>, <span class='kw'>open</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+   <span class='kw'>rendered_file</span> <span class='kw'>=</span> <span class='no'>rendered_file</span>,
+   <span class='kw'>capturer</span> <span class='kw'>=</span> <span class='st'>"chrome_print"</span>,
+   <span class='kw'>capture_method</span> <span class='kw'>=</span> <span class='st'>"vectorized"</span>)
+   },
+   <span class='kw'>regexp</span> <span class='kw'>=</span> <span class='st'>"Failed to"</span>)
+
+   <span class='no'>pdf_file</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span>(<span class='kw'>fileext</span> <span class='kw'>=</span> <span class='st'>".pdf"</span>)
+
+   <span class='kw pkg'>xaringan</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/xaringan/man/decktape.html'>decktape</a></span>(<span class='no'>rendered_file</span>, <span class='no'>pdf_file</span>, <span class='kw'>docker</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+
+   <span class='no'>res</span> <span class='kw'>=</span> <span class='fu'><a href='gs_to_ari.html'>pdf_to_ari</a></span>(<span class='no'>pdf_file</span>, <span class='kw'>script</span> <span class='kw'>=</span> <span class='no'>script</span>, <span class='kw'>open</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 }
 }</div></pre>
   </div>
