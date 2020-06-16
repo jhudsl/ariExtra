@@ -2,15 +2,15 @@
 title: "Using `ari` to make videos"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Using ari to make videos}
+%\VignetteIndexEntry{Using ari to make videos}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
----
-
-```{r, include = FALSE}
+  ---
+  
+  ```{r, include = FALSE}
 knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>"
+collapse = TRUE,
+comment = "#>"
 )
 ```
 
@@ -30,20 +30,26 @@ demonstration.  This example also allows users to check if the output of `ffmpeg
 library(tuneR)
 library(ari)
 library(ariExtra)
-result = ari_stitch(
-  ari_example(c("mab1.png", "mab2.png")),
-  list(noise(), noise()))
-isTRUE(result)
+if (ari::have_ffmpeg_exec()) {
+  result = ari_stitch(
+    ari_example(c("mab1.png", "mab2.png")),
+    list(noise(), noise()))
+  print(isTRUE(result))
+}
 ```
 
 The output is a logical indicator, but additional attributes are available, such as the path of the output file:
 
 ```{r stitch_out, message = FALSE, eval = FALSE}
-attributes(result)$outfile
+if (ari::have_ffmpeg_exec()) {
+  print(attributes(result)$outfile)
+}
 ```
 
 ```{r stitch_out_run, message = FALSE, echo = FALSE, eval = TRUE}
-basename(attributes(result)$outfile)
+if (ari::have_ffmpeg_exec()) {
+  print(basename(attributes(result)$outfile))
+}
 ```
 
 The video for this output can be seen at https://youtu.be/3kgaYf-EV90.  
@@ -54,7 +60,7 @@ library(tuneR)
 library(ari)
 library(ariExtra)
 result = pngs_to_ari(ari_example(c("mab1.png", "mab2.png")),
-            script = c("hey", "ho"))
+                     script = c("hey", "ho"))
 result
 readLines(result$output_file)
 ```
@@ -88,7 +94,7 @@ After Polly has been authenticated, videos can be created using the `ari_spin` f
 of text strings.  This text is the "script" that is spoken over the 
 images to create the output video.  The number of elements in the text 
 needs to be equal to the number of images. 
-  
+
 
 ### Creating Videos from R Markdown Documents
 
@@ -166,7 +172,7 @@ for video generation are in our package **`ariExtra`**
 (https://github.com/muschellij2/ariExtra).  The speaker notes of slides can 
 be extracted using **`rgoogleslides`**  for Google 
 Slides via the API or using **`readOffice`**/**`officer`** 
- to read from PowerPoint documents. Google Slides can be downloaded as a PDF and converted to PNGs using the **`pdftools`** 
+to read from PowerPoint documents. Google Slides can be downloaded as a PDF and converted to PNGs using the **`pdftools`** 
 package.  The **`ariExtra`** package also has a `pptx_notes` 
 function for reading PowerPoint notes. Converting PowerPoint files to 
 PDF can be done using LibreOffice and the **`docxtractr`** package which contains the necessary wrapper functions.

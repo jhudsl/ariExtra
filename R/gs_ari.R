@@ -56,15 +56,15 @@ get_pptx_script = function(path, script = NULL, verbose = TRUE) {
 #' @importFrom httr GET write_disk
 #' @export
 #' @examples
-#' \donttest{
-#' id = "1Opt6lv7rRi7Kzb9bI0u3SWX1pSz1k7botaphTuFYgNs"
-#' res = gs_to_ari(id, verbose = 2, open = FALSE)
-#' if (interactive()) {
-#' file.edit(res$output_file)
+#' if (!identical(Sys.getenv("NOT_CRAN"), "true") &&
+#'     grepl(tolower(Sys.info()[['user']]), "musch")) {
+#'   id = "1Opt6lv7rRi7Kzb9bI0u3SWX1pSz1k7botaphTuFYgNs"
+#'   res = gs_to_ari(id, verbose = 2, open = FALSE)
+#'   if (interactive()) {
+#'     file.edit(res$output_file)
+#'   }
+#'   res2 = to_ari(id, open = FALSE)
 #' }
-#' res2 = to_ari(id, open = FALSE)
-#' }
-#'
 #'
 #' bad_id = "1AJxokPkGVzNZMXjyF59mNe3EiQRGxylbBfYGGoQMQls"
 #' testthat::expect_error(res = gs_to_ari(bad_id))
