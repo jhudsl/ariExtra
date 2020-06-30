@@ -33,7 +33,8 @@ Suggests:
     testthat,
     pagedown,
     webshot,
-    rstudioapi
+    rstudioapi,
+    base64enc
 Encoding: UTF-8
 LazyData: true
 ByteCompile: true

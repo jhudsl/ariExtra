@@ -30,9 +30,24 @@ remotes::install_github("muschellij2/ariExtra")
 
 ## Example
 
-```{r, cache = TRUE}
+```{r, eval = FALSE}
 library(ariExtra)
 id = "1Opt6lv7rRi7Kzb9bI0u3SWX1pSz1k7botaphTuFYgNs"
 res = gs_to_ari(id, verbose = FALSE, voice = "Joanna", service = "amazon", open = FALSE) 
-readLines(res$output_file)
+```
+```{r, include=FALSE}
+x = c("---", "output:", "  ariExtra::ari_document:", "    voice: Joanna", 
+"    service: amazon", "    verbose: no", "---", "", "", "----------", 
+"", "<!--Lean pub created a mook platform.  We want to discuss some options for creating courses with Lean pub at Johns Hopkins.-->", 
+"![](/private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpsE0Sv2/filecef632678c61.png)", 
+"", "", "----------", "", "<!--Here is an example of the way Lean pub turns text into an output course.  The left hand side is written in a markdown format called Markua.-->", 
+"![](/private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpsE0Sv2/filecef62c314e21.png)", 
+"")
+output_file = tempfile(fileext = ".md")
+writeLines(x, output_file)
+res = list(output_file = output_file)
+```
+
+```{r}
+head(readLines(res$output_file), 20)
 ```
