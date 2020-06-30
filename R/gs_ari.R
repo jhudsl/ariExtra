@@ -170,7 +170,9 @@ pptx_to_ari = function(
 #' if (interactive()) {
 #' file.edit(res$output_file)
 #' }
+#' \dontrun{
 #' res2 = to_ari(ex_file,  script = c("hey", "ho"), open = FALSE)
+#' }
 pdf_to_ari = function(
   path,
   script = NULL,
