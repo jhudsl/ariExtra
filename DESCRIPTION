@@ -26,7 +26,7 @@ Imports:
     text2speech (>= 0.2.8), 
     docxtractr (>= 0.6.2),
     tuneR,
-    yaml,
+    yaml
 Suggests: 
     knitr,
     covr,
@@ -34,7 +34,8 @@ Suggests:
     pagedown,
     webshot,
     rstudioapi,
-    base64enc
+    base64enc,
+    xaringan
 Encoding: UTF-8
 LazyData: true
 ByteCompile: true
