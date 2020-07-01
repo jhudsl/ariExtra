@@ -19,7 +19,7 @@ testthat::test_that("xaringan example", {
                        rendered_file = rendered_file,
                        capturer = "webshot",
                        capture_method = "vectorized")
-    }, regexp = "Failed to generate|Cannot find Google Chrome")
+    }, regexp = "Failed to generate|Cannot find.* Google Chrome")
 
     testthat::expect_error({
       res = rmd_to_ari(path, open = FALSE,
@@ -27,7 +27,7 @@ testthat::test_that("xaringan example", {
                        capturer = "chrome_print",
                        capture_method = "vectorized")
     },
-    regexp = "Failed to|Cannot find Google Chrome")
+    regexp = "Failed to|Cannot find.* Google Chrome")
 
 
     have_decktape = nzchar(Sys.which("decktape"))
