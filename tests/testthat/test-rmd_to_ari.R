@@ -27,7 +27,7 @@ testthat::test_that("xaringan example", {
                        capturer = "chrome_print",
                        capture_method = "vectorized")
     },
-    regexp = "Failed to")
+    regexp = "Failed to|Cannot find Google Chrome")
 
 
     have_decktape = nzchar(Sys.which("decktape"))
