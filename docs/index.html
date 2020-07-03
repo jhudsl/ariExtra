@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">ariExtra</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.7</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.8</span>
       </span>
     </div>
 
@@ -101,7 +101,7 @@
 <a href="#example" class="anchor"></a>Example</h2>
 <div class="sourceCode" id="cb2"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">ariExtra</span>)
 <span class="no">id</span> <span class="kw">=</span> <span class="st">"1Opt6lv7rRi7Kzb9bI0u3SWX1pSz1k7botaphTuFYgNs"</span>
-<span class="no">res</span> <span class="kw">=</span> <span class="fu"><a href="reference/gs_to_ari.html">gs_to_ari</a></span>(<span class="no">id</span>, <span class="kw">verbose</span> <span class="kw">=</span> <span class="fl">FALSE</span>, <span class="kw">voice</span> <span class="kw">=</span> <span class="st">"Joanna"</span>, <span class="kw">service</span> <span class="kw">=</span> <span class="st">"amazon"</span>, <span class="kw">open</span> <span class="kw">=</span> <span class="fl">FALSE</span>)</pre></div>
+<span class="no">res</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/pkg/ariExtra/man/gs_to_ari.html">gs_to_ari</a></span>(<span class="no">id</span>, <span class="kw">verbose</span> <span class="kw">=</span> <span class="fl">FALSE</span>, <span class="kw">voice</span> <span class="kw">=</span> <span class="st">"Joanna"</span>, <span class="kw">service</span> <span class="kw">=</span> <span class="st">"amazon"</span>, <span class="kw">open</span> <span class="kw">=</span> <span class="fl">FALSE</span>)</pre></div>
 <div class="sourceCode" id="cb3"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/readLines.html">readLines</a></span>(<span class="no">res</span>$<span class="no">output_file</span>), <span class="fl">20</span>)
 <span class="co">#&gt;  [1] "---"                                                                                                                                               </span>
 <span class="co">#&gt;  [2] "output:"                                                                                                                                           </span>
@@ -132,6 +132,8 @@
     <div class="links">
 <h2>Links</h2>
 <ul class="list-unstyled">
+<li>Download from CRAN at <br><a href="https://cloud.r-project.org/package=ariExtra">https://​cloud.r-project.org/​package=ariExtra</a>
+</li>
 <li>Browse source code at <br><a href="https://github.com/muschellij2/ariExtra/">https://​github.com/​muschellij2/​ariExtra/​</a>
 </li>
 <li>Report a bug at <br><a href="https://github.com/muschellij2/ariExtra/issues">https://​github.com/​muschellij2/​ariExtra/​issues</a>

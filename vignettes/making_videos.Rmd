@@ -190,8 +190,19 @@ if (have_libreoffice()) {
     paste0("https://s3-eu-west-1.amazonaws.com/", 
            "pfigshare-u-files/16252631/ari.pptx"),
     destfile = pptx)
-  result = pptx_to_ari(pptx, open = FALSE)
-  result[c("images", "script")]
+  result = try({
+    pptx_to_ari(pptx, open = FALSE)
+  }, silent = TRUE)
+  soffice_config_issue = inherits(result, "try-error")
+  if (soffice_config_issue) {
+    ariExtra:::fix_soffice_library_path()
+    result = try({
+      pptx_to_ari(pptx, open = FALSE)
+    }, silent = TRUE)    
+  }
+  if (!inherits(result, "try-error")) {
+    print(result[c("images", "script")])
+  }
 }
 ```
 

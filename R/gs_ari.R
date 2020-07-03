@@ -106,7 +106,13 @@ pptx_to_pdf = function(path, verbose = TRUE) {
   if (verbose) {
     message("Converting PPTX to PDF")
   }
-  docxtractr::convert_to_pdf(path, pdf_file = pdf_file)
+  out = try({
+    docxtractr::convert_to_pdf(path, pdf_file = pdf_file)
+  })
+  if (inherits(out, "try-error")) {
+    fix_soffice_library_path()
+    docxtractr::convert_to_pdf(path, pdf_file = pdf_file)
+  }
   if (verbose > 1) {
     message(paste0("PDF is at: ", pdf_file))
   }
@@ -138,12 +144,31 @@ pptx_to_pngs = function(path, verbose = TRUE, dpi = 600) {
 #' ex_file = system.file("extdata", "example.pptx", package = "ariExtra")
 #' have_soffice = try(docxtractr:::lo_assert())
 #' if (!inherits(have_soffice, "try-error")) {
-#' pngs = pptx_to_pngs(ex_file)
-#' res = pptx_to_ari(ex_file, open = FALSE)
-#' if (interactive()) {
-#' file.edit(res$output_file)
-#' }
-#' res2 = to_ari(ex_file, open = FALSE)
+#'   pngs = try({
+#'     pptx_to_pngs(ex_file)
+#'   }, silent = TRUE)
+#'
+#'   soffice_config_issue = inherits(pngs, "try-error")
+#'   if (soffice_config_issue) {
+#'     warning(
+#'       paste0("soffice does not seem configured properly, may need to ",
+#'              "adapt LD_LIBRARY_PATH, ",
+#'              "try ariExtra:::fix_soffice_library_path()")
+#'     )
+#'     # this can be due to a library issue:
+#'     url = paste0("https://codeyarns.github.io/tech/2019-09-05",
+#'                  "-libregloso-cannot-open-shared-object-file.html")
+#'     if (interactive()) {
+#'       utils::browseURL(url)
+#'     }
+#'   }
+#'   if (!soffice_config_issue) {
+#'     res = pptx_to_ari(ex_file, open = FALSE)
+#'     if (interactive()) {
+#'       file.edit(res$output_file)
+#'     }
+#'     res2 = to_ari(ex_file, open = FALSE)
+#'   }
 #' }
 pptx_to_ari = function(
   path,
@@ -309,4 +334,24 @@ to_ari = function(path,
               ...,
               verbose = verbose)
   do.call(to_ari_function, args = args)
+}
+
+
+fix_soffice_library_path = function() {
+  LD_LIBRARY_PATH = Sys.getenv("LD_LIBRARY_PATH")
+  if (sys_type() %in% c("linux", "macos")) {
+    warning(
+      paste0(
+        "Changing LD_LIBRARY_PATH as error in soffice ",
+        "with PPTX conversion may be due to path issues!"
+      )
+    )
+    Sys.setenv(
+      LD_LIBRARY_PATH =
+        paste0(
+          "/usr/lib/libreoffice/program",
+          if (nzchar(LD_LIBRARY_PATH)) paste0(":", LD_LIBRARY_PATH)
+        )
+    )
+  }
 }

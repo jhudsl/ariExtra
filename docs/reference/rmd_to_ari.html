@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ariExtra</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.7</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.8</span>
       </span>
     </div>
 
@@ -173,7 +173,7 @@ you should use <code>"iterative"</code>.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>additional arguments to pass to <a href='make_ari_document.html'>make_ari_document</a></p></td>
+      <td><p>additional arguments to pass to make_ari_document</p></td>
     </tr>
     <tr>
       <th>rendered_file</th>
@@ -187,7 +187,7 @@ you should use <code>"iterative"</code>.</p></td>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>The output of <a href='make_ari_document.html'>make_ari_document</a></p>
+    <p>The output of make_ari_document</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># \donttest{</span>
@@ -205,13 +205,13 @@ you should use <code>"iterative"</code>.</p></td>
 #&gt;   |                                                                              |......................................................................| 100%
 #&gt;   ordinary text without R code
 #&gt; 
-#&gt; </div><div class='output co'>#&gt; <span class='message'>output file: example.knit.md</span></div><div class='output co'>#&gt; /usr/local/bin/pandoc +RTS -K512m -RTS example.utf8.md --to html4 --from markdown+autolink_bare_uris+tex_math_single_backslash --output /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmp52lpSr/file10f5e60e5b9bf.html --email-obfuscation none --self-contained --variable transition=0.4 --template /Library/Frameworks/R.framework/Versions/4.0/Resources/library/rmarkdown/rmd/ioslides/default.html --include-in-header /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmp52lpSr/rmarkdown-str10f5e2c471d7f.html --mathjax --variable 'mathjax-url:https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML' --lua-filter /Library/Frameworks/R.framework/Versions/4.0/Resources/library/rmarkdown/rmd/lua/pagebreak.lua --lua-filter /Library/Frameworks/R.framework/Versions/4.0/Resources/library/rmarkdown/rmd/lua/latex-div.lua 
-#&gt; /usr/local/bin/pandoc +RTS -K512m -RTS example.utf8.md --to ioslides_presentation.lua --from markdown+autolink_bare_uris+tex_math_single_backslash --output /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmp52lpSr/ioslides-output10f5e70e1938e.html --slide-level 2 </div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Output created: /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmp52lpSr/file10f5e60e5b9bf.html</span></div><div class='output co'>#&gt; <span class='message'>Using the browser "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"</span></div><div class='output co'>#&gt; <span class='message'>Trying to find headless Chrome in 20 attempts</span></div><div class='output co'>#&gt; <span class='message'>Headless Chrome found at attempt 2</span></div><div class='output co'>#&gt; <span class='message'>Browser version: HeadlessChrome/83.0.4103.116</span></div><div class='output co'>#&gt; <span class='message'>Serving the directory /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/Rtmp52lpSr at http://127.0.0.1:4023/file10f5e60e5b9bf.html</span></div><div class='output co'>#&gt; <span class='message'>Closing websocket connection</span></div><div class='output co'>#&gt; <span class='message'>Closing browser</span></div><div class='output co'>#&gt; <span class='message'>Cleaning browser working directory</span></div><div class='output co'>#&gt; <span class='message'>Closing local webserver</span></div><div class='output co'>#&gt; Converting page 1 to /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmp52lpSr/file10f5e4e26a4f8.png... done!
-#&gt; Converting page 2 to /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmp52lpSr/file10f5e4b18bddd.png... done!
-#&gt; Converting page 3 to /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmp52lpSr/file10f5e45591eaf.png... done!
-#&gt; Converting page 4 to /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmp52lpSr/file10f5e5ded96ba.png... done!
-#&gt; Converting page 5 to /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmp52lpSr/file10f5e1942bd83.png... done!</div><div class='output co'>#&gt; <span class='message'>Making output_file directories</span></div><div class='input'><span class='no'>res</span>$<span class='no'>output_file</span></div><div class='output co'>#&gt; [1] "/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmp52lpSr/file10f5e6ca7f069.md"</div><div class='input'><span class='co'># }</span>
+#&gt; </div><div class='output co'>#&gt; <span class='message'>output file: example.knit.md</span></div><div class='output co'>#&gt; /usr/local/bin/pandoc +RTS -K512m -RTS example.utf8.md --to html4 --from markdown+autolink_bare_uris+tex_math_single_backslash --output /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//RtmpWqy5qL/filecf4127a2803.html --email-obfuscation none --self-contained --variable transition=0.4 --template /Library/Frameworks/R.framework/Versions/4.0/Resources/library/rmarkdown/rmd/ioslides/default.html --include-in-header /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//RtmpWqy5qL/rmarkdown-strcf44891026.html --mathjax --variable 'mathjax-url:https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML' --lua-filter /Library/Frameworks/R.framework/Versions/4.0/Resources/library/rmarkdown/rmd/lua/pagebreak.lua --lua-filter /Library/Frameworks/R.framework/Versions/4.0/Resources/library/rmarkdown/rmd/lua/latex-div.lua 
+#&gt; /usr/local/bin/pandoc +RTS -K512m -RTS example.utf8.md --to ioslides_presentation.lua --from markdown+autolink_bare_uris+tex_math_single_backslash --output /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//RtmpWqy5qL/ioslides-outputcf44283311d.html --slide-level 2 </div><div class='output co'>#&gt; <span class='message'></span>
+#&gt; <span class='message'>Output created: /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//RtmpWqy5qL/filecf4127a2803.html</span></div><div class='output co'>#&gt; <span class='message'>Using the browser "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"</span></div><div class='output co'>#&gt; <span class='message'>Trying to find headless Chrome in 20 attempts</span></div><div class='output co'>#&gt; <span class='message'>Headless Chrome found at attempt 2</span></div><div class='output co'>#&gt; <span class='message'>Browser version: HeadlessChrome/83.0.4103.116</span></div><div class='output co'>#&gt; <span class='message'>Serving the directory /private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpWqy5qL at http://127.0.0.1:4023/filecf4127a2803.html</span></div><div class='output co'>#&gt; <span class='message'>Closing websocket connection</span></div><div class='output co'>#&gt; <span class='message'>Closing browser</span></div><div class='output co'>#&gt; <span class='message'>Cleaning browser working directory</span></div><div class='output co'>#&gt; <span class='message'>Closing local webserver</span></div><div class='output co'>#&gt; Converting page 1 to /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//RtmpWqy5qL/filecf43430f3cc.png... done!
+#&gt; Converting page 2 to /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//RtmpWqy5qL/filecf479d5f0d8.png... done!
+#&gt; Converting page 3 to /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//RtmpWqy5qL/filecf44cb73365.png... done!
+#&gt; Converting page 4 to /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//RtmpWqy5qL/filecf4f8f533c.png... done!
+#&gt; Converting page 5 to /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//RtmpWqy5qL/filecf4aa1901f.png... done!</div><div class='output co'>#&gt; <span class='message'>Making output_file directories</span></div><div class='input'><span class='no'>res</span>$<span class='no'>output_file</span></div><div class='output co'>#&gt; [1] "/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//RtmpWqy5qL/filecf474fce8ac.md"</div><div class='input'><span class='co'># }</span>
 
 <span class='co'># \donttest{</span>
 <span class='co'># xaringan example</span>
@@ -235,11 +235,11 @@ you should use <code>"iterative"</code>.</p></td>
     <span class='no'>pdf_file</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span>(<span class='kw'>fileext</span> <span class='kw'>=</span> <span class='st'>".pdf"</span>)
     <span class='kw pkg'>xaringan</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/xaringan/man/decktape.html'>decktape</a></span>(<span class='no'>rendered_file</span>, <span class='no'>pdf_file</span>, <span class='kw'>docker</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
-    <span class='no'>res</span> <span class='kw'>=</span> <span class='fu'><a href='gs_to_ari.html'>pdf_to_ari</a></span>(<span class='no'>pdf_file</span>, <span class='kw'>script</span> <span class='kw'>=</span> <span class='no'>script</span>, <span class='kw'>open</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+    <span class='no'>res</span> <span class='kw'>=</span> <span class='fu'>pdf_to_ari</span>(<span class='no'>pdf_file</span>, <span class='kw'>script</span> <span class='kw'>=</span> <span class='no'>script</span>, <span class='kw'>open</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
   }
 }</div><div class='output co'>#&gt; <span class='message'></span>
 #&gt; <span class='message'></span>
-#&gt; <span class='message'>processing file: file10f5e598b53a.Rmd</span></div><div class='output co'>#&gt;   |                                                                              |                                                                      |   0%  |                                                                              |..............                                                        |  20%
+#&gt; <span class='message'>processing file: filecf480fb035.Rmd</span></div><div class='output co'>#&gt;   |                                                                              |                                                                      |   0%  |                                                                              |..............                                                        |  20%
 #&gt;   ordinary text without R code
 #&gt; 
 #&gt;   |                                                                              |............................                                          |  40%
@@ -257,12 +257,12 @@ you should use <code>"iterative"</code>.</p></td>
 #&gt; </div><div class='output co'>#&gt;   |                                                                              |......................................................................| 100%
 #&gt;   ordinary text without R code
 #&gt; 
-#&gt; </div><div class='output co'>#&gt; <span class='message'>output file: file10f5e598b53a.knit.md</span></div><div class='output co'>#&gt; /usr/local/bin/pandoc +RTS -K512m -RTS file10f5e598b53a.utf8.md --to html4 --from markdown+autolink_bare_uris+tex_math_single_backslash --output /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmp52lpSr/file10f5e6ca1f5b4.html --email-obfuscation none -V 'mathjax-url=https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML' -V 'title-slide-class=center, middle, inverse, title-slide' --standalone --section-divs --template /Library/Frameworks/R.framework/Versions/4.0/Resources/library/xaringan/rmarkdown/templates/xaringan/resources/default.html --no-highlight --include-in-header /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmp52lpSr/rmarkdown-str10f5e53c47ba4.html --lua-filter /Library/Frameworks/R.framework/Versions/4.0/Resources/library/rmarkdown/rmd/lua/pagebreak.lua --lua-filter /Library/Frameworks/R.framework/Versions/4.0/Resources/library/rmarkdown/rmd/lua/latex-div.lua --include-before-body /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmp52lpSr/xaringan10f5e28e525f7.md --include-after-body /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmp52lpSr/xaringan10f5e7d0a3423.js --variable title-slide=true --variable math=true </div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Output created: /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmp52lpSr/file10f5e6ca1f5b4.html</span></div><div class='output co'>#&gt; <span class='message'>Converting PDF to PNGs</span></div><div class='output co'>#&gt; Converting page 1 to /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmp52lpSr/file10f5e6184fea.png... done!
-#&gt; Converting page 2 to /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmp52lpSr/file10f5e26268ec6.png... done!
-#&gt; Converting page 3 to /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmp52lpSr/file10f5e2d677cbb.png... done!
-#&gt; Converting page 4 to /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmp52lpSr/file10f5e652df046.png... done!
-#&gt; Converting page 5 to /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmp52lpSr/file10f5e2af9b78f.png... done!</div><div class='output co'>#&gt; <span class='message'>Making output_file directories</span></div><div class='input'># }
+#&gt; </div><div class='output co'>#&gt; <span class='message'>output file: filecf480fb035.knit.md</span></div><div class='output co'>#&gt; /usr/local/bin/pandoc +RTS -K512m -RTS filecf480fb035.utf8.md --to html4 --from markdown+autolink_bare_uris+tex_math_single_backslash --output /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//RtmpWqy5qL/filecf43df96bb5.html --email-obfuscation none -V 'mathjax-url=https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML' -V 'title-slide-class=center, middle, inverse, title-slide' --standalone --section-divs --template /Library/Frameworks/R.framework/Versions/4.0/Resources/library/xaringan/rmarkdown/templates/xaringan/resources/default.html --no-highlight --include-in-header /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//RtmpWqy5qL/rmarkdown-strcf430642896.html --lua-filter /Library/Frameworks/R.framework/Versions/4.0/Resources/library/rmarkdown/rmd/lua/pagebreak.lua --lua-filter /Library/Frameworks/R.framework/Versions/4.0/Resources/library/rmarkdown/rmd/lua/latex-div.lua --include-before-body /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//RtmpWqy5qL/xaringancf43baa4e65.md --include-after-body /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//RtmpWqy5qL/xaringancf4420e57dc.js --variable title-slide=true --variable math=true </div><div class='output co'>#&gt; <span class='message'></span>
+#&gt; <span class='message'>Output created: /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//RtmpWqy5qL/filecf43df96bb5.html</span></div><div class='output co'>#&gt; <span class='message'>Converting PDF to PNGs</span></div><div class='output co'>#&gt; Converting page 1 to /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//RtmpWqy5qL/filecf4133db405.png... done!
+#&gt; Converting page 2 to /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//RtmpWqy5qL/filecf437f5be21.png... done!
+#&gt; Converting page 3 to /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//RtmpWqy5qL/filecf46695853a.png... done!
+#&gt; Converting page 4 to /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//RtmpWqy5qL/filecf4625dd773.png... done!
+#&gt; Converting page 5 to /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//RtmpWqy5qL/filecf47eebf178.png... done!</div><div class='output co'>#&gt; <span class='message'>Making output_file directories</span></div><div class='input'># }
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

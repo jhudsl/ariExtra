@@ -62,12 +62,31 @@ Convert Google Slides and notes to video with ari
 ex_file = system.file("extdata", "example.pptx", package = "ariExtra")
 have_soffice = try(docxtractr:::lo_assert())
 if (!inherits(have_soffice, "try-error")) {
-pngs = pptx_to_pngs(ex_file)
-res = pptx_to_ari(ex_file, open = FALSE)
-if (interactive()) {
-file.edit(res$output_file)
-}
-res2 = to_ari(ex_file, open = FALSE)
+  pngs = try({
+    pptx_to_pngs(ex_file)
+  }, silent = TRUE)
+
+  soffice_config_issue = inherits(pngs, "try-error")
+  if (soffice_config_issue) {
+    warning(
+      paste0("soffice does not seem configured properly, may need to ",
+             "adapt LD_LIBRARY_PATH, ",
+             "try ariExtra:::fix_soffice_library_path()")
+    )
+    # this can be due to a library issue:
+    url = paste0("https://codeyarns.github.io/tech/2019-09-05",
+                 "-libregloso-cannot-open-shared-object-file.html")
+    if (interactive()) {
+      utils::browseURL(url)
+    }
+  }
+  if (!soffice_config_issue) {
+    res = pptx_to_ari(ex_file, open = FALSE)
+    if (interactive()) {
+      file.edit(res$output_file)
+    }
+    res2 = to_ari(ex_file, open = FALSE)
+  }
 }
 ex_file = system.file("extdata", "example.pdf", package = "ariExtra")
 res = pdf_to_ari(ex_file, script = c("hey", "ho"), open = FALSE)
