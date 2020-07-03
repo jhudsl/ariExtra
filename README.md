@@ -1,8 +1,8 @@
 
 [![Travis build
-status](https://travis-ci.com/muschellij2/ariExtra.svg?branch=master)](https://travis-ci.com/muschellij2/ariExtra)
+status](https://travis-ci.com/jhudsl/ariExtra.svg?branch=master)](https://travis-ci.com/jhudsl/ariExtra)
 [![AppVeyor Build
-Status](https://ci.appveyor.com/api/projects/status/github/muschellij2/ariExtra?branch=master&svg=true)](https://ci.appveyor.com/project/muschellij2/ariExtra)
+Status](https://ci.appveyor.com/api/projects/status/github/jhudsl/ariExtra?branch=master&svg=true)](https://ci.appveyor.com/project/jhudsl/ariExtra)
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
 # ariExtra Package:
