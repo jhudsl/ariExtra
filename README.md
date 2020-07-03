@@ -16,7 +16,7 @@ You can install `ariExtra` from GitHub with:
 
 ``` r
 # install.packages("remotes")
-remotes::install_github("muschellij2/ariExtra")
+remotes::install_github("jhudsl/ariExtra")
 ```
 
 ## Example
