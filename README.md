@@ -3,8 +3,6 @@
 status](https://travis-ci.com/muschellij2/ariExtra.svg?branch=master)](https://travis-ci.com/muschellij2/ariExtra)
 [![AppVeyor Build
 Status](https://ci.appveyor.com/api/projects/status/github/muschellij2/ariExtra?branch=master&svg=true)](https://ci.appveyor.com/project/muschellij2/ariExtra)
-[![Coverage
-status](https://codecov.io/gh/muschellij2/ariExtra/branch/master/graph/badge.svg)](https://codecov.io/github/muschellij2/ariExtra?branch=master)
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
 # ariExtra Package:
