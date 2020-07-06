@@ -1,3 +1,7 @@
+# ariExtra 0.2.9
+
+* Added checks for `pandoc` version on CRAN.
+
 # ariExtra 0.2.8
 
 * Added function `fix_soffice_library_path` to try to fix issue with `soffice` path, related to https://codeyarns.github.io/tech/2019-09-05-libregloso-cannot-open-shared-object-file.html. 

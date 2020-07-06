@@ -51,9 +51,10 @@ res$output_file
 }
 
 \donttest{
+have_chrome = !inherits(try({pagedown::find_chrome()}), "try-error")
 # xaringan example
 have_decktape = nzchar(Sys.which("decktape"))
-if (have_decktape) {
+if (have_decktape && have_chrome) {
   if (requireNamespace("xaringan", quietly = TRUE)) {
     path  = system.file("examples", "lucy-demo.Rmd", package = "xaringan")
     x = readLines(path)

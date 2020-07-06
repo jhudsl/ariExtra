@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">ariExtra</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.8</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.9</span>
       </span>
     </div>
 
@@ -94,14 +94,14 @@
 <a href="#installation" class="anchor"></a>Installation</h2>
 <p>You can install <code>ariExtra</code> from GitHub with:</p>
 <div class="sourceCode" id="cb1"><pre class="r"><span class="co"># install.packages("remotes")</span>
-<span class="kw pkg">remotes</span><span class="kw ns">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span>(<span class="st">"muschellij2/ariExtra"</span>)</pre></div>
+<span class="kw pkg">remotes</span><span class="kw ns">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span>(<span class="st">"jhudsl/ariExtra"</span>)</pre></div>
 </div>
 <div id="example" class="section level2">
 <h2 class="hasAnchor">
 <a href="#example" class="anchor"></a>Example</h2>
 <div class="sourceCode" id="cb2"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">ariExtra</span>)
 <span class="no">id</span> <span class="kw">=</span> <span class="st">"1Opt6lv7rRi7Kzb9bI0u3SWX1pSz1k7botaphTuFYgNs"</span>
-<span class="no">res</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/pkg/ariExtra/man/gs_to_ari.html">gs_to_ari</a></span>(<span class="no">id</span>, <span class="kw">verbose</span> <span class="kw">=</span> <span class="fl">FALSE</span>, <span class="kw">voice</span> <span class="kw">=</span> <span class="st">"Joanna"</span>, <span class="kw">service</span> <span class="kw">=</span> <span class="st">"amazon"</span>, <span class="kw">open</span> <span class="kw">=</span> <span class="fl">FALSE</span>)</pre></div>
+<span class="no">res</span> <span class="kw">=</span> <span class="fu"><a href="reference/gs_to_ari.html">gs_to_ari</a></span>(<span class="no">id</span>, <span class="kw">verbose</span> <span class="kw">=</span> <span class="fl">FALSE</span>, <span class="kw">voice</span> <span class="kw">=</span> <span class="st">"Joanna"</span>, <span class="kw">service</span> <span class="kw">=</span> <span class="st">"amazon"</span>, <span class="kw">open</span> <span class="kw">=</span> <span class="fl">FALSE</span>)</pre></div>
 <div class="sourceCode" id="cb3"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/readLines.html">readLines</a></span>(<span class="no">res</span>$<span class="no">output_file</span>), <span class="fl">20</span>)
 <span class="co">#&gt;  [1] "---"                                                                                                                                               </span>
 <span class="co">#&gt;  [2] "output:"                                                                                                                                           </span>
@@ -157,9 +157,8 @@
   <div class="dev-status">
 <h2>Dev status</h2>
 <ul class="list-unstyled">
-<li><a href="https://travis-ci.com/muschellij2/ariExtra"><img src="https://travis-ci.com/muschellij2/ariExtra.svg?branch=master" alt="Travis build status"></a></li>
-<li><a href="https://ci.appveyor.com/project/muschellij2/ariExtra"><img src="https://ci.appveyor.com/api/projects/status/github/muschellij2/ariExtra?branch=master&amp;svg=true" alt="AppVeyor Build Status"></a></li>
-<li><a href="https://codecov.io/github/muschellij2/ariExtra?branch=master"><img src="https://codecov.io/gh/muschellij2/ariExtra/branch/master/graph/badge.svg" alt="Coverage status"></a></li>
+<li><a href="https://travis-ci.com/jhudsl/ariExtra"><img src="https://travis-ci.com/jhudsl/ariExtra.svg?branch=master" alt="Travis build status"></a></li>
+<li><a href="https://ci.appveyor.com/project/jhudsl/ariExtra"><img src="https://ci.appveyor.com/api/projects/status/github/jhudsl/ariExtra?branch=master&amp;svg=true" alt="AppVeyor Build Status"></a></li>
 </ul>
 </div>
 </div>
