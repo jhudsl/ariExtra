@@ -39,7 +39,11 @@ pptx_notes = function(file) {
   if (is.null(df)) {
     return(NULL)
   }
-  ss = split(df, basename(df$file))
+  # need factor because they can be dumb with characters
+  # and numerics and the file naming of PPTX files
+  fac = basename(df$file)
+  fac = factor(fac, levels = unique(fac))
+  ss = split(df, fac)
   res = sapply(ss, function(x) {
     paste(x$text, collapse = " ")
   })
