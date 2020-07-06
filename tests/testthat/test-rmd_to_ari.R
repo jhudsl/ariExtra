@@ -45,6 +45,12 @@ testthat::test_that("xaringan example", {
       xaringan::decktape(rendered_file, pdf_file, docker = FALSE)
 
       res = pdf_to_ari(pdf_file, script = script, open = FALSE)
+      res = rmd_to_ari(path,
+                       open = FALSE,
+                       script = script,
+                       rendered_file = rendered_file,
+                       capturer = "decktape")
+      testthat::expect_length(res$images, 5)
     }
   }
 })

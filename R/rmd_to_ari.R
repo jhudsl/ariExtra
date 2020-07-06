@@ -136,38 +136,53 @@ get_nslides = function(slides) {
 #' }
 #'
 #' \donttest{
-#' have_chrome = !inherits(try({pagedown::find_chrome()}), "try-error")
-#' # xaringan example
-#' have_decktape = nzchar(Sys.which("decktape"))
-#' if (have_decktape && have_chrome) {
+#'   # xaringan example
 #'   if (requireNamespace("xaringan", quietly = TRUE)) {
 #'     path  = system.file("examples", "lucy-demo.Rmd", package = "xaringan")
+#'
+#'     # get rid of ggplot2 dependency
 #'     x = readLines(path)
 #'     x = gsub("library\\(ggplot2\\)", "", x)
 #'     x = gsub("^\\s*ggplot.*", "", x)
 #'     x = gsub("^\\s*geom_bar.*", "barplot(table(mtcars$am))", x)
 #'     path = tempfile(fileext = ".Rmd")
 #'     writeLines(x, path)
-#'     script = c("this", "is", "one", "word", "per slide")
 #'     rendered_file = tempfile(fileext = ".html")
 #'
-#'     rmarkdown::render(path, output_format = xaringan::moon_reader(),
-#'                       output_file = rendered_file)
+#'     required_pandoc <- "1.12.3"
+#'     have_pandoc_version = rmarkdown::pandoc_available(required_pandoc)
+#'     if (have_pandoc_version) {
+#'       rmarkdown::render(path,
+#'                         output_format = xaringan::moon_reader(),
+#'                         output_file = rendered_file)
+#'     } else {
+#'       rendered_file = system.file("extdata",
+#'                                   "lucy-demo-noggplot2.html",
+#'                                   package = "ariExtra")
+#'     }
 #'
 #'
-#'     pdf_file = tempfile(fileext = ".pdf")
-#'     xaringan::decktape(rendered_file, pdf_file, docker = FALSE)
+#'     script = c("this", "is", "one", "word", "per slide")
 #'
-#'     res = pdf_to_ari(pdf_file, script = script, open = FALSE)
+#'     have_decktape = nzchar(Sys.which("decktape"))
+#'     if (have_decktape) {
+#'       pdf_file = tempfile(fileext = ".pdf")
+#'       xaringan::decktape(rendered_file, pdf_file, docker = FALSE)
+#'       res = pdf_to_ari(pdf_file, script = script, open = FALSE)
+#'       result = rmd_to_ari(path = path,
+#'                  script = script,
+#'                  rendered_file = rendered_file,
+#'                  capturer = "decktape")
+#'     }
 #'   }
-#' }
 #' }
 rmd_to_ari = function(
   path,
   script = NULL,
   capture_method = c("iterative", "vectorized"),
   capturer = c("chrome_print",
-               "webshot"),
+               "webshot",
+               "decktape"),
   capturer_args = list(),
   ...,
   rendered_file = NULL,
@@ -193,6 +208,11 @@ rmd_to_ari = function(
     }
     writeLines(paragraphs, script)
   } else {
+    if (length(script) > 1 & all(!file.exists(script))) {
+      tfile = tempfile(fileext = ".md")
+      writeLines(script, tfile)
+      script = tfile
+    }
     stopifnot(length(script) == 1)
     stopifnot(file.exists(script))
     paragraphs = readLines(script)
@@ -231,7 +251,20 @@ rmd_to_ari = function(
   }
 
 
-  if (capturer == "chrome_print") {
+  #'
+
+  if (capturer == "decktape") {
+    if (!requireNamespace("xaringan", quietly = TRUE)) {
+      stop("xaringan pacakge needed to use decktape")
+    }
+    pdf_file = tempfile(fileext = ".pdf")
+    args = as.list(capturer_args)
+    args$file = slides
+    args$output = pdf_file
+    args$open = FALSE
+    pdf_file = do.call(xaringan::decktape, args = args)
+    n_slides_guess = pdftools::pdf_info(pdf_file)$pages
+  } else if (capturer == "chrome_print") {
     if (!requireNamespace("pagedown", quietly = TRUE)) {
       stop("pagedown pacakge needed to use chrome_print")
     }
