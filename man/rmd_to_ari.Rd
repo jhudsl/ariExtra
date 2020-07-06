@@ -84,6 +84,10 @@ res$output_file
       pdf_file = tempfile(fileext = ".pdf")
       xaringan::decktape(rendered_file, pdf_file, docker = FALSE)
       res = pdf_to_ari(pdf_file, script = script, open = FALSE)
+      result = rmd_to_ari(path = path,
+                 script = script,
+                 rendered_file = rendered_file,
+                 capturer = "decktape")
     }
   }
 }

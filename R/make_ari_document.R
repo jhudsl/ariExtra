@@ -90,7 +90,7 @@ make_ari_document = function(
   }
   images = normalizePath(images)
   ext = tools::file_ext(images)
-  new_names = paste0("slide_", seq_along(images), ".", ext)
+  new_names = sprintf("slide_%05.0f.%s", seq_along(images), ext)
   new_names = file.path(files_dir, new_names)
   file.copy(images, new_names, overwrite = TRUE)
 
