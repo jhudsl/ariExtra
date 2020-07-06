@@ -129,6 +129,7 @@ make_ari_document = function(
   yml = yaml::as.yaml(L)
   yml = paste0("---\n", yml, "---\n")
   if (use_knitr) {
+    speak = text2speech::tts_speak_engine
     add_speak = paste0(
       '```{r speak_setup, echo = FALSE, results = "hide"}\n',
       'knitr::knit_engines$set(speak = text2speech::tts_speak_engine)',
