@@ -118,6 +118,23 @@ pptx_slide_note_df = function(file) {
 }
 
 
+pptx_reorder_xml = function(files) {
+  if (length(files) == 0) {
+    return(files)
+  }
+  nums = basename(files)
+  # nums = gsub(pattern = paste0(pattern, "(\\d*)[.]xml"),
+  #             replacement = "\\1", nums)
+  nums = sub("[[:alpha:]]*(\\d.*)[.].*", "\\1", nums)
+  nums = as.numeric(nums)
+  if (any(is.na(nums))) {
+    warning(paste0("Trying to parse set of files (example: ", files[1],
+                   ") from PPTX, failed"))
+    return(files)
+  }
+  files = files[order(nums)]
+}
+
 #' @export
 #' @rdname pptx_notes
 unzip_pptx = function(file) {
@@ -128,10 +145,12 @@ unzip_pptx = function(file) {
   slide_dir = file.path(tdir, "ppt", "slides")
   slides = list.files(path = slide_dir, pattern = "[.]xml$",
                       full.names = TRUE)
+  slides = pptx_reorder_xml(slides)
 
   note_dir = file.path(tdir, "ppt", "notesSlides")
   notes = list.files(path = note_dir, pattern = "[.]xml$",
                      full.names = TRUE)
+  notes = pptx_reorder_xml(notes)
 
   tdir = normalizePath(tdir)
   props_dir = file.path(tdir, "docProps")
