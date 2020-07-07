@@ -91,6 +91,14 @@ mario_write_video = function(response) {
   output
 }
 
+mario_subtitles = function(response) {
+  httr::stop_for_status(response)
+  bin_data = httr::content(response)
+  bin_data = bin_data$subtitles[[1]]
+  bin_data = base64enc::base64decode(bin_data)
+  rawToChar(bin_data)
+}
+
 open_video = function(response, open = TRUE) {
   output = mario_write_video(response)
   if (open) {
