@@ -39,6 +39,8 @@ mario = function(
   api_key = Sys.getenv("CONNECT_API_KEY"),
   voice = NULL,
   service = NULL,
+  target = NULL,
+  token = NULL,
   ...
 ) {
   auth_hdr = mario_auth(api_key)
@@ -72,7 +74,20 @@ mario = function(
   body$script = script
   body$service = service
   body$voice = voice
-
+  if (!is.null(target) && is.null(token)) {
+    stop("If target specified, token needs to be set")
+  }
+  body$target = target
+  if (!is.null(token)) {
+    if (inherits(token, "Token")) {
+      tokenfile = tempfile(fileext = ".rds")
+      saveRDS(token, file = tokenfile)
+      token = tokenfile
+    }
+    stopifnot(file.exists(token))
+    token = httr::upload_file(token)
+  }
+  body$token = token
 
   response = httr::POST(
     url = paste0(api_url, "/to_ari"),
