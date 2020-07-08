@@ -45,3 +45,4 @@ URL: https://github.com/muschellij2/ariExtra
 BugReports: https://github.com/muschellij2/ariExtra/issues
 RoxygenNote: 7.1.0
 Roxygen: list(markdown = TRUE)
+
