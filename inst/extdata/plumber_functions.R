@@ -96,6 +96,53 @@ mario = function(
   response
 }
 
+mario_translate = function(
+  file,
+  api_url = "https://rsconnect.biostat.jhsph.edu/ario",
+  api_key = Sys.getenv("CONNECT_API_KEY"),
+  target = NULL,
+  token = NULL,
+  ...
+) {
+  auth_hdr = mario_auth(api_key)
+
+  if (all(file.exists(file))) {
+    zipfile = tempfile(fileext = ".zip")
+    utils::zip(zipfile, files = file)
+    file = zipfile
+    body = list(
+      file = httr::upload_file(file)
+    )
+  } else {
+    # google slide ids
+    body = list(
+      file = file
+    )
+  }
+
+
+  if (!is.null(target) && is.null(token)) {
+    stop("If target specified, token needs to be set")
+  }
+  body$target = target
+  if (!is.null(token)) {
+    if (inherits(token, "Token")) {
+      tokenfile = tempfile(fileext = ".rds")
+      saveRDS(token, file = tokenfile)
+      token = tokenfile
+    }
+    stopifnot(file.exists(token))
+    token = httr::upload_file(token)
+  }
+  body$token = token
+
+  response = httr::POST(
+    url = paste0(api_url, "/translate_slide"),
+    body = body,
+    auth_hdr, ...)
+  response
+}
+
 mario_write_video = function(response) {
   httr::stop_for_status(response)
   bin_data = httr::content(response)
