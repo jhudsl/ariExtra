@@ -143,6 +143,20 @@ mario_translate = function(
   response
 }
 
+mario_content = function(response) {
+  out = jsonlite::fromJSON(
+    httr::content(response, as = "text"),
+    flatten = TRUE)
+  if ("video" %in% names(out)) {
+    out$video =  mario_write_video(response)
+  }
+  out$id = out$id[[1]]
+  if ("subtitles" %in% names(out)) {
+    out$subtitles =  mario_subtitles(response)
+  }
+  out
+}
+
 mario_write_video = function(response) {
   httr::stop_for_status(response)
   bin_data = httr::content(response)
