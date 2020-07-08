@@ -1,6 +1,6 @@
 testthat::context("gs_to_ari Runs")
 
-testthat::test_that("multiplication works", {
+testthat::test_that("running bad id for gs_to_ari", {
   id = "1Opt6lv7rRi7Kzb9bI0u3SWX1pSz1k7botaphTuFYgNs"
   res = gs_to_ari(id, verbose = 2, open = FALSE)
   res2 = to_ari(id, open = FALSE)
