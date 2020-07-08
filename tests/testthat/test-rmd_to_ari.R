@@ -63,6 +63,13 @@ testthat::test_that("xaringan example with pre-rendered", {
                       "Cannot find.* Google Chrome|",
                       "pagedown package needed|",
                       "not executable")
+    run_rmd = function(capturer) {
+      res = rmd_to_ari(path, open = FALSE,
+                       script = script,
+                       rendered_file = rendered_file,
+                       capturer = capturer,
+                       capture_method = "vectorized")
+    }
 
     rendered_file = system.file("extdata",
                                 "lucy-demo-noggplot2.html",
