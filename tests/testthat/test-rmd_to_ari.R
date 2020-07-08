@@ -25,6 +25,7 @@ testthat::test_that("xaringan example", {
     }
 
     script = c("this", "is", "one", "word", "per slide")
+
     required_pandoc <- "1.12.3"
     if (rmarkdown::pandoc_available(required_pandoc)) {
       rendered_file = tempfile(fileext = ".html")
@@ -71,6 +72,9 @@ testthat::test_that("xaringan example with pre-rendered", {
                        capture_method = "vectorized")
     }
 
+    script = c("this", "is", "one", "word", "per slide")
+
+    # already rendered
     rendered_file = system.file("extdata",
                                 "lucy-demo-noggplot2.html",
                                 package = "ariExtra")
