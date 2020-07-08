@@ -130,9 +130,20 @@ get_nslides = function(slides) {
 #'
 #' @examples
 #' \donttest{
-#' path = system.file("extdata", "example.Rmd", package = "ariExtra")
-#' res = rmd_to_ari(path, open = FALSE)
-#' res$output_file
+#' if (rmarkdown::pandoc_available("1.12.3")) {
+#'   path = system.file("extdata", "example.Rmd", package = "ariExtra")
+#'   tfile = tempfile(fileext = ".pdf")
+#'   out = try({
+#'     output_file = tempfile(fileext = ".html")
+#'     rmarkdown::render(path, output_file = output_file)
+#'     pagedown::chrome_print(output_file,
+#'                            output = tfile)
+#'   }, silent = TRUE)
+#'   if (!inherits(out, "try-error")) {
+#'     res = rmd_to_ari(path, open = FALSE)
+#'     res$output_file
+#'   }
+#' }
 #' }
 #'
 #' \donttest{
@@ -278,7 +289,7 @@ rmd_to_ari = function(
     n_slides_guess = pdftools::pdf_info(pdf_file)$pages
   } else {
     if (!requireNamespace("webshot", quietly = TRUE)) {
-      stop("webshot pacakge needed to use webshot")
+      stop("webshot package needed to use webshot")
     }
     if (verbose) {
       message("Getting the number of slides")
