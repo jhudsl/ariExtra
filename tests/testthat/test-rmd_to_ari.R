@@ -23,6 +23,7 @@ testthat::test_that("xaringan example", {
                                   "lucy-demo-noggplot2.html",
                                   package = "ariExtra")
     }
+    testthat::skip_on_os("solaris")
     fail_msg = "Failed to generate|Cannot find.* Google Chrome|not executable"
     testthat::expect_error({
       res = rmd_to_ari(path, open = FALSE,

@@ -1,3 +1,7 @@
+# ariExtra 0.2.10
+
+* Skipping Solaris checks.
+
 # ariExtra 0.2.9
 
 * Added checks for `pandoc` version on CRAN.
