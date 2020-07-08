@@ -220,7 +220,7 @@ html_to_ari = function(
 
   if (!requireNamespace("pagedown", quietly = TRUE)) {
     stop(
-      paste0("pagedown pacakge needed to use chrome_print",
+      paste0("pagedown package needed to use chrome_print",
              " for html_to_ari")
     )
   }

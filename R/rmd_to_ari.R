@@ -266,7 +266,7 @@ rmd_to_ari = function(
     n_slides_guess = pdftools::pdf_info(pdf_file)$pages
   } else if (capturer == "chrome_print") {
     if (!requireNamespace("pagedown", quietly = TRUE)) {
-      stop("pagedown pacakge needed to use chrome_print")
+      stop("pagedown package needed to use chrome_print")
     }
     pdf_file = tempfile(fileext = ".pdf")
     args = as.list(capturer_args)
