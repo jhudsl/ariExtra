@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ariExtra</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.9</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.10</span>
       </span>
     </div>
 
@@ -79,7 +79,7 @@
 
       
 
-      </header><script src="making_videos_files/header-attrs-2.2/header-attrs.js"></script><div class="row">
+      </header><script src="making_videos_files/header-attrs-2.3/header-attrs.js"></script><script src="making_videos_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip></h1>
@@ -122,19 +122,19 @@
 <div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="kw">if</span> (<span class="kw pkg">ari</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/ari/man/ffmpeg_exec.html">have_ffmpeg_exec</a></span>()) {
   <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/attributes.html">attributes</a></span>(<span class="no">result</span>)$<span class="no">outfile</span>)
 }</pre></body></html></div>
-<pre><code>#&gt; [1] "file3bc8718b241b.mp4"</code></pre>
+<pre><code>#&gt; [1] "file195e2baf0275.mp4"</code></pre>
 <p>The video for this output can be seen at <a href="https://youtu.be/3kgaYf-EV90" class="uri">https://youtu.be/3kgaYf-EV90</a>.</p>
 <p>In <strong><code>ariExtra</code></strong>, you</p>
 <pre><code>#&gt; $output_file
-#&gt; [1] "/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//RtmprsyHdj/file3bc87fafd655.md"
+#&gt; [1] "/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmpn1JYFT/file195e3195f9ef.md"
 #&gt; 
 #&gt; $original_images
 #&gt; [1] "/Library/Frameworks/R.framework/Versions/4.0/Resources/library/ari/test/mab1.png"
 #&gt; [2] "/Library/Frameworks/R.framework/Versions/4.0/Resources/library/ari/test/mab2.png"
 #&gt; 
 #&gt; $images
-#&gt; [1] "/private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmprsyHdj/file3bc87fafd655_files/slide_1.png"
-#&gt; [2] "/private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmprsyHdj/file3bc87fafd655_files/slide_2.png"
+#&gt; [1] "/private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/Rtmpn1JYFT/file195e3195f9ef_files/slide_00001.png"
+#&gt; [2] "/private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/Rtmpn1JYFT/file195e3195f9ef_files/slide_00002.png"
 #&gt; 
 #&gt; $script
 #&gt; [1] "hey" "ho" 
@@ -222,13 +222,17 @@ In the future, other HTML headless rendering engines (<code>webshot</code> uses 
 }
 <span class="co">#&gt; Getting Notes from PPTX</span>
 <span class="co">#&gt; Converting PPTX to PDF</span>
+<span class="co">#&gt; Error in docxtractr::convert_to_pdf(path, pdf_file = pdf_file) : </span>
+<span class="co">#&gt;   Conversion from PPTX to PDF did not succeed</span>
+<span class="co">#&gt; Warning in fix_soffice_library_path(): Changing LD_LIBRARY_PATH as error in</span>
+<span class="co">#&gt; soffice with PPTX conversion may be due to path issues!</span>
 <span class="co">#&gt; Converting PDF to PNGs</span>
-<span class="co">#&gt; Converting page 1 to /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//RtmprsyHdj/file3bc8aca6e37.png... done!</span>
-<span class="co">#&gt; Converting page 2 to /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//RtmprsyHdj/file3bc87009e269.png... done!</span>
+<span class="co">#&gt; Converting page 1 to /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmpn1JYFT/file195e2678e112.png... done!</span>
+<span class="co">#&gt; Converting page 2 to /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmpn1JYFT/file195e4a007879.png... done!</span>
 <span class="co">#&gt; Making output_file directories</span>
 <span class="co">#&gt; $images</span>
-<span class="co">#&gt; [1] "/private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmprsyHdj/file3bc818ef94f6_files/slide_1.png"</span>
-<span class="co">#&gt; [2] "/private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmprsyHdj/file3bc818ef94f6_files/slide_2.png"</span>
+<span class="co">#&gt; [1] "/private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/Rtmpn1JYFT/file195e64e575e3_files/slide_00001.png"</span>
+<span class="co">#&gt; [2] "/private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/Rtmpn1JYFT/file195e64e575e3_files/slide_00002.png"</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $script</span>
 <span class="co">#&gt; [1] "Sometimes it’s hard for an instructor to take the time to record their lectures.  For example, I’m in a coffee shop and it may be loud."</span>
@@ -240,12 +244,12 @@ In the future, other HTML headless rendering engines (<code>webshot</code> uses 
 <span class="co">#&gt; not be available, did you turn link sharing on?</span>
 <span class="co">#&gt; Warning in download_gs_file(id = path, out_type = "pdf"): This presentation may</span>
 <span class="co">#&gt; not be available, did you turn link sharing on?</span>
-<span class="co">#&gt; Converting page 1 to /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//RtmprsyHdj/file3bc86b3f9a9f.png... done!</span>
-<span class="co">#&gt; Converting page 2 to /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//RtmprsyHdj/file3bc81cc073bb.png... done!</span>
+<span class="co">#&gt; Converting page 1 to /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmpn1JYFT/file195e67110057.png... done!</span>
+<span class="co">#&gt; Converting page 2 to /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmpn1JYFT/file195ed2d849e.png... done!</span>
 <span class="no">gs_doc</span>[<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"images"</span>, <span class="st">"script"</span>)]
 <span class="co">#&gt; $images</span>
-<span class="co">#&gt; [1] "/private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmprsyHdj/file3bc81eee08bc_files/slide_1.png"</span>
-<span class="co">#&gt; [2] "/private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmprsyHdj/file3bc81eee08bc_files/slide_2.png"</span>
+<span class="co">#&gt; [1] "/private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/Rtmpn1JYFT/file195e275da7d4_files/slide_00001.png"</span>
+<span class="co">#&gt; [2] "/private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/Rtmpn1JYFT/file195e275da7d4_files/slide_00002.png"</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $script</span>
 <span class="co">#&gt; [1] "Sometimes it’s hard for an instructor to take the time to record their lectures.  For example, I’m in a coffee shop and it may be loud."</span>
