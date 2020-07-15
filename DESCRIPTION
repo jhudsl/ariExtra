@@ -43,6 +43,5 @@ Type: Package
 VignetteBuilder: knitr
 URL: https://github.com/muschellij2/ariExtra
 BugReports: https://github.com/muschellij2/ariExtra/issues
-RoxygenNote: 7.1.0
+RoxygenNote: 7.1.1
 Roxygen: list(markdown = TRUE)
-

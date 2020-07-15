@@ -10,4 +10,4 @@
 * This is a new release.
 
 ---
-Fixes the "The browser is not executable:" error on MacOS for `pagedown::chrome_print` functionality by adding in this use case for the regex.  Also skipping Solaris check as it's unclear how to debug right now.
+Adding the `length(script) > 0` error to the mix as it is possible this will come up with the tests.

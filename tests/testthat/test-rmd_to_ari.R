@@ -14,14 +14,19 @@ testthat::test_that("xaringan example", {
                       "Cannot find.* Google Chrome|",
                       "pagedown package needed|",
                       "not executable")
+    if (sysname <- tolower(Sys.info()[["sysname"]]) == "sunos") {
+      fail_msg = paste0(fail_msg, "|length\\(script\\)")
+    }
 
 
     run_rmd = function(capturer) {
-      res = rmd_to_ari(path, open = FALSE,
-                       script = script,
-                       rendered_file = rendered_file,
-                       capturer = capturer,
-                       capture_method = "vectorized")
+      res = rmd_to_ari(
+        path, open = FALSE,
+        script = script,
+        rendered_file = rendered_file,
+        capturer = capturer,
+        verbose = 2,
+        capture_method = "vectorized")
     }
 
     script = c("this", "is", "one", "word", "per slide")
@@ -64,11 +69,12 @@ testthat::test_that("xaringan example with pre-rendered", {
                       "Cannot find.* Google Chrome|",
                       "pagedown package needed|",
                       "not executable")
-    run_rmd = function(capturer) {
+    run_rmd = function(capturer, script) {
       res = rmd_to_ari(path, open = FALSE,
                        script = script,
                        rendered_file = rendered_file,
                        capturer = capturer,
+                       verbose = 2,
                        capture_method = "vectorized")
     }
 
@@ -88,19 +94,19 @@ testthat::test_that("xaringan example with pre-rendered", {
     if (!requireNamespace("pagedown", quietly = TRUE) ||
         chrome_print_failure) {
       testthat::expect_error({
-        run_rmd("webshot")
+        run_rmd("webshot", script = script)
       }, regexp = fail_msg)
     } else {
-      run_rmd("webshot")
+      run_rmd("webshot", script = script)
     }
 
     if (!requireNamespace("pagedown", quietly = TRUE) ||
         chrome_print_failure) {
       testthat::expect_error({
-        run_rmd("chrome_print")
+        run_rmd("chrome_print", script = script)
       }, regexp = fail_msg)
     } else {
-      run_rmd("chrome_print")
+      run_rmd("chrome_print", script = script)
     }
 
 

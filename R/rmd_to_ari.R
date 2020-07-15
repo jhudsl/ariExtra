@@ -213,6 +213,9 @@ rmd_to_ari = function(
         paragraphs = p2
       }
     }
+    if (length(paragraphs) == 0) {
+      stop("Cannot parse comments from Rmd!")
+    }
     script = tempfile(fileext = ".txt")
     if (verbose > 1) {
       message(paste0("script is at: ", script))
@@ -266,7 +269,7 @@ rmd_to_ari = function(
 
   if (capturer == "decktape") {
     if (!requireNamespace("xaringan", quietly = TRUE)) {
-      stop("xaringan pacakge needed to use decktape")
+      stop("xaringan package needed to use decktape")
     }
     pdf_file = tempfile(fileext = ".pdf")
     args = as.list(capturer_args)
@@ -324,6 +327,8 @@ rmd_to_ari = function(
   img_paths <- sapply(slide_nums, function(r) {
     tempfile(fileext = ".png")
   })
+  # at least we know they will be in order
+  img_paths = sort(img_paths)
 
   if (capturer == "webshot") {
     if (experimental) {
