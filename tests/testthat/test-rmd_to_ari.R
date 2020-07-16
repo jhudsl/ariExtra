@@ -14,12 +14,9 @@ testthat::test_that("xaringan example", {
                       "Cannot find.* Google Chrome|",
                       "pagedown package needed|",
                       "not executable")
-    if (sysname <- tolower(Sys.info()[["sysname"]]) == "sunos") {
-      fail_msg = paste0(fail_msg, "|length\\(script\\)")
-    }
 
 
-    run_rmd = function(capturer) {
+    run_rmd = function(capturer, script, rendered_file) {
       res = rmd_to_ari(
         path, open = FALSE,
         script = script,
@@ -38,16 +35,18 @@ testthat::test_that("xaringan example", {
       # needs pagedown still
       rmarkdown::render(path, output_format = xaringan::moon_reader(),
                         output_file = rendered_file)
+      out = ariExtra:::rmd_script(path = path, script = script, verbose = TRUE)
+      print(out)
       if (requireNamespace("pagedown", quietly = TRUE)) {
         testthat::expect_error({
-          run_rmd("webshot")
+          run_rmd("webshot", script = script, rendered_file = rendered_file)
         }, regexp = fail_msg)
       } else {
         run_rmd("webshot")
       }
 
       testthat::expect_error({
-        run_rmd("chrome_print")
+        run_rmd("chrome_print", script = script, rendered_file = rendered_file)
       }, regexp = fail_msg)
 
     }
