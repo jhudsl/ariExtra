@@ -38,7 +38,6 @@ before_install:
 - ffmpeg_install ;
 - magick_install ;
 - poppler_install ;
-- imagemagick_install ;
 - if [ "$TRAVIS_OS_NAME" = "osx" ];
   then
     no_open_mp ;
