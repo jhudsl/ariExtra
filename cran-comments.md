@@ -8,6 +8,6 @@
 0 errors | 0 warnings | 1 note
 
 * This is a new release.
-
 ---
-Adding the `length(script) > 0` error to the mix as it is possible this will come up with the tests.
+
+Removing test until I can figure out how `chrome_print` works for each OS.  Users can still use `webshot` to create the output.

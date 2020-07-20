@@ -22,7 +22,7 @@ testthat::test_that("xaringan example", {
         script = script,
         rendered_file = rendered_file,
         capturer = capturer,
-        verbose = 2,
+        verbose = TRUE,
         capture_method = "vectorized")
     }
 
@@ -73,7 +73,7 @@ testthat::test_that("xaringan example with pre-rendered", {
                        script = script,
                        rendered_file = rendered_file,
                        capturer = capturer,
-                       verbose = 2,
+                       verbose = TRUE,
                        capture_method = "vectorized")
     }
 
@@ -95,9 +95,10 @@ testthat::test_that("xaringan example with pre-rendered", {
       testthat::expect_error({
         run_rmd("webshot", script = script)
       }, regexp = fail_msg)
-    } else {
-      run_rmd("webshot", script = script)
     }
+    # else {
+      # run_rmd("webshot", script = script)
+    # }
 
     if (!requireNamespace("pagedown", quietly = TRUE) ||
         chrome_print_failure) {
