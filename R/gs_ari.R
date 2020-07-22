@@ -7,7 +7,7 @@ download_gs_file = function(id, out_type = "pptx") {
   result = httr::GET(url, httr::write_disk(tfile))
   warn_them = FALSE
   fr_header = result$headers$`x-frame-options`
-  if (is.null(fr_header)) {
+  if (!is.null(fr_header)) {
     if (all(fr_header == "DENY")) {
       warn_them = TRUE
     }
@@ -24,9 +24,9 @@ download_gs_file = function(id, out_type = "pptx") {
   if (grepl("ServiceLogin", result$url)) {
     warn_them = TRUE
   }
-  if (result$times["redirect"] > 0) {
-    warn_them = TRUE
-  }
+  # if (result$times["redirect"] > 0) {
+  #   warn_them = TRUE
+  # }
   if (warn_them) {
     warning(
       paste0(
