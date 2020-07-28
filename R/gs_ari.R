@@ -120,7 +120,7 @@ gs_pptx_notes = function(
 
   script = get_pptx_script(
     path = pptx_file,
-    script = script,
+    script = NULL,
     verbose = verbose)
   L = list(script = script,
            pptx_file = pptx_file)
