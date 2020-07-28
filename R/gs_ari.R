@@ -104,6 +104,27 @@ gs_to_ari = function(
   # pptx_to_ari(pptx_file, script = script, ..., verbose = verbose)
 }
 
+#' @export
+#' @rdname gs_to_ari
+gs_pptx_notes = function(
+  path,
+  verbose = TRUE) {
+
+  if (verbose) {
+    message("Downloading PPTX")
+  }
+  pptx_file = download_gs_file(id = path, out_type = "pptx")
+  if (verbose > 1) {
+    message(paste0("pptx is at: ", pptx_file))
+  }
+
+  script = get_pptx_script(
+    path = pptx_file,
+    script = script,
+    verbose = verbose)
+  L = list(script = script,
+           pptx_file = pptx_file)
+}
 
 #' @rdname gs_to_ari
 #' @export

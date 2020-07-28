@@ -2,6 +2,7 @@
 % Please edit documentation in R/gs_ari.R
 \name{gs_to_ari}
 \alias{gs_to_ari}
+\alias{gs_pptx_notes}
 \alias{pptx_to_pdf}
 \alias{pptx_to_pngs}
 \alias{pptx_to_ari}
@@ -13,6 +14,8 @@
 \title{Convert Google Slides and notes to video with ari}
 \usage{
 gs_to_ari(path, script = NULL, ..., verbose = TRUE)
+
+gs_pptx_notes(path, verbose = TRUE)
 
 pptx_to_pdf(path, verbose = TRUE)
 

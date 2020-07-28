@@ -3,6 +3,7 @@
 export("%>%")
 export(ari_document)
 export(get_slide_id)
+export(gs_pptx_notes)
 export(gs_to_ari)
 export(html_to_ari)
 export(images_to_ari)
