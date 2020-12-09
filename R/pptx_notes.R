@@ -9,6 +9,7 @@
 #' @importFrom xml2 read_xml xml_text xml_find_all
 xml_notes = function(file, collapse_text = TRUE) {
   xdoc = xml2::read_xml(file)
+  # probably need to a:p//a:t and collapse all text within a a:p
   txt = xml2::xml_find_all(x = xdoc, xpath = "//a:t")
   txt = xml2::xml_text(txt)
   if (collapse_text) {
@@ -47,6 +48,9 @@ pptx_notes = function(file) {
   res = sapply(ss, function(x) {
     paste(x$text, collapse = " ")
   })
+  if (any(trimws(res) %in% "")) {
+    warning("Slides with no notes exists")
+  }
   res[ res == ""] = ";"
   return(res)
 }

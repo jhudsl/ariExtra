@@ -12,7 +12,7 @@ mario_auth = function(api_key = NULL) {
 
 mario_voices = mario = function(
   service = NULL,
-  api_url = "https://rsconnect.biostat.jhsph.edu/ario",
+  api_url = "https://rsconnect.biostat.jhsph.edu/mario",
   api_key = Sys.getenv("CONNECT_API_KEY"),
   ...
 ) {
@@ -35,7 +35,7 @@ mario_voices = mario = function(
 mario = function(
   file,
   script = NULL,
-  api_url = "https://rsconnect.biostat.jhsph.edu/ario",
+  api_url = "https://rsconnect.biostat.jhsph.edu/mario",
   api_key = Sys.getenv("CONNECT_API_KEY"),
   voice = NULL,
   service = NULL,
@@ -98,7 +98,7 @@ mario = function(
 
 mario_translate = function(
   file,
-  api_url = "https://rsconnect.biostat.jhsph.edu/ario",
+  api_url = "https://rsconnect.biostat.jhsph.edu/mario",
   api_key = Sys.getenv("CONNECT_API_KEY"),
   target = NULL,
   token = NULL,
