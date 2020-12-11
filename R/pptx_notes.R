@@ -105,7 +105,11 @@ pptx_slide_note_df = function(file) {
       notes = assoc_notes
     }
     res = lapply(notes, function(x) {
-      xx = xml_notes(x, collapse_text = FALSE)
+      if (file.size(x) == 0) {
+        xx = ""
+      } else {
+        xx = xml_notes(x, collapse_text = FALSE)
+      }
       if (length(xx) == 0) {
         xx = ""
       }
