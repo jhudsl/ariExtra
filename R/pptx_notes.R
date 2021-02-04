@@ -29,7 +29,7 @@ xml_notes = function(file, collapse_text = TRUE) {
 #'
 #' @importFrom utils unzip
 #' @examples
-#' file = ex_file = system.file("extdata", "example.pptx",
+#' ex_file = system.file("extdata", "example.pptx",
 #' package = "ariExtra")
 #' pptx_notes(ex_file)
 #' pptx_slide_note_df(ex_file)

@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ariExtra</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.10</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
       </span>
     </div>
 
@@ -39,7 +39,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -65,7 +65,7 @@
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="https://github.com/muschellij2/ariExtra/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -79,7 +79,7 @@
 
       
 
-      </header><script src="making_videos_files/header-attrs-2.3/header-attrs.js"></script><script src="making_videos_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><script src="making_videos_files/header-attrs-2.6/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip></h1>
@@ -94,22 +94,22 @@
     
 <table class="table"><tbody>
 <tr class="odd">
-<td align="right">title: “Using <code>ari</code> to make videos”</td>
+<td>title: “Using <code>ari</code> to make videos”</td>
 </tr>
 <tr class="even">
-<td align="right">output: rmarkdown::html_vignette</td>
+<td>output: rmarkdown::html_vignette</td>
 </tr>
 <tr class="odd">
-<td align="right">vignette: &gt;</td>
+<td>vignette: &gt;</td>
 </tr>
 <tr class="even">
-<td align="right">%</td>
+<td>%</td>
 </tr>
 <tr class="odd">
-<td align="right">%</td>
+<td>%</td>
 </tr>
 <tr class="even">
-<td align="right">%</td>
+<td>%</td>
 </tr>
 </tbody></table>
 <div id="making-videos-with-ari-ari_stitch" class="section level2">
@@ -119,45 +119,46 @@
 <p>The main workhorse of <strong><code>ari</code></strong> is the <code>ari_stitch</code> function. This function requires an ordered set of images and an ordered set of audio objects, either paths to <code>wav</code> files or <strong><code>tuneR</code></strong> Wave objects, that correspond to each image. The <code>ari_stitch</code> function sequentially “stitches” each image in the video for the duration of its corresponding audio object using <code>ffmpeg</code>. In order to use <strong><code>ari</code></strong>, one must have an <code>ffmpeg</code> installation to combine the audio and images. Other packages such as <strong><code>animation</code></strong> have a similar requirement. Moreover, on <a href="https://www.shinyapps.io/">shinyapps.io</a>, a dependency on the <strong><code>animation</code></strong> package will trigger an installation of <code>ffmpeg</code> so <strong><code>ari</code></strong> can be used on <a href="https://www.shinyapps.io/">shinyapps.io</a>. In the example below, 2 images (packaged with <strong><code>ari</code></strong>) are overlaid withe white noise for demonstration. This example also allows users to check if the output of <code>ffmpeg</code> works with a desired video player.</p>
 <pre><code>#&gt; [1] TRUE</code></pre>
 <p>The output is a logical indicator, but additional attributes are available, such as the path of the output file:</p>
-<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="kw">if</span> (<span class="kw pkg">ari</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/ari/man/ffmpeg_exec.html">have_ffmpeg_exec</a></span>()) {
-  <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/attributes.html">attributes</a></span>(<span class="no">result</span>)$<span class="no">outfile</span>)
-}</pre></body></html></div>
-<pre><code>#&gt; [1] "file55f6df942e6.mp4"</code></pre>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw">if</span> <span class="op">(</span><span class="fu">ari</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/ari/man/ffmpeg_exec.html">have_ffmpeg_exec</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attributes.html">attributes</a></span><span class="op">(</span><span class="va">result</span><span class="op">)</span><span class="op">$</span><span class="va">outfile</span><span class="op">)</span>
+<span class="op">}</span></code></pre></div>
+<pre><code>#&gt; [1] "filedfba6a8f9716.mp4"</code></pre>
 <p>The video for this output can be seen at <a href="https://youtu.be/3kgaYf-EV90" class="uri">https://youtu.be/3kgaYf-EV90</a>.</p>
 <p>In <strong><code>ariExtra</code></strong>, you</p>
 <pre><code>#&gt; $output_file
-#&gt; [1] "/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//RtmpV31prH/file55f551640f8.md"
+#&gt; [1] "/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmplvlouo/filedfba36119b3e.md"
 #&gt; 
 #&gt; $original_images
-#&gt; [1] "/Library/Frameworks/R.framework/Versions/4.0/Resources/library/ari/test/mab1.png"
-#&gt; [2] "/Library/Frameworks/R.framework/Versions/4.0/Resources/library/ari/test/mab2.png"
+#&gt; [1] "/Users/johnmuschelli/Library/R/4.0/library/ari/test/mab1.png"
+#&gt; [2] "/Users/johnmuschelli/Library/R/4.0/library/ari/test/mab2.png"
 #&gt; 
 #&gt; $images
-#&gt; [1] "/private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpV31prH/file55f551640f8_files/slide_00001.png"
-#&gt; [2] "/private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpV31prH/file55f551640f8_files/slide_00002.png"
+#&gt; [1] "/private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/Rtmplvlouo/filedfba36119b3e_files/slide_00001.png"
+#&gt; [2] "/private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/Rtmplvlouo/filedfba36119b3e_files/slide_00002.png"
 #&gt; 
 #&gt; $script
 #&gt; [1] "hey" "ho" 
 #&gt; 
 #&gt; $use_knitr
 #&gt; [1] FALSE
-#&gt;  [1] "---"                                                                                  
-#&gt;  [2] "output:"                                                                              
-#&gt;  [3] "  ariExtra::ari_document:"                                                            
-#&gt;  [4] "    verbose: yes"                                                                     
-#&gt;  [5] "---"                                                                                  
-#&gt;  [6] ""                                                                                     
-#&gt;  [7] ""                                                                                     
-#&gt;  [8] "----------"                                                                           
-#&gt;  [9] ""                                                                                     
-#&gt; [10] "&lt;!--hey--&gt;"                                                                           
-#&gt; [11] "![](/Library/Frameworks/R.framework/Versions/4.0/Resources/library/ari/test/mab1.png)"
-#&gt; [12] ""                                                                                     
-#&gt; [13] ""                                                                                     
-#&gt; [14] "----------"                                                                           
-#&gt; [15] ""                                                                                     
-#&gt; [16] "&lt;!--ho--&gt;"                                                                            
-#&gt; [17] "![](/Library/Frameworks/R.framework/Versions/4.0/Resources/library/ari/test/mab2.png)"
+#&gt;  [1] "---"                                                              
+#&gt;  [2] "output:"                                                          
+#&gt;  [3] "  ariExtra::ari_document:"                                        
+#&gt;  [4] "    verbose: yes"                                                 
+#&gt;  [5] "---"                                                              
+#&gt;  [6] ""                                                                 
+#&gt;  [7] ""                                                                 
+#&gt;  [8] "----------"                                                       
+#&gt;  [9] ""                                                                 
+#&gt; [10] "&lt;!--hey--&gt;"                                                       
+#&gt; [11] "![](/Users/johnmuschelli/Library/R/4.0/library/ari/test/mab1.png)"
+#&gt; [12] ""                                                                 
+#&gt; [13] ""                                                                 
+#&gt; [14] "----------"                                                       
+#&gt; [15] ""                                                                 
+#&gt; [16] "&lt;!--ho--&gt;"                                                        
+#&gt; [17] "![](/Users/johnmuschelli/Library/R/4.0/library/ari/test/mab2.png)"
 #&gt; [18] ""</code></pre>
 </div>
 <div id="synthesizer-authentication" class="section level2">
@@ -175,17 +176,19 @@
 <h3 class="hasAnchor">
 <a href="#creating-videos-from-r-markdown-documents" class="anchor"></a>Creating Videos from R Markdown Documents</h3>
 <p>Many R users have experience creating slide decks with R Markdown, for example using the <strong><code>rmarkdown</code></strong> or <strong><code>xaringan</code></strong> packages. In <strong><code>ari</code></strong>, the HTML slides are rendered using <strong><code>webshot</code></strong> and the script is located in HTML comments (i.e. between <code>&lt;!--</code> and <code>--&gt;</code>). For example, in the file <code>ari_comments.Rmd</code> included in <strong><code>ari</code></strong>, which is an <code>ioslides</code> type of R Markdown slide deck, we have the last slide:</p>
-<div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="no">x</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/readLines.html">readLines</a></span>(<span class="fu">ari_example</span>(<span class="st">"ari_comments.Rmd"</span>))
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">tail</a></span>(<span class="no">x</span>[ <span class="no">x</span> <span class="kw">!=</span> <span class="st">""</span>], <span class="fl">4</span>)
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/readLines.html">readLines</a></span><span class="op">(</span><span class="fu">ari_example</span><span class="op">(</span><span class="st">"ari_comments.Rmd"</span><span class="op">)</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html">tail</a></span><span class="op">(</span><span class="va">x</span><span class="op">[</span> <span class="va">x</span> <span class="op">!=</span> <span class="st">""</span><span class="op">]</span>, <span class="fl">4</span><span class="op">)</span>
 <span class="co">#&gt; [1] "## Conclusion"                                             </span>
 <span class="co">#&gt; [2] "&lt;!--"                                                      </span>
 <span class="co">#&gt; [3] "Thank you for watching this video and good luck using Ari!"</span>
-<span class="co">#&gt; [4] "--&gt;"</span></pre></body></html></div>
+<span class="co">#&gt; [4] "--&gt;"</span></code></pre></div>
 <p>so that the first words spoken on that slide are <code>"Thank you"</code>. This setup allows for one plain text, version-controllable, integrated document that can reproducibly generate a video. We believe these features allow creators to make agile videos, that can easily be updated with new material or changed when errors or typos are found. Moreover, this framework provides an opportunity to translate videos into multiple languages, we will discuss in the future directions.</p>
-<div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="co"># Create a video from an R Markdown file with comments and slides</span>
-<span class="no">result</span> <span class="kw">=</span> <span class="kw pkg">ariExtra</span><span class="kw ns">::</span><span class="fu"><a href="../reference/rmd_to_ari.html">rmd_to_ari</a></span>(
-  <span class="kw pkg">ari</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/ari/man/ari_example.html">ari_example</a></span>(<span class="st">"ari_comments.Rmd"</span>),
-  <span class="kw">capture_method</span> <span class="kw">=</span> <span class="st">"iterative"</span>, <span class="kw">open</span> <span class="kw">=</span> <span class="fl">FALSE</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Create a video from an R Markdown file with comments and slides</span>
+<span class="va">result</span> <span class="op">=</span> <span class="fu">ariExtra</span><span class="fu">::</span><span class="fu"><a href="../reference/rmd_to_ari.html">rmd_to_ari</a></span><span class="op">(</span>
+  <span class="fu">ari</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/ari/man/ari_example.html">ari_example</a></span><span class="op">(</span><span class="st">"ari_comments.Rmd"</span><span class="op">)</span>,
+  capture_method <span class="op">=</span> <span class="st">"iterative"</span>, open <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
 <p>The output video is located at <a href="https://youtu.be/rv9fg_qsqc0" class="uri">https://youtu.be/rv9fg_qsqc0</a>. In our experience with several users we have found that some HTML slides take more or less time to render when using <strong><code>webshot</code></strong>; for example they may be tinted with gray because they are in the middle of a slide transition when the image of the slide is captured. Therefore we provide the <code>delay</code> argument in <code>ari_narrate</code> which is passed to <strong><code>webshot</code></strong>. This can resolve these issues by allowing more time for the page to fully render, however this means it may take for more time to create each video. We also provide the argument <code>capture_method</code> to allow for finely-tuned control of <code>webshot</code>. When <code>capture_method = "vectorized"</code>, <strong><code>webshot</code></strong> is run on the entire slide deck in a faster process, however we have experienced slide rendering issues with this setting depending on the configuration of an individual’s computer. However when <code>capture_method = "iterative"</code>, each slide is rendered individually in <code>webshot</code>, which solves many rendering issues, however it causes videos to be rendered more slowly.<br>
 In the future, other HTML headless rendering engines (<code>webshot</code> uses <code>PhantomJS</code>) may be used if they achieve better performance, but we have found <strong><code>webshot</code></strong> to work well in most of our applications.</p>
 <p>With respect to accessibility, <strong><code>ari</code></strong> encourages video creators to type out a script by design. This provides an effortless source of subtitles for people with hearing loss rather than relying on other services, such as YouTube, to provide speech-to-text subtitles. When using <code>ari_spin</code>, if the <code>subtitles</code> argument is <code>TRUE</code>, then an SRT file for subtitles will be created with the video.</p>
@@ -196,60 +199,58 @@ In the future, other HTML headless rendering engines (<code>webshot</code> uses 
 <a href="#creating-videos-from-other-documents" class="anchor"></a>Creating Videos from Other Documents</h3>
 <p>In order to create a video from a Google Slide deck or PowerPoint presentation, the slides should be converted to a set of images. We recommend using the PNG format for these images. In order to get the script for the video, we suggest putting the script for each slide in the speaker notes section of that slide. Several of the following features for video generation are in our package <strong><code>ariExtra</code></strong> (<a href="https://github.com/muschellij2/ariExtra" class="uri">https://github.com/muschellij2/ariExtra</a>). The speaker notes of slides can be extracted using <strong><code>rgoogleslides</code></strong> for Google Slides via the API or using <strong><code>readOffice</code></strong>/<strong><code>officer</code></strong> to read from PowerPoint documents. Google Slides can be downloaded as a PDF and converted to PNGs using the <strong><code>pdftools</code></strong> package. The <strong><code>ariExtra</code></strong> package also has a <code>pptx_notes</code> function for reading PowerPoint notes. Converting PowerPoint files to PDF can be done using LibreOffice and the <strong><code>docxtractr</code></strong> package which contains the necessary wrapper functions.</p>
 <p>To demonstrate this, we use an example PowerPoint is located on Figshare (<a href="https://figshare.com/articles/Example_PowerPoint_for_ari/8865230" class="uri">https://figshare.com/articles/Example_PowerPoint_for_ari/8865230</a>). We can convert the PowerPoint to PDF, then to a set of PNG images, then extract the speaker notes.</p>
-<div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="no">have_libreoffice</span> <span class="kw">=</span> <span class="kw">function</span>() {
-  <span class="no">x</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/try.html">try</a></span>({<span class="kw pkg">docxtractr</span><span class="kw ns">:::</span><span class="fu">lo_assert</span>()}, <span class="kw">silent</span> <span class="kw">=</span> <span class="fl">TRUE</span>)
-  !<span class="fu"><a href="https://rdrr.io/r/base/class.html">inherits</a></span>(<span class="no">x</span>, <span class="st">"try-error"</span>)
-}
-<span class="kw">if</span> (<span class="fu">have_libreoffice</span>()) {
-  <span class="no">pptx</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html">tempfile</a></span>(<span class="kw">fileext</span> <span class="kw">=</span> <span class="st">".pptx"</span>)
-  <span class="fu"><a href="https://rdrr.io/r/utils/download.file.html">download.file</a></span>(
-    <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span>(<span class="st">"https://s3-eu-west-1.amazonaws.com/"</span>,
-           <span class="st">"pfigshare-u-files/16252631/ari.pptx"</span>),
-    <span class="kw">destfile</span> <span class="kw">=</span> <span class="no">pptx</span>)
-  <span class="no">result</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/try.html">try</a></span>({
-    <span class="fu"><a href="../reference/gs_to_ari.html">pptx_to_ari</a></span>(<span class="no">pptx</span>, <span class="kw">open</span> <span class="kw">=</span> <span class="fl">FALSE</span>)
-  }, <span class="kw">silent</span> <span class="kw">=</span> <span class="fl">TRUE</span>)
-  <span class="no">soffice_config_issue</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/class.html">inherits</a></span>(<span class="no">result</span>, <span class="st">"try-error"</span>)
-  <span class="kw">if</span> (<span class="no">soffice_config_issue</span>) {
-    <span class="kw pkg">ariExtra</span><span class="kw ns">:::</span><span class="fu">fix_soffice_library_path</span>()
-    <span class="no">result</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/try.html">try</a></span>({
-      <span class="fu"><a href="../reference/gs_to_ari.html">pptx_to_ari</a></span>(<span class="no">pptx</span>, <span class="kw">open</span> <span class="kw">=</span> <span class="fl">FALSE</span>)
-    }, <span class="kw">silent</span> <span class="kw">=</span> <span class="fl">TRUE</span>)
-  }
-  <span class="kw">if</span> (!<span class="fu"><a href="https://rdrr.io/r/base/class.html">inherits</a></span>(<span class="no">result</span>, <span class="st">"try-error"</span>)) {
-    <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="no">result</span>[<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"images"</span>, <span class="st">"script"</span>)])
-  }
-}
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">have_libreoffice</span> <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="op">{</span>
+  <span class="va">x</span> <span class="op">=</span> <span class="kw"><a href="https://rdrr.io/r/base/try.html">try</a></span><span class="op">(</span><span class="op">{</span><span class="fu">docxtractr</span><span class="fu">:::</span><span class="fu">lo_assert</span><span class="op">(</span><span class="op">)</span><span class="op">}</span>, silent <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+  <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/class.html">inherits</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"try-error"</span><span class="op">)</span>
+<span class="op">}</span>
+<span class="kw">if</span> <span class="op">(</span><span class="fu">have_libreoffice</span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
+  <span class="va">pptx</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html">tempfile</a></span><span class="op">(</span>fileext <span class="op">=</span> <span class="st">".pptx"</span><span class="op">)</span>
+  <span class="fu"><a href="https://rdrr.io/r/utils/download.file.html">download.file</a></span><span class="op">(</span>
+    <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">"https://s3-eu-west-1.amazonaws.com/"</span>, 
+           <span class="st">"pfigshare-u-files/16252631/ari.pptx"</span><span class="op">)</span>,
+    destfile <span class="op">=</span> <span class="va">pptx</span><span class="op">)</span>
+  <span class="va">result</span> <span class="op">=</span> <span class="kw"><a href="https://rdrr.io/r/base/try.html">try</a></span><span class="op">(</span><span class="op">{</span>
+    <span class="fu"><a href="../reference/gs_to_ari.html">pptx_to_ari</a></span><span class="op">(</span><span class="va">pptx</span>, open <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
+  <span class="op">}</span>, silent <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+  <span class="va">soffice_config_issue</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/class.html">inherits</a></span><span class="op">(</span><span class="va">result</span>, <span class="st">"try-error"</span><span class="op">)</span>
+  <span class="kw">if</span> <span class="op">(</span><span class="va">soffice_config_issue</span><span class="op">)</span> <span class="op">{</span>
+    <span class="fu">ariExtra</span><span class="fu">:::</span><span class="fu">fix_soffice_library_path</span><span class="op">(</span><span class="op">)</span>
+    <span class="va">result</span> <span class="op">=</span> <span class="kw"><a href="https://rdrr.io/r/base/try.html">try</a></span><span class="op">(</span><span class="op">{</span>
+      <span class="fu"><a href="../reference/gs_to_ari.html">pptx_to_ari</a></span><span class="op">(</span><span class="va">pptx</span>, open <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
+    <span class="op">}</span>, silent <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>    
+  <span class="op">}</span>
+  <span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/class.html">inherits</a></span><span class="op">(</span><span class="va">result</span>, <span class="st">"try-error"</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
+    <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">result</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"images"</span>, <span class="st">"script"</span><span class="op">)</span><span class="op">]</span><span class="op">)</span>
+  <span class="op">}</span>
+<span class="op">}</span>
 <span class="co">#&gt; Getting Notes from PPTX</span>
 <span class="co">#&gt; Converting PPTX to PDF</span>
 <span class="co">#&gt; Converting PDF to PNGs</span>
-<span class="co">#&gt; Converting page 1 to /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//RtmpV31prH/file55fff52439.png... done!</span>
-<span class="co">#&gt; Converting page 2 to /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//RtmpV31prH/file55f271d225e.png... done!</span>
+<span class="co">#&gt; Converting page 1 to /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmplvlouo/filedfba36b090eb.png... done!</span>
+<span class="co">#&gt; Converting page 2 to /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmplvlouo/filedfba1fa505a.png... done!</span>
 <span class="co">#&gt; Making output_file directories</span>
 <span class="co">#&gt; $images</span>
-<span class="co">#&gt; [1] "/private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpV31prH/file55f69bb5d61_files/slide_00001.png"</span>
-<span class="co">#&gt; [2] "/private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpV31prH/file55f69bb5d61_files/slide_00002.png"</span>
+<span class="co">#&gt; [1] "/private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/Rtmplvlouo/filedfba58b145b9_files/slide_00001.png"</span>
+<span class="co">#&gt; [2] "/private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/Rtmplvlouo/filedfba58b145b9_files/slide_00002.png"</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $script</span>
 <span class="co">#&gt; [1] "Sometimes it’s hard for an instructor to take the time to record their lectures.  For example, I’m in a coffee shop and it may be loud."</span>
-<span class="co">#&gt; [2] "Here is an example of a plot with really small axes.  We plot the x versus the y-variables and a smoother between them."</span></pre></body></html></div>
+<span class="co">#&gt; [2] "Here is an example of a plot with really small axes.  We plot the x versus the y-variables and a smoother between them."</span></code></pre></div>
 <p>This can be passed to <code>ari_spin</code>.</p>
 <p>For Google Slides, the slide deck can be downloaded as a PowerPoint and the previous steps can be used, however it can also be downloaded directly as a PDF. We will use the same presentation, but uploaded to Google Slides. The <strong>ariExtra</strong> package has the function <code>gs_to_ari</code> to wrap this functionality (as long as link sharing is turned on), where we can pass the Google identifier:</p>
-<div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="no">gs_doc</span> <span class="kw">=</span> <span class="kw pkg">ariExtra</span><span class="kw ns">::</span><span class="fu"><a href="../reference/gs_to_ari.html">gs_to_ari</a></span>(<span class="st">"14gd2DiOCVKRNpFfLrryrGG7D3S8pu9aZ"</span>)
-<span class="co">#&gt; Warning in download_gs_file(id = path, out_type = "pptx"): This presentation may</span>
-<span class="co">#&gt; not be available, did you turn link sharing on?</span>
-<span class="co">#&gt; Warning in download_gs_file(id = path, out_type = "pdf"): This presentation may</span>
-<span class="co">#&gt; not be available, did you turn link sharing on?</span>
-<span class="co">#&gt; Converting page 1 to /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//RtmpV31prH/file55fb5233b6.png... done!</span>
-<span class="co">#&gt; Converting page 2 to /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//RtmpV31prH/file55f41c0f788.png... done!</span>
-<span class="no">gs_doc</span>[<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"images"</span>, <span class="st">"script"</span>)]
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">gs_doc</span> <span class="op">=</span> <span class="fu">ariExtra</span><span class="fu">::</span><span class="fu"><a href="../reference/gs_to_ari.html">gs_to_ari</a></span><span class="op">(</span><span class="st">"14gd2DiOCVKRNpFfLrryrGG7D3S8pu9aZ"</span><span class="op">)</span>
+<span class="co">#&gt; Converting page 1 to /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmplvlouo/filedfba319f89b0.png... done!</span>
+<span class="co">#&gt; Converting page 2 to /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmplvlouo/filedfba61089b43.png... done!</span>
+<span class="va">gs_doc</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"images"</span>, <span class="st">"script"</span><span class="op">)</span><span class="op">]</span>
 <span class="co">#&gt; $images</span>
-<span class="co">#&gt; [1] "/private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpV31prH/file55f63bb2371_files/slide_00001.png"</span>
-<span class="co">#&gt; [2] "/private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpV31prH/file55f63bb2371_files/slide_00002.png"</span>
+<span class="co">#&gt; [1] "/private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/Rtmplvlouo/filedfba7c097d79_files/slide_00001.png"</span>
+<span class="co">#&gt; [2] "/private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/Rtmplvlouo/filedfba7c097d79_files/slide_00002.png"</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $script</span>
 <span class="co">#&gt; [1] "Sometimes it’s hard for an instructor to take the time to record their lectures.  For example, I’m in a coffee shop and it may be loud."</span>
-<span class="co">#&gt; [2] "Here is an example of a plot with really small axes.  We plot the x versus the y-variables and a smoother between them."</span></pre></body></html></div>
+<span class="co">#&gt; [2] "Here is an example of a plot with really small axes.  We plot the x versus the y-variables and a smoother between them."</span></code></pre></div>
 <p>Note, as Google provides a PDF version of the slides, this obviates the LibreOffice dependency.</p>
 <p>Alternatively, the notes can be extracted using <strong><code>rgoogleslides</code></strong> and for Google Slides via the API, but requires authentication, so we will omit it here. Thus, we should be able to create videos using R Markdown, Google Slides, or PowerPoint presentations in an automatic fashion.</p>
 </div>
@@ -271,7 +272,7 @@ In the future, other HTML headless rendering engines (<code>webshot</code> uses 
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

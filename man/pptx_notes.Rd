@@ -25,7 +25,7 @@ Either a character vector or \code{NULL}
 Get Notes from a PowerPoint (usually from Google Slides)
 }
 \examples{
-file = ex_file = system.file("extdata", "example.pptx",
+ex_file = system.file("extdata", "example.pptx",
 package = "ariExtra")
 pptx_notes(ex_file)
 pptx_slide_note_df(ex_file)

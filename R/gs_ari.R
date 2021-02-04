@@ -1,3 +1,15 @@
+
+#' Download Google Slides File
+#'
+#' @param id Identifier of Google slides presentation, passed to
+#' \code{\link{get_slide_id}}
+#' @param out_type output type of file to download. Usually
+#' `pdf` or `pptx`
+#'
+#' @note This downloads presentations if they are public and also try to make
+#' sure it does not fail on large files
+#' @return Downloaded file (in temporary directory)
+#' @export
 download_gs_file = function(id, out_type = "pptx") {
   id = as.character(id)
   id = get_slide_id(id)
