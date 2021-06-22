@@ -11,7 +11,7 @@ testthat::test_that("xaringan example", {
     writeLines(x, path)
 
     fail_msg = paste0("Failed to generate|",
-                      "Cannot find.* Google Chrome|",
+                      "Cannot find.* Chrome|",
                       "pagedown package needed|",
                       "not executable")
 
@@ -65,7 +65,7 @@ testthat::test_that("xaringan example with pre-rendered", {
     writeLines(x, path)
 
     fail_msg = paste0("Failed to generate|",
-                      "Cannot find.* Google Chrome|",
+                      "Cannot find.* Chrome|",
                       "pagedown package needed|",
                       "not executable")
     run_rmd = function(capturer, script) {
@@ -97,7 +97,7 @@ testthat::test_that("xaringan example with pre-rendered", {
       }, regexp = fail_msg)
     }
     # else {
-      # run_rmd("webshot", script = script)
+    # run_rmd("webshot", script = script)
     # }
 
     if (!requireNamespace("pagedown", quietly = TRUE) ||
@@ -113,15 +113,19 @@ testthat::test_that("xaringan example with pre-rendered", {
     have_decktape = nzchar(Sys.which("decktape"))
     pdf_file = tempfile(fileext = ".pdf")
     if (have_decktape) {
-      xaringan::decktape(rendered_file, pdf_file, docker = FALSE)
+      out = try({
+        xaringan::decktape(rendered_file, pdf_file, docker = FALSE)
+      })
+      if (!inherits(out, "try-error") && file.exists(pdf_file)) {
 
-      res = pdf_to_ari(pdf_file, script = script, open = FALSE)
-      res = rmd_to_ari(path,
-                       open = FALSE,
-                       script = script,
-                       rendered_file = rendered_file,
-                       capturer = "decktape")
-      testthat::expect_length(res$images, 5)
+        res = pdf_to_ari(pdf_file, script = script, open = FALSE)
+        res = rmd_to_ari(path,
+                         open = FALSE,
+                         script = script,
+                         rendered_file = rendered_file,
+                         capturer = "decktape")
+        testthat::expect_length(res$images, 5)
+      }
     }
   }
 })

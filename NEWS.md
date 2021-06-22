@@ -1,3 +1,7 @@
+# ariExtra 0.3.1
+
+* Fixing a test for change to `pagedown::chrome_print` error function.
+
 # ariExtra 0.2.10
 
 * Skipping Solaris checks.

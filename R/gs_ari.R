@@ -1,3 +1,8 @@
+quick_arg_check = function(args) {
+  if ("output" %in% names(args) & !"output_file" %in% names(args)) {
+    warning("output passed, but not output_file, should pass both (may be a bug)")
+  }
+}
 
 #' Download Google Slides File
 #'
@@ -91,6 +96,8 @@ gs_to_ari = function(
   ...,
   verbose = TRUE) {
 
+  args = list(...)
+  quick_arg_check(args)
   if (verbose) {
     message("Downloading PPTX")
   }
@@ -244,6 +251,8 @@ pdf_to_ari = function(
   ...,
   verbose = TRUE){
   stopifnot(!is.null(script))
+  args = list(...)
+  quick_arg_check(args)
   pngs = pdf_to_pngs(path = path, dpi = dpi, verbose = verbose)
   make_ari_document(pngs, script = script, ..., verbose = verbose)
 }
@@ -311,6 +320,8 @@ images_to_ari = function(
   dpi = 300,
   ...,
   verbose = TRUE){
+  args = list(...)
+  quick_arg_check(args)
   make_ari_document(path, script = script, ..., verbose = verbose)
 }
 
