@@ -2,16 +2,13 @@
 title: "Using `ari` to make videos"
 output: rmarkdown::html_vignette
 vignette: >
-%\VignetteIndexEntry{Using ari to make videos}
+  %\VignetteIndexEntry{Using ari to make videos}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
-  ---
+---
   
-  ```{r, include = FALSE}
-knitr::opts_chunk$set(
-collapse = TRUE,
-comment = "#>"
-)
+```{r, include = FALSE}
+knitr::opts_chunk$set(collapse = TRUE,comment = "#>")
 ```
 
 
@@ -80,7 +77,7 @@ such as OAuth.
 
 The **`text2speech`** package provides a unified interface to these 3
 text-to-speech services, and we will focus on Amazon Polly and its authentication requirements.  Polly is authenticated using the **`aws.signature`** package.  The **`aws.signature`** documentation provides options and steps to create the relevant credentials; we have also provided an additional
-[tutorial](http://seankross.com/2017/05/02/Access-Amazon-Web-Services-in-R.html).  Essentially, the user must sign up for the service and retrieve public and 
+[tutorial](https://seankross.com/2017/05/02/Access-Amazon-Web-Services-in-R.html).  Essentially, the user must sign up for the service and retrieve public and 
 private API keys and put them into their R profile or other areas accessible to R. Running `text2speech::tts_auth(service = "amazon")` will indicate if 
 authentication was successful (if using a different service, change the 
 `service` argument). NB: The APIs are generally paid services, but many have 
@@ -169,7 +166,7 @@ recommend using the PNG format for these images.  In order to get the
 script for the video, we suggest putting the script for each slide in 
 the speaker notes section of that slide. Several of the following features 
 for video generation are in our package **`ariExtra`**
-(https://github.com/muschellij2/ariExtra).  The speaker notes of slides can 
+(https://github.com/jhudsl/ariExtra).  The speaker notes of slides can 
 be extracted using **`rgoogleslides`**  for Google 
 Slides via the API or using **`readOffice`**/**`officer`** 
 to read from PowerPoint documents. Google Slides can be downloaded as a PDF and converted to PNGs using the **`pdftools`** 
@@ -177,7 +174,7 @@ package.  The **`ariExtra`** package also has a `pptx_notes`
 function for reading PowerPoint notes. Converting PowerPoint files to 
 PDF can be done using LibreOffice and the **`docxtractr`** package which contains the necessary wrapper functions.
 
-To demonstrate this, we use an example PowerPoint is located on Figshare (https://figshare.com/articles/Example_PowerPoint_for_ari/8865230).  We can convert the PowerPoint to PDF, then to a set of PNG images, then extract the speaker notes.
+To demonstrate this, we use an example PowerPoint is located on Figshare (https://figshare.com/articles/presentation/Example_PowerPoint_for_ari/8865230).  We can convert the PowerPoint to PDF, then to a set of PNG images, then extract the speaker notes.
 
 ```{r pptx_convert}
 have_libreoffice = function() {

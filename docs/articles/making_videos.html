@@ -5,13 +5,13 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title> • ariExtra</title>
+<title>Using `ari` to make videos • ariExtra</title>
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
 <script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script><meta property="og:title" content="">
+<script src="../pkgdown.js"></script><meta property="og:title" content="Using `ari` to make videos">
 <meta property="og:description" content="ariExtra">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ariExtra</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.1</span>
       </span>
     </div>
 
@@ -54,7 +54,7 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../articles/making_videos.html">UNKNOWN TITLE</a>
+      <a href="../articles/making_videos.html">Using `ari` to make videos</a>
     </li>
   </ul>
 </li>
@@ -64,7 +64,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/muschellij2/ariExtra/">
+  <a href="https://github.com/jhudsl/ariExtra/">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -79,39 +79,19 @@
 
       
 
-      </header><script src="making_videos_files/header-attrs-2.6/header-attrs.js"></script><div class="row">
+      </header><script src="making_videos_files/header-attrs-2.7/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1 data-toc-skip></h1>
+      <h1 data-toc-skip>Using <code>ari</code> to make videos</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/muschellij2/ariExtra/blob/master/vignettes/making_videos.Rmd"><code>vignettes/making_videos.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/jhudsl/ariExtra/blob/master/vignettes/making_videos.Rmd"><code>vignettes/making_videos.Rmd</code></a></small>
       <div class="hidden name"><code>making_videos.Rmd</code></div>
 
     </div>
 
     
     
-<table class="table"><tbody>
-<tr class="odd">
-<td>title: “Using <code>ari</code> to make videos”</td>
-</tr>
-<tr class="even">
-<td>output: rmarkdown::html_vignette</td>
-</tr>
-<tr class="odd">
-<td>vignette: &gt;</td>
-</tr>
-<tr class="even">
-<td>%</td>
-</tr>
-<tr class="odd">
-<td>%</td>
-</tr>
-<tr class="even">
-<td>%</td>
-</tr>
-</tbody></table>
 <div id="making-videos-with-ari-ari_stitch" class="section level2">
 <h2 class="hasAnchor">
 <a href="#making-videos-with-ari-ari_stitch" class="anchor"></a>Making videos with <code>ari</code>: <code>ari_stitch</code>
@@ -123,19 +103,19 @@
 <code class="sourceCode R"><span class="kw">if</span> <span class="op">(</span><span class="fu">ari</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/ari/man/ffmpeg_exec.html">have_ffmpeg_exec</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
   <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attributes.html">attributes</a></span><span class="op">(</span><span class="va">result</span><span class="op">)</span><span class="op">$</span><span class="va">outfile</span><span class="op">)</span>
 <span class="op">}</span></code></pre></div>
-<pre><code>#&gt; [1] "filedfba6a8f9716.mp4"</code></pre>
+<pre><code>#&gt; [1] "file139a22df1563c.mp4"</code></pre>
 <p>The video for this output can be seen at <a href="https://youtu.be/3kgaYf-EV90" class="uri">https://youtu.be/3kgaYf-EV90</a>.</p>
 <p>In <strong><code>ariExtra</code></strong>, you</p>
 <pre><code>#&gt; $output_file
-#&gt; [1] "/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmplvlouo/filedfba36119b3e.md"
+#&gt; [1] "/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//RtmpeDKFCU/file139a27f214c8c.md"
 #&gt; 
 #&gt; $original_images
 #&gt; [1] "/Users/johnmuschelli/Library/R/4.0/library/ari/test/mab1.png"
 #&gt; [2] "/Users/johnmuschelli/Library/R/4.0/library/ari/test/mab2.png"
 #&gt; 
 #&gt; $images
-#&gt; [1] "/private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/Rtmplvlouo/filedfba36119b3e_files/slide_00001.png"
-#&gt; [2] "/private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/Rtmplvlouo/filedfba36119b3e_files/slide_00002.png"
+#&gt; [1] "/private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpeDKFCU/file139a27f214c8c_files/slide_00001.png"
+#&gt; [2] "/private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpeDKFCU/file139a27f214c8c_files/slide_00002.png"
 #&gt; 
 #&gt; $script
 #&gt; [1] "hey" "ho" 
@@ -165,7 +145,7 @@
 <h2 class="hasAnchor">
 <a href="#synthesizer-authentication" class="anchor"></a>Synthesizer authentication</h2>
 <p>The above example uses <code><a href="https://rdrr.io/pkg/tuneR/man/Waveforms.html">tuneR::noise()</a></code> to generate audio and to show that any audio object can be used with <strong><code>ari</code></strong>. In most cases however, <strong><code>ari</code></strong> is most useful when combined with synthesizing audio using a text-to-speech system. Though one can generate the spoken audio in many ways, such as fitting a custom deep learning model, we will focus on using the aforementioned services (e.g. Amazon Polly) as they have straightforward public web APIs. One obstacle in using such services is that users must go through steps to provide authentication, whereas most of these APIs and the associated R packages do not allow for interactive authentication such as OAuth.</p>
-<p>The <strong><code>text2speech</code></strong> package provides a unified interface to these 3 text-to-speech services, and we will focus on Amazon Polly and its authentication requirements. Polly is authenticated using the <strong><code>aws.signature</code></strong> package. The <strong><code>aws.signature</code></strong> documentation provides options and steps to create the relevant credentials; we have also provided an additional <a href="http://seankross.com/2017/05/02/Access-Amazon-Web-Services-in-R.html">tutorial</a>. Essentially, the user must sign up for the service and retrieve public and private API keys and put them into their R profile or other areas accessible to R. Running <code><a href="https://rdrr.io/pkg/text2speech/man/tts_auth.html">text2speech::tts_auth(service = "amazon")</a></code> will indicate if authentication was successful (if using a different service, change the <code>service</code> argument). NB: The APIs are generally paid services, but many have free tiers or limits, such as Amazon Polly’s free tier for the first year (<a href="https://aws.amazon.com/polly/pricing/" class="uri">https://aws.amazon.com/polly/pricing/</a>). <!-- NB - nota bene --></p>
+<p>The <strong><code>text2speech</code></strong> package provides a unified interface to these 3 text-to-speech services, and we will focus on Amazon Polly and its authentication requirements. Polly is authenticated using the <strong><code>aws.signature</code></strong> package. The <strong><code>aws.signature</code></strong> documentation provides options and steps to create the relevant credentials; we have also provided an additional <a href="https://seankross.com/2017/05/02/Access-Amazon-Web-Services-in-R.html">tutorial</a>. Essentially, the user must sign up for the service and retrieve public and private API keys and put them into their R profile or other areas accessible to R. Running <code><a href="https://rdrr.io/pkg/text2speech/man/tts_auth.html">text2speech::tts_auth(service = "amazon")</a></code> will indicate if authentication was successful (if using a different service, change the <code>service</code> argument). NB: The APIs are generally paid services, but many have free tiers or limits, such as Amazon Polly’s free tier for the first year (<a href="https://aws.amazon.com/polly/pricing/" class="uri">https://aws.amazon.com/polly/pricing/</a>). <!-- NB - nota bene --></p>
 </div>
 <div id="creating-speech-from-text-ari_spin" class="section level2">
 <h2 class="hasAnchor">
@@ -197,8 +177,8 @@ In the future, other HTML headless rendering engines (<code>webshot</code> uses 
 <div id="creating-videos-from-other-documents" class="section level3">
 <h3 class="hasAnchor">
 <a href="#creating-videos-from-other-documents" class="anchor"></a>Creating Videos from Other Documents</h3>
-<p>In order to create a video from a Google Slide deck or PowerPoint presentation, the slides should be converted to a set of images. We recommend using the PNG format for these images. In order to get the script for the video, we suggest putting the script for each slide in the speaker notes section of that slide. Several of the following features for video generation are in our package <strong><code>ariExtra</code></strong> (<a href="https://github.com/muschellij2/ariExtra" class="uri">https://github.com/muschellij2/ariExtra</a>). The speaker notes of slides can be extracted using <strong><code>rgoogleslides</code></strong> for Google Slides via the API or using <strong><code>readOffice</code></strong>/<strong><code>officer</code></strong> to read from PowerPoint documents. Google Slides can be downloaded as a PDF and converted to PNGs using the <strong><code>pdftools</code></strong> package. The <strong><code>ariExtra</code></strong> package also has a <code>pptx_notes</code> function for reading PowerPoint notes. Converting PowerPoint files to PDF can be done using LibreOffice and the <strong><code>docxtractr</code></strong> package which contains the necessary wrapper functions.</p>
-<p>To demonstrate this, we use an example PowerPoint is located on Figshare (<a href="https://figshare.com/articles/Example_PowerPoint_for_ari/8865230" class="uri">https://figshare.com/articles/Example_PowerPoint_for_ari/8865230</a>). We can convert the PowerPoint to PDF, then to a set of PNG images, then extract the speaker notes.</p>
+<p>In order to create a video from a Google Slide deck or PowerPoint presentation, the slides should be converted to a set of images. We recommend using the PNG format for these images. In order to get the script for the video, we suggest putting the script for each slide in the speaker notes section of that slide. Several of the following features for video generation are in our package <strong><code>ariExtra</code></strong> (<a href="https://github.com/jhudsl/ariExtra" class="uri">https://github.com/jhudsl/ariExtra</a>). The speaker notes of slides can be extracted using <strong><code>rgoogleslides</code></strong> for Google Slides via the API or using <strong><code>readOffice</code></strong>/<strong><code>officer</code></strong> to read from PowerPoint documents. Google Slides can be downloaded as a PDF and converted to PNGs using the <strong><code>pdftools</code></strong> package. The <strong><code>ariExtra</code></strong> package also has a <code>pptx_notes</code> function for reading PowerPoint notes. Converting PowerPoint files to PDF can be done using LibreOffice and the <strong><code>docxtractr</code></strong> package which contains the necessary wrapper functions.</p>
+<p>To demonstrate this, we use an example PowerPoint is located on Figshare (<a href="https://figshare.com/articles/presentation/Example_PowerPoint_for_ari/8865230" class="uri">https://figshare.com/articles/presentation/Example_PowerPoint_for_ari/8865230</a>). We can convert the PowerPoint to PDF, then to a set of PNG images, then extract the speaker notes.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">have_libreoffice</span> <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="op">{</span>
   <span class="va">x</span> <span class="op">=</span> <span class="kw"><a href="https://rdrr.io/r/base/try.html">try</a></span><span class="op">(</span><span class="op">{</span><span class="fu">docxtractr</span><span class="fu">:::</span><span class="fu">lo_assert</span><span class="op">(</span><span class="op">)</span><span class="op">}</span>, silent <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
@@ -227,12 +207,12 @@ In the future, other HTML headless rendering engines (<code>webshot</code> uses 
 <span class="co">#&gt; Getting Notes from PPTX</span>
 <span class="co">#&gt; Converting PPTX to PDF</span>
 <span class="co">#&gt; Converting PDF to PNGs</span>
-<span class="co">#&gt; Converting page 1 to /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmplvlouo/filedfba36b090eb.png... done!</span>
-<span class="co">#&gt; Converting page 2 to /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmplvlouo/filedfba1fa505a.png... done!</span>
+<span class="co">#&gt; Converting page 1 to /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//RtmpeDKFCU/file139a26a04a43a.png... done!</span>
+<span class="co">#&gt; Converting page 2 to /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//RtmpeDKFCU/file139a256ba1236.png... done!</span>
 <span class="co">#&gt; Making output_file directories</span>
 <span class="co">#&gt; $images</span>
-<span class="co">#&gt; [1] "/private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/Rtmplvlouo/filedfba58b145b9_files/slide_00001.png"</span>
-<span class="co">#&gt; [2] "/private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/Rtmplvlouo/filedfba58b145b9_files/slide_00002.png"</span>
+<span class="co">#&gt; [1] "/private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpeDKFCU/file139a25201c3b5_files/slide_00001.png"</span>
+<span class="co">#&gt; [2] "/private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpeDKFCU/file139a25201c3b5_files/slide_00002.png"</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $script</span>
 <span class="co">#&gt; [1] "Sometimes it’s hard for an instructor to take the time to record their lectures.  For example, I’m in a coffee shop and it may be loud."</span>
@@ -241,12 +221,12 @@ In the future, other HTML headless rendering engines (<code>webshot</code> uses 
 <p>For Google Slides, the slide deck can be downloaded as a PowerPoint and the previous steps can be used, however it can also be downloaded directly as a PDF. We will use the same presentation, but uploaded to Google Slides. The <strong>ariExtra</strong> package has the function <code>gs_to_ari</code> to wrap this functionality (as long as link sharing is turned on), where we can pass the Google identifier:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">gs_doc</span> <span class="op">=</span> <span class="fu">ariExtra</span><span class="fu">::</span><span class="fu"><a href="../reference/gs_to_ari.html">gs_to_ari</a></span><span class="op">(</span><span class="st">"14gd2DiOCVKRNpFfLrryrGG7D3S8pu9aZ"</span><span class="op">)</span>
-<span class="co">#&gt; Converting page 1 to /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmplvlouo/filedfba319f89b0.png... done!</span>
-<span class="co">#&gt; Converting page 2 to /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//Rtmplvlouo/filedfba61089b43.png... done!</span>
+<span class="co">#&gt; Converting page 1 to /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//RtmpeDKFCU/file139a263bce78.png... done!</span>
+<span class="co">#&gt; Converting page 2 to /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//RtmpeDKFCU/file139a240702b7a.png... done!</span>
 <span class="va">gs_doc</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"images"</span>, <span class="st">"script"</span><span class="op">)</span><span class="op">]</span>
 <span class="co">#&gt; $images</span>
-<span class="co">#&gt; [1] "/private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/Rtmplvlouo/filedfba7c097d79_files/slide_00001.png"</span>
-<span class="co">#&gt; [2] "/private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/Rtmplvlouo/filedfba7c097d79_files/slide_00002.png"</span>
+<span class="co">#&gt; [1] "/private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpeDKFCU/file139a243677a3_files/slide_00001.png"</span>
+<span class="co">#&gt; [2] "/private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpeDKFCU/file139a243677a3_files/slide_00002.png"</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $script</span>
 <span class="co">#&gt; [1] "Sometimes it’s hard for an instructor to take the time to record their lectures.  For example, I’m in a coffee shop and it may be loud."</span>
