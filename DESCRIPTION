@@ -1,5 +1,5 @@
 Package: ariExtra
-Version: 0.3.1
+Version: 0.3.2
 Title: Tools for Creating Automated Courses
 Description: Leverages the 'ari' package and other tools to create automated 
     courses from slides and a script.  Also, uploads these to 
@@ -42,5 +42,5 @@ Type: Package
 VignetteBuilder: knitr
 URL: https://github.com/jhudsl/ariExtra
 BugReports: https://github.com/jhudsl/ariExtra/issues
-RoxygenNote: 7.1.1
+RoxygenNote: 7.1.2
 Roxygen: list(markdown = TRUE)

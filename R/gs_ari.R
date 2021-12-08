@@ -1,6 +1,7 @@
 quick_arg_check = function(args) {
   if ("output" %in% names(args) & !"output_file" %in% names(args)) {
-    warning("output passed, but not output_file, should pass both (may be a bug)")
+    warning(paste0("output passed, but not output_file, ",
+                   "should pass both (may be a bug)"))
   }
 }
 
@@ -54,12 +55,13 @@ download_gs_file = function(id, out_type = "pptx") {
   tfile
 }
 
-get_pptx_script = function(path, script = NULL, verbose = TRUE) {
+get_pptx_script = function(path, script = NULL, verbose = TRUE,
+                           ...) {
   if (is.null(script)) {
     if (verbose) {
       message("Getting Notes from PPTX")
     }
-    res = pptx_notes(path)
+    res = pptx_notes(path, ...)
     script = tempfile(fileext = ".txt")
     if (verbose > 1) {
       message(paste0("script is at: ", script))
@@ -124,10 +126,12 @@ gs_to_ari = function(
 }
 
 #' @export
+#' @param ... additional arguments to \code{\link{pptx_notes}}
 #' @rdname gs_to_ari
 gs_pptx_notes = function(
   path,
-  verbose = TRUE) {
+  verbose = TRUE,
+  ...) {
 
   if (verbose) {
     message("Downloading PPTX")
@@ -140,7 +144,8 @@ gs_pptx_notes = function(
   script = get_pptx_script(
     path = pptx_file,
     script = NULL,
-    verbose = verbose)
+    verbose = verbose,
+    ...)
   L = list(script = script,
            pptx_file = pptx_file)
 }

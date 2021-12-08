@@ -15,7 +15,7 @@
 \usage{
 gs_to_ari(path, script = NULL, ..., verbose = TRUE)
 
-gs_pptx_notes(path, verbose = TRUE)
+gs_pptx_notes(path, verbose = TRUE, ...)
 
 pptx_to_pdf(path, verbose = TRUE)
 
@@ -38,7 +38,7 @@ to_ari(path, script = NULL, ..., verbose = TRUE)
 
 \item{script}{passed to \code{\link[=make_ari_document]{make_ari_document()}}}
 
-\item{...}{Arguments passed to \link{make_ari_document}}
+\item{...}{additional arguments to \code{\link{pptx_notes}}}
 
 \item{verbose}{print diagnostic messages}
 
