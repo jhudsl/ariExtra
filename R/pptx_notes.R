@@ -2,15 +2,16 @@
 #'
 #' @param file XML file from a PPTX
 #' @param collapse_text should text be collapsed by spaces?
+#' @param xpath \code{xpath} to pass to [xml2::xml_find_all()]
 #'
 #' @return A character vector
 #' @export
 #'
 #' @importFrom xml2 read_xml xml_text xml_find_all
-xml_notes = function(file, collapse_text = TRUE) {
+xml_notes = function(file, collapse_text = TRUE, xpath = "//a:r//a:t") {
   xdoc = xml2::read_xml(file)
   # probably need to a:p//a:t and collapse all text within a a:p
-  txt = xml2::xml_find_all(x = xdoc, xpath = "//a:t")
+  txt = xml2::xml_find_all(x = xdoc, xpath = xpath)
   txt = xml2::xml_text(txt)
   if (collapse_text) {
     txt = paste(txt, collapse = " ")
@@ -23,6 +24,8 @@ xml_notes = function(file, collapse_text = TRUE) {
 #' Get Notes from a PowerPoint (usually from Google Slides)
 #'
 #' @param file Character. Path for `PPTX` file
+#' @param ... additional arguments to pass to \code{\link{xml_notes}},
+#' particularly \code{xpath}
 #'
 #' @return Either a character vector or `NULL`
 #' @export
@@ -34,9 +37,9 @@ xml_notes = function(file, collapse_text = TRUE) {
 #' pptx_notes(ex_file)
 #' pptx_slide_note_df(ex_file)
 #' pptx_slide_text_df(ex_file)
-pptx_notes = function(file) {
+pptx_notes = function(file, ...) {
 
-  df = pptx_slide_note_df(file)
+  df = pptx_slide_note_df(file, ...)
   if (is.null(df)) {
     return(NULL)
   }
@@ -57,7 +60,7 @@ pptx_notes = function(file) {
 
 #' @export
 #' @rdname pptx_notes
-pptx_slide_text_df = function(file) {
+pptx_slide_text_df = function(file, ...) {
 
   L = unzip_pptx(file)
   slides = L$slides
@@ -65,7 +68,7 @@ pptx_slide_text_df = function(file) {
   if (length(slides) > 0) {
     # in case empty notes
     res = lapply(slides, function(x) {
-      xx = xml_notes(x, collapse_text = FALSE)
+      xx = xml_notes(x, collapse_text = FALSE, ...)
       if (length(xx) == 0) {
         return(NULL)
       }
@@ -87,7 +90,7 @@ pptx_slide_text_df = function(file) {
 
 #' @export
 #' @rdname pptx_notes
-pptx_slide_note_df = function(file) {
+pptx_slide_note_df = function(file, ...) {
 
   L = unzip_pptx(file)
   notes = L$notes
@@ -108,7 +111,7 @@ pptx_slide_note_df = function(file) {
       if (file.size(x) == 0) {
         xx = ""
       } else {
-        xx = xml_notes(x, collapse_text = FALSE)
+        xx = xml_notes(x, collapse_text = FALSE, ...)
       }
       if (length(xx) == 0) {
         xx = ""

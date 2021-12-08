@@ -4,12 +4,14 @@
 \alias{xml_notes}
 \title{Get Notes from XML}
 \usage{
-xml_notes(file, collapse_text = TRUE)
+xml_notes(file, collapse_text = TRUE, xpath = "//a:r//a:t")
 }
 \arguments{
 \item{file}{XML file from a PPTX}
 
 \item{collapse_text}{should text be collapsed by spaces?}
+
+\item{xpath}{\code{xpath} to pass to \code{\link[xml2:xml_find_all]{xml2::xml_find_all()}}}
 }
 \value{
 A character vector

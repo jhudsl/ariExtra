@@ -7,16 +7,19 @@
 \alias{unzip_pptx}
 \title{Get Notes from a PowerPoint (usually from Google Slides)}
 \usage{
-pptx_notes(file)
+pptx_notes(file, ...)
 
-pptx_slide_text_df(file)
+pptx_slide_text_df(file, ...)
 
-pptx_slide_note_df(file)
+pptx_slide_note_df(file, ...)
 
 unzip_pptx(file)
 }
 \arguments{
 \item{file}{Character. Path for \code{PPTX} file}
+
+\item{...}{additional arguments to pass to \code{\link{xml_notes}},
+particularly \code{xpath}}
 }
 \value{
 Either a character vector or \code{NULL}
