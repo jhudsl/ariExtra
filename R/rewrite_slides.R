@@ -1,35 +1,36 @@
 #' @example file = "~/Downloads/Leanpub_MOOCs_JHU.pptx"
-pptx_rewriter = function(
-  file,
-  replace_df,
-  type = c("slides", "notes")
-) {
-  L = unzip_pptx(file)
-  root_dir = L$root_dir
-  runners = L[[type]]
-  type = match.arg(type)
-  func = switch(slides = pptx_slide_text_df,
-                notes = pptx_slide_note_df)
+pptx_rewriter <- function(file,
+                          replace_df,
+                          type = c("slides", "notes")) {
+  L <- unzip_pptx(file)
+  root_dir <- L$root_dir
+  runners <- L[[type]]
+  type <- match.arg(type)
+  func <- switch(slides = pptx_slide_text_df,
+    notes = pptx_slide_note_df
+  )
 
-  df = func(file)
+  df <- func(file)
   stopifnot(nrow(df) == nrow(replace_df))
 
-  run_file = runners[2]
-  slide = xml2::read_xml(run_file)
-  txt_nodes = xml2::xml_find_all(x = slide, xpath = "//a:t")
+  run_file <- runners[2]
+  slide <- xml2::read_xml(run_file)
+  txt_nodes <- xml2::xml_find_all(x = slide, xpath = "//a:t")
   if (length(txt_nodes) > 0) {
-    xml2::xml_text(txt_nodes) = replace_df$text
+    xml2::xml_text(txt_nodes) <- replace_df$text
     xml2::write_xml(slide, run_file)
   }
 
-  owd = getwd()
+  owd <- getwd()
   on.exit({
     setwd(owd)
   })
   setwd(root_dir)
-  outfile = tempfile(fileext = ".pptx")
-  all_files = list.files(path = ".", recursive = TRUE,
-                         all.files = TRUE, full.names = TRUE)
+  outfile <- tempfile(fileext = ".pptx")
+  all_files <- list.files(
+    path = ".", recursive = TRUE,
+    all.files = TRUE, full.names = TRUE
+  )
   utils::zip(zipfile = outfile, files = all_files)
 
   return(outfile)
@@ -124,5 +125,3 @@ pptx_rewriter = function(
 #   }
 #   return(L)
 # }
-
-
