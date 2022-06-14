@@ -20,3 +20,4 @@ vignettes/.httr-oauth$
 ^R/rewrite_slides\.R$
 ^R/deconstruct_image\.R$
 ^CRAN-RELEASE$
+^\.github$
