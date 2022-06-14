@@ -13,7 +13,8 @@ testthat::test_that("xaringan example", {
     fail_msg = paste0("Failed to generate|",
                       "Cannot find.* Chrome|",
                       "pagedown package needed|",
-                      "not executable")
+                      "not executable|",
+                      "webshot.js returned failure value: 1")
 
 
     run_rmd = function(capturer, script, rendered_file) {
@@ -38,17 +39,12 @@ testthat::test_that("xaringan example", {
       out = ariExtra:::rmd_script(path = path, script = script, verbose = TRUE)
       print(out)
       if (requireNamespace("pagedown", quietly = TRUE)) {
-        testthat::expect_error({
-          run_rmd("webshot", script = script, rendered_file = rendered_file)
-        }, regexp = fail_msg)
+        run_rmd("webshot", script = script, rendered_file = rendered_file)
       } else {
         run_rmd("webshot")
       }
 
-      testthat::expect_error({
-        run_rmd("chrome_print", script = script, rendered_file = rendered_file)
-      }, regexp = fail_msg)
-
+      run_rmd("chrome_print", script = script, rendered_file = rendered_file)
     }
   }
 })
