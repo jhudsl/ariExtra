@@ -1,3 +1,4 @@
+# Modify PPTX files by replacing text in slides or notes
 #' @example file = "~/Downloads/Leanpub_MOOCs_JHU.pptx"
 pptx_rewriter = function(
   file,

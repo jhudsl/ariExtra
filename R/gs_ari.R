@@ -20,8 +20,8 @@ download_gs_file = function(id, out_type = "pptx") {
   id = as.character(id)
   id = get_slide_id(id)
   url = type_url(id = id, page_id = NULL, type = out_type)
-
   tfile = tempfile(fileext = paste0(".", out_type))
+
   result = httr::GET(url, httr::write_disk(tfile))
   warn_them = FALSE
   fr_header = result$headers$`x-frame-options`
@@ -33,7 +33,7 @@ download_gs_file = function(id, out_type = "pptx") {
   if (httr::status_code(result) >= 300) {
     warn_them = TRUE
   }
-  # don't write something if not really a pptx
+  # Don't write something if not really a pptx
   ctype = result$headers$`content-type`
   if (httr::status_code(result) >= 400 &&
       !is.null(ctype) && grepl("html", ctype)) {
@@ -55,7 +55,10 @@ download_gs_file = function(id, out_type = "pptx") {
   tfile
 }
 
-get_pptx_script = function(path, script = NULL, verbose = TRUE,
+# Extract Script from PPTX and write to a text file
+get_pptx_script = function(path,
+                           script = NULL,
+                           verbose = TRUE,
                            ...) {
   if (is.null(script)) {
     if (verbose) {
@@ -92,11 +95,10 @@ get_pptx_script = function(path, script = NULL, verbose = TRUE,
 #'   res2 = to_ari(id, open = FALSE)
 #' }
 #'
-gs_to_ari = function(
-  path,
-  script = NULL,
-  ...,
-  verbose = TRUE) {
+gs_to_ari = function (path,
+                      script = NULL,
+                      ...,
+                      verbose = TRUE) {
 
   args = list(...)
   quick_arg_check(args)
@@ -129,9 +131,9 @@ gs_to_ari = function(
 #' @param ... additional arguments to \code{\link{pptx_notes}}
 #' @rdname gs_to_ari
 gs_pptx_notes = function(
-  path,
-  verbose = TRUE,
-  ...) {
+    path,
+    verbose = TRUE,
+    ...) {
 
   if (verbose) {
     message("Downloading PPTX")
@@ -222,10 +224,10 @@ pptx_to_pngs = function(path, verbose = TRUE, dpi = 600) {
 #'   }
 #' }
 pptx_to_ari = function(
-  path,
-  script = NULL,
-  ...,
-  verbose = TRUE) {
+    path,
+    script = NULL,
+    ...,
+    verbose = TRUE) {
 
   script = get_pptx_script(path, script = NULL, verbose = verbose)
   pdf_file = pptx_to_pdf(path, verbose = verbose)
@@ -250,11 +252,11 @@ pptx_to_ari = function(
 #' res2 = to_ari(ex_file,  script = c("hey", "ho"), open = FALSE)
 #' }
 pdf_to_ari = function(
-  path,
-  script = NULL,
-  dpi = 300,
-  ...,
-  verbose = TRUE){
+    path,
+    script = NULL,
+    dpi = 300,
+    ...,
+    verbose = TRUE){
   stopifnot(!is.null(script))
   args = list(...)
   quick_arg_check(args)
@@ -265,10 +267,10 @@ pdf_to_ari = function(
 #' @rdname gs_to_ari
 #' @export
 html_to_ari = function(
-  path,
-  script = NULL,
-  ...,
-  verbose = TRUE
+    path,
+    script = NULL,
+    ...,
+    verbose = TRUE
 ) {
 
   if (!requireNamespace("pagedown", quietly = TRUE)) {
@@ -295,8 +297,8 @@ html_to_ari = function(
 #' @rdname gs_to_ari
 #' @export
 pdf_to_pngs = function(
-  path, verbose = TRUE,
-  dpi = 600) {
+    path, verbose = TRUE,
+    dpi = 600) {
   fmts = pdftools::poppler_config()$supported_image_formats
   if ("png" %in% fmts) {
     format = "png"
@@ -320,17 +322,17 @@ pdf_to_pngs = function(
 #' @rdname gs_to_ari
 #' @export
 images_to_ari = function(
-  path,
-  script = NULL,
-  dpi = 300,
-  ...,
-  verbose = TRUE){
+    path,
+    script = NULL,
+    dpi = 300,
+    ...,
+    verbose = TRUE){
   args = list(...)
   quick_arg_check(args)
   make_ari_document(path, script = script, ..., verbose = verbose)
 }
 
-
+# Guesses appropriate *_to_ari() to use for conversion
 guess_ari_function = function(path) {
   to_ari_function = NULL
   if (length(path) > 1) {
@@ -391,7 +393,8 @@ to_ari = function(path,
   do.call(to_ari_function, args = args)
 }
 
-
+# Sets LD_LIBRARY_PATH environment variable to path of
+# LibreOffice program on Linux or macOS systems if the variable is not already set
 fix_soffice_library_path = function() {
   LD_LIBRARY_PATH = Sys.getenv("LD_LIBRARY_PATH")
   if (sys_type() %in% c("linux", "macos")) {

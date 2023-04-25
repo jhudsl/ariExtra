@@ -1,12 +1,20 @@
+# Indicate which elements of x are blank (contain only whitespace)
 blank_lines = function(x) {
   grepl("^\\s*$", x)
 }
-is_blank = function (x) {
-  if (length(x))
+
+# Indicates whether all elements of x are blank or contain only whitespace characters
+is_blank = function(x) {
+  if (length(x) > 0) {
     all(blank_lines(x))
-  else TRUE
+  }
+  else {
+    TRUE
+  }
 }
-# taken from rmarkdown::: partition_yaml_front_matter
+
+# (Taken from rmarkdown::: partition_yaml_front_matter)
+# Returns YAML front_matter and body
 partition_yaml_front_matter = function(input_lines)
 {
   validate_front_matter <- function(delimiters) {
@@ -38,15 +46,17 @@ partition_yaml_front_matter = function(input_lines)
   }
 }
 
-
+# Reads text file encoded in UTF-8 format and returns content of character vector
 read_utf8 <- function(file, encoding = 'UTF-8') {
-  if (inherits(file, 'connection')) con <- file else {
+  if (inherits(file, 'connection')) {
+    con <- file
+  } else {
     con <- base::file(file, encoding = encoding); on.exit(close(con), add = TRUE)
   }
   enc2utf8(readLines(con, warn = FALSE))
 }
 
-
+# Get text from html comments in an Rmd
 parse_html_comments <- function(path) {
   lines_ <- readLines(path, warn = FALSE)
   starts <- grep("<!--", lines_)
@@ -67,6 +77,7 @@ parse_html_comments <- function(path) {
       result[i] <- paste(trimws(lines_[starts[i]:ends[i]]),
                          collapse = " ")
     }
+    # Replace any remaining HTML comment tags
     result[i] <- sub("<!--", "", result[i])
     result[i] <- sub("-->", "", result[i])
   }
@@ -74,7 +85,7 @@ parse_html_comments <- function(path) {
   trimws(result)
 }
 
-
+# Extract comments from file
 parse_speak_comments <- function(path) {
   lines_ <- readLines(path, warn = FALSE)
   starts <- grep("```\\{speak", lines_)
@@ -102,23 +113,33 @@ parse_speak_comments <- function(path) {
       result[i] <- paste(trimws(lines_[starts[i]:ends[i]]),
                          collapse = " ")
     }
+    # Replace any remaining HTML comment tags
     result[i] <- sub("<!--", "", result[i])
     result[i] <- sub("-->", "", result[i])
   }
+  # Assign empty string to any NA elements
   result[is.na(result)] = ""
 
   trimws(result)
 }
 
 
+# Parse comments from a xaringan slide deck
 parse_xaringan_comments <- function(path) {
+  # Read in lines of file
   lines_ <- readLines(path, warn = FALSE)
-  lines_ = partition_yaml_front_matter(lines_)
-  lines_ = lines_$body
+  # Partition YAML front matter
+  lines_ <- partition_yaml_front_matter(lines_)
+  # Extract body of slide deck
+  lines_ <- lines_$body
+
+  # Identify positions of comments and slide breaks
   starts <- grep("^\\?\\?\\?\\s*$", lines_)
   slides <- grep("^---\\s*$", lines_)
-  # comments for title slides
+  # Comments for title slides
   comments_on_title_slide = FALSE
+
+
   if (length(starts) == 0) {
     lines_ = lines_[slides[1]:length(lines_)]
   } else {
@@ -137,8 +158,6 @@ parse_xaringan_comments <- function(path) {
   starts <- grep("^\\?\\?\\?\\s*$", lines_)
   ends <- grep("^---\\s*$", lines_)
   ends = unique(ends)
-
-
 
   res = mapply(
     function(from, to, index) {
@@ -178,11 +197,12 @@ parse_xaringan_comments <- function(path) {
 }
 
 
-
+# Returns type of operating system
 os_type <- function() {
   .Platform$OS.type
 }
 
+# Determine type of operating system
 sys_type <- function() {
   if (os_type() == "windows") {
     "windows"
@@ -198,24 +218,29 @@ sys_type <- function() {
   }
 }
 
-
-type_url = function(id, page_id = NULL, type = "png") {
-  url = paste0(
-    "https://docs.google.com/presentation/d/",
-    id, "/export/", type, "?id=", id)
+# Constructs an URL to export an image file from a Google Slides
+type_url <- function(id, page_id = NULL, type = "png") {
+  url <- paste0("https://docs.google.com/presentation/d/",
+                id, "/export/", type, "?id=", id)
   if (!is.null(page_id)) {
     url = paste0(url, "&pageid=", page_id)
   }
   url
 }
+
 png_url = type_url
+
+# Constructs an URL to export to pptx
 pptx_url = function(id) {
   type_url(id, page_id = NULL, type = "pptx")
 }
+
+# Constructs an URL to export to pdf
 pdf_url = function(id) {
   type_url(id, page_id = NULL, type = "pdf")
 }
 
+# Extract page IDs of slides in a Google Slides presentation
 #' @importFrom jsonlite fromJSON
 get_page_ids = function(id) {
   id = get_slide_id(id)
@@ -288,7 +313,8 @@ get_page_ids = function(id) {
   pages
 }
 
-check_png_urls = function(urls) {
+# Check if vector of URLs is valid (Status Code = 200)
+check_png_urls <- function(urls) {
   res = vapply(urls, function(url) {
     tfile = tempfile(fileext = ".png")
     ret = httr::GET(url)
@@ -297,6 +323,7 @@ check_png_urls = function(urls) {
   return(res)
 }
 
+# Downloads PNG image files to local file system
 download_png_urls = function(urls) {
   res = vapply(urls, function(url) {
     tfile = tempfile(fileext = ".png")
@@ -320,7 +347,7 @@ download_png_urls = function(urls) {
 #' "1Tg-GTGnUPduOtZKYuMoelqUNZnUp3vvg_7TtpUPL7e8",
 #' "/edit#slide=id.g154aa4fae2_0_58")
 #' get_slide_id(x)
-get_slide_id = function(x) {
+get_slide_id <- function(x) {
   x = sub(".*presentation/", "", x)
   x = sub("/d/e", "/d", x) # if you publish by accident
   x = sub("^(d|e)/", "", x)
@@ -332,7 +359,7 @@ get_slide_id = function(x) {
 
 #' @export
 #' @rdname get_slide_id
-make_slide_url = function(x) {
+make_slide_url <- function(x) {
   x = get_slide_id(x)
   x = paste0("https://docs.google.com/presentation/d/",x)
   x
