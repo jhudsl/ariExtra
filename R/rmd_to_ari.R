@@ -336,7 +336,6 @@ rmd_to_ari = function(
   make_ari_document(
     images = img_paths,
     script = script, ..., verbose = verbose)
-
 }
 
 
