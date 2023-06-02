@@ -5,12 +5,12 @@ pptx_rewriter = function(
   replace_df,
   type = c("slides", "notes")
 ) {
-  L = unzip_pptx(file)
+  L = ari::unzip_pptx(file)
   root_dir = L$root_dir
   runners = L[[type]]
   type = match.arg(type)
-  func = switch(slides = pptx_slide_text_df,
-                notes = pptx_slide_note_df)
+  func = switch(slides = ari::pptx_slide_text_df,
+                notes = ari::pptx_slide_note_df)
 
   df = func(file)
   stopifnot(nrow(df) == nrow(replace_df))
