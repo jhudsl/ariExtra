@@ -136,7 +136,7 @@ pptx_to_pngs = function(path, verbose = TRUE, dpi = 600) {
                 ", see pdftools::pdf_convert for options")
     )
   }
-  pdf_to_pngs(
+  ari::pdf_to_pngs(
     path = pdf_file,
     verbose = verbose,
     dpi = dpi)
@@ -213,7 +213,7 @@ pdf_to_ari = function(
   stopifnot(!is.null(script))
   args = list(...)
   quick_arg_check(args)
-  pngs = pdf_to_pngs(path = path, dpi = dpi, verbose = verbose)
+  pngs = ari::pdf_to_pngs(path = path, dpi = dpi, verbose = verbose)
   make_ari_document(pngs, script = script, ..., verbose = verbose)
 }
 
@@ -244,32 +244,6 @@ html_to_ari = function(
     path = pdf_file,
     script = script,
     ..., verbose = verbose)
-}
-
-
-#' @rdname gs_to_ari
-#' @export
-pdf_to_pngs = function(
-    path, verbose = TRUE,
-    dpi = 600) {
-  fmts = pdftools::poppler_config()$supported_image_formats
-  if ("png" %in% fmts) {
-    format = "png"
-  } else {
-    format = fmts[1]
-  }
-  info = pdftools::pdf_info(pdf = path)
-  filenames = vapply(seq.int(info$pages), function(x) {
-    tempfile(fileext = paste0(".", format))
-  }, FUN.VALUE = character(1))
-  if (verbose) {
-    message("Converting PDF to PNGs")
-  }
-  pngs = pdftools::pdf_convert(
-    pdf = path, dpi = dpi,
-    format = format, filenames = filenames,
-    verbose = as.logical(verbose))
-  pngs
 }
 
 #' @rdname gs_to_ari

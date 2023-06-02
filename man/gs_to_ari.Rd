@@ -8,7 +8,6 @@
 \alias{pptx_to_ari}
 \alias{pdf_to_ari}
 \alias{html_to_ari}
-\alias{pdf_to_pngs}
 \alias{images_to_ari}
 \alias{to_ari}
 \title{Convert Google Slides and notes to video with ari}
@@ -26,8 +25,6 @@ pptx_to_ari(path, script = NULL, ..., verbose = TRUE)
 pdf_to_ari(path, script = NULL, dpi = 300, ..., verbose = TRUE)
 
 html_to_ari(path, script = NULL, ..., verbose = TRUE)
-
-pdf_to_pngs(path, verbose = TRUE, dpi = 600)
 
 images_to_ari(path, script = NULL, dpi = 300, ..., verbose = TRUE)
 
