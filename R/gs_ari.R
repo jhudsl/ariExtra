@@ -5,55 +5,6 @@ quick_arg_check = function(args) {
   }
 }
 
-#' Download Google Slides File
-#'
-#' @param id Identifier of Google slides presentation, passed to
-#' \code{\link{get_slide_id}}
-#' @param out_type output type of file to download. Usually
-#' `pdf` or `pptx`
-#'
-#' @note This downloads presentations if they are public and also try to make
-#' sure it does not fail on large files
-#' @return Downloaded file (in temporary directory)
-#' @export
-download_gs_file = function(id, out_type = "pptx") {
-  id = as.character(id)
-  id = get_slide_id(id)
-  url = type_url(id = id, page_id = NULL, type = out_type)
-  tfile = tempfile(fileext = paste0(".", out_type))
-
-  result = httr::GET(url, httr::write_disk(tfile))
-  warn_them = FALSE
-  fr_header = result$headers$`x-frame-options`
-  if (!is.null(fr_header)) {
-    if (all(fr_header == "DENY")) {
-      warn_them = TRUE
-    }
-  }
-  if (httr::status_code(result) >= 300) {
-    warn_them = TRUE
-  }
-  # Don't write something if not really a pptx
-  ctype = result$headers$`content-type`
-  if (httr::status_code(result) >= 400 &&
-      !is.null(ctype) && grepl("html", ctype)) {
-    file.remove(tfile)
-  }
-  if (grepl("ServiceLogin", result$url)) {
-    warn_them = TRUE
-  }
-  # if (result$times["redirect"] > 0) {
-  #   warn_them = TRUE
-  # }
-  if (warn_them) {
-    warning(
-      paste0(
-        "This presentation may not be available, ",
-        "did you turn link sharing on?")
-    )
-  }
-  tfile
-}
 
 # Extract Script from PPTX and write to a text file
 get_pptx_script = function(path,
@@ -64,7 +15,7 @@ get_pptx_script = function(path,
     if (verbose) {
       message("Getting Notes from PPTX")
     }
-    res = pptx_notes(path, ...)
+    res = ari::pptx_notes(path, ...)
     script = tempfile(fileext = ".txt")
     if (verbose > 1) {
       message(paste0("script is at: ", script))
@@ -82,6 +33,7 @@ get_pptx_script = function(path,
 #'
 #' @return The output from [make_ari_document]
 #' @importFrom httr GET write_disk
+#' @importFrom ari download_gs_file
 #' @export
 #' @examples
 #' \donttest{
@@ -105,7 +57,7 @@ gs_to_ari = function (path,
   if (verbose) {
     message("Downloading PPTX")
   }
-  pptx_file = download_gs_file(id = path, out_type = "pptx")
+  pptx_file = ari::download_gs_file(id = path, out_type = "pptx")
   if (verbose > 1) {
     message(paste0("pptx is at: ", pptx_file))
   }
@@ -117,7 +69,7 @@ gs_to_ari = function (path,
   if (verbose) {
     message("Downloading PDF")
   }
-  pdf_file = download_gs_file(id = path, out_type = "pdf")
+  pdf_file = ari::download_gs_file(id = path, out_type = "pdf")
   if (verbose > 1) {
     message(paste0("PDF is at: ", pdf_file))
   }
@@ -129,6 +81,7 @@ gs_to_ari = function (path,
 
 #' @export
 #' @param ... additional arguments to \code{\link{pptx_notes}}
+#' @importFrom ari download_gs_file
 #' @rdname gs_to_ari
 gs_pptx_notes = function(
     path,
@@ -138,7 +91,7 @@ gs_pptx_notes = function(
   if (verbose) {
     message("Downloading PPTX")
   }
-  pptx_file = download_gs_file(id = path, out_type = "pptx")
+  pptx_file = ari::download_gs_file(id = path, out_type = "pptx")
   if (verbose > 1) {
     message(paste0("pptx is at: ", pptx_file))
   }
